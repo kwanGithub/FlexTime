@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#212121"
+    android:focusable="true"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:textColor="#33b5e5"
+        android:id="@+id/mainLocationText"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="151dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="HEJ NOOMI"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainEditTxtTop"
+        android:layout_alignBottom="@+id/mainLocationText"
+        android:layout_marginBottom="57dp"
+        android:layout_alignRight="@+id/mainLocationText"
+        android:layout_alignEnd="@+id/mainLocationText"
+        android:layout_alignParentLeft="true"
+        android:background="#33b5e5"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainEditTxtBottom"
+        android:layout_below="@+id/mainLocationText"
+        android:layout_marginTop="33dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/mainLocationText"
+        android:background="#33b5e5"
+        android:layout_alignEnd="@+id/mainLocationText"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:text="@string/main_options_btn"
+        android:textColor="#FF4081"
+        android:id="@+id/mainOptionsBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="121dp"/>
+
+</RelativeLayout>
