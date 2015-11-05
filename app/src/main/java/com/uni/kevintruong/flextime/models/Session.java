@@ -8,35 +8,34 @@ import java.util.Date;
 public class Session
 {
     private int _positionId;
-    private Date _start;
-    private Date _end;
+    private Date _sessionStart;
+    private Date _sessionEnd;
     private long _duration;
 
-    public Session(int _positionId, Date _end, Date _start)
+    public Session(int positionId, Date start)
     {
-        this._positionId = _positionId;
-        this._end = _end;
-        this._start = _start;
+        this._positionId = positionId;
+        this._sessionStart = start;
     }
 
     public Date get_start()
     {
-        return _start;
+        return _sessionStart;
     }
 
     public void set_start(Date _start)
     {
-        this._start = _start;
+        this._sessionStart = _start;
     }
 
     public Date get_end()
     {
-        return _end;
+        return _sessionEnd;
     }
 
     public void set_end(Date _end)
     {
-        this._end = _end;
+        this._sessionEnd = _end;
     }
 
     public long get_duration()

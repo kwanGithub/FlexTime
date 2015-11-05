@@ -11,28 +11,28 @@ public class DatabaseManager extends SQLiteOpenHelper
 {
     public DatabaseManager(Context context)
     {
-        super(context, "places.db", null, 1);
+        super(context, "flexTime.db", null, 1);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTablePlace = "CREATE TABLE position (id INTEGER PRIMARY KEY, name TEXT, latitude REAL , longitude REAL, radius INTEGER)";
-        db.execSQL(createTablePlace);
+        String createTablePositions = "CREATE TABLE positions (id INTEGER PRIMARY KEY, name TEXT, latitude REAL , longitude REAL, radius INTEGER)";
+        db.execSQL(createTablePositions);
 
-        String CreateTablePlaceData = "CREATE TABLE session (session_date NUMERIC  PRIMARY KEY, enter INTEGER," +
+        String CreateTableSessions = "CREATE TABLE sessions (session_id INTEGER  PRIMARY KEY, enter INTEGER," +
                 "exit INTEGER, duration INTEGER, positionId_fk INTEGER, FOREIGN KEY(id_fk) REFERENCES place(id))";
 
 
-        db.execSQL(CreateTablePlaceData);
+        db.execSQL(CreateTableSessions);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        String query = "DROP TABLE IF EXISTS place";
+        String query = "DROP TABLE IF EXISTS positions";
         db.execSQL(query);
-        String query2 = "DROP TABLE IF EXISTS session";
+        String query2 = "DROP TABLE IF EXISTS sessions";
         db.execSQL(query2);
 
         onCreate(db);
