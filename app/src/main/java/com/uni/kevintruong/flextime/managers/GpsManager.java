@@ -1,4 +1,4 @@
-package com.uni.kevintruong.flextime.model;
+package com.uni.kevintruong.flextime.managers;
 
 import android.app.Service;
 import android.content.Intent;
