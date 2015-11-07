@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.managers.OptionsPopUpEventListener;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public boolean onLongClick(View v)
             {
-                showPopUp(v);
+                showOptionsMenuPopUp(v);
                 //Intent intent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
                 //startActivity(intent);
 
@@ -40,11 +41,13 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public void showPopUp(View view)
+    public void showOptionsMenuPopUp(View view)
     {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        MenuInflater menuInflater = popupMenu.getMenuInflater();
-        menuInflater.inflate(R.menu.options_popup_menu, popupMenu.getMenu());
-        popupMenu.show();
+        PopupMenu optionsPopupMenu = new PopupMenu(this, view);
+        MenuInflater menuInflater = optionsPopupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.options_popup_menu, optionsPopupMenu.getMenu());
+        OptionsPopUpEventListener optionsPopUpEventListener = new OptionsPopUpEventListener(getApplicationContext());
+        optionsPopupMenu.setOnMenuItemClickListener(optionsPopUpEventListener);
+        optionsPopupMenu.show();
     }
 }

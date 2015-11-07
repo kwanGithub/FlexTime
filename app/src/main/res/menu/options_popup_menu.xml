@@ -4,17 +4,11 @@
         android:id="@+id/option_Pause"
         android:title="Pause"/>
     <item
-        android:id="@+id/optionAddPosition"
-        android:title="Add Position">
-        <menu>
-            <item
-                android:id="@+id/option_CurrentPosition"
-                android:title="Add Current Position"/>
-            <item
-                android:id="@+id/option_AddPositionByCoordinates"
-                android:title="Add Position by Coordinates"/>
-        </menu>
-    </item>
+        android:id="@+id/option_CurrentPosition"
+        android:title="Add Current Position"/>
+    <item
+        android:id="@+id/option_AddPositionByCoordinates"
+        android:title="Add Position by Coordinates"/>
     <item
         android:id="@+id/option_Statistics"
         android:title="Statistics"/>

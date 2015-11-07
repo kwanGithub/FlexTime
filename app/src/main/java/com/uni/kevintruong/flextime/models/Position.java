@@ -5,69 +5,68 @@ package com.uni.kevintruong.flextime.models;
  */
 public class Position
 {
-    private int _id;
-    private String _name;
-    private double _latitude;
-    private double _longitude;
-    private int _radius;
+    private int id;
+    private String name;
+    private double latitude;
+    private double longitude;
+    private int radius;
 
-    public Position(int _id, String _name, double _latitude, double _longitude, int _radius)
+    public Position(int id, String name, double latitude, double longitude, int radius)
     {
-        this._id = _id;
-        this._name = _name;
-        this._latitude = _latitude;
-        this._longitude = _longitude;
-        this._radius = _radius;
+        this.id = id;
+        this.name = name;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.radius = radius;
     }
 
-    public int get_id()
+    public int getId()
     {
-        return _id;
+        return id;
     }
 
-    public void set_id(int _id)
+    public void setId(int id)
     {
-        this._id = _id;
-    }
-    public String get_name()
-    {
-        return _name;
+        this.id = id;
     }
 
-    public void set_name(String _name)
+    public String getName()
     {
-        this._name = _name;
+        return name;
     }
 
-    public double get_latitude()
+    public void setName(String name)
     {
-        return _latitude;
+        this.name = name;
     }
 
-    public void set_latitude(double _latitude)
+    public double getLatitude()
     {
-        this._latitude = _latitude;
+        return latitude;
     }
 
-    public double get_longitude()
+    public void setLatitude(double latitude)
     {
-        return _longitude;
+        this.latitude = latitude;
     }
 
-    public void set_longitude(double _longitude)
+    public double getLongitude()
     {
-        this._longitude = _longitude;
+        return longitude;
     }
 
-    public int get_radius()
+    public void setLongitude(double longitude)
     {
-        return _radius;
+        this.longitude = longitude;
     }
 
-    public void set_radius(int _radius)
+    public int getRadius()
     {
-        this._radius = _radius;
+        return radius;
     }
 
-
+    public void setRadius(int radius)
+    {
+        this.radius = radius;
+    }
 }
