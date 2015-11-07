@@ -48,7 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
 
         for (int i = 0; i < geoLocations.size(); i++)
         {
-            geofences.add(mapToGeofence(geoLocations.get(i)));
+            geofences.add(mapDataToGeofence(geoLocations.get(i)));
         }
         this.geofenceStore = new GeofenceStore(this, this.geofences);
     }
@@ -64,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         return temp;
     }
 
-    private Geofence mapToGeofence(GeoLocation geoLocation)
+    private Geofence mapDataToGeofence(GeoLocation geoLocation)
     {
         return new Geofence.Builder()
                 .setRequestId(geoLocation.getName())
