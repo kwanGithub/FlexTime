@@ -1,9 +1,11 @@
 package com.uni.kevintruong.flextime.managers;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -13,6 +15,73 @@ import android.support.annotation.Nullable;
  */
 public class GpsManager extends Service implements LocationListener
 {
+    private Context context;
+    protected LocationManager locationManager;
+
+    boolean isGPSEnabled = false;
+    boolean isNetworkEnabled = false;
+    boolean canGetLocation = false;
+
+
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+
+    public GpsManager(Context context)
+    {
+        this.context = context;
+
+    }
+
+    public Location getLocation()
+    {
+        Location location = null;
+        try
+        {
+            locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+
+            isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+            isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            if (!isNetworkEnabled && !isGPSEnabled)
+            {
+
+            } else
+            {
+                this.canGetLocation = true;
+
+                if (isNetworkEnabled)
+                {
+
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+                    if (locationManager != null)
+                    {
+                        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                    }
+                }
+
+                if (isGPSEnabled)
+                {
+                    if (location == null)
+                    {
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+
+                        if(locationManager !=  null)
+                        {
+                            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return location;
+    }
     @Override
     public void onLocationChanged(Location location)
     {

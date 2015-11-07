@@ -2,7 +2,6 @@ package com.uni.kevintruong.flextime.managers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import com.uni.kevintruong.flextime.R;
 /**
  * Created by kwan8 on 2015-11-07.
  */
-public class OptionsPopUpEventListener extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener
+public class OptionsPopUpEventListener implements PopupMenu.OnMenuItemClickListener
 {
     Context context;
 
@@ -44,7 +43,8 @@ public class OptionsPopUpEventListener extends AppCompatActivity implements Popu
             case R.id.option_Map:
                 Toast.makeText(this.context, "Map selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
-                startActivity(intent);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.context.startActivity(intent);
                 return true;
         }
         return false;
