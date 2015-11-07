@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/option_Pause"
+        android:title="Pause"/>
+    <item
+        android:id="@+id/optionAddPosition"
+        android:title="Add Position">
+        <menu>
+            <item
+                android:id="@+id/option_CurrentPosition"
+                android:title="Add Current Position"/>
+            <item
+                android:id="@+id/option_AddPositionByCoordinates"
+                android:title="Add Position by Coordinates"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/option_Statistics"
+        android:title="Statistics"/>
+
+    <item
+        android:id="@+id/option_Positions"
+        android:title="My Positions"/>
+
+    <item
+        android:id="@+id/option_Map"
+        android:title="Map"/>
+
+</menu>

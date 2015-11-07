@@ -14,48 +14,48 @@ public class Session
 
     public Session(int positionId, Date start)
     {
-        this._positionId = positionId;
-        this._sessionStart = start;
+        _positionId = positionId;
+        _sessionStart = start;
     }
 
-    public Date get_start()
+    public Date getSessionStart()
     {
         return _sessionStart;
     }
 
-    public void set_start(Date _start)
+    public void setSessionStart(Date _start)
     {
-        this._sessionStart = _start;
+        _sessionStart = _start;
     }
 
-    public Date get_end()
+    public Date get_sessionEnd()
     {
         return _sessionEnd;
     }
 
-    public void set_end(Date _end)
+    public void set_sessionEnd(Date _end)
     {
-        this._sessionEnd = _end;
+        _sessionEnd = _end;
     }
 
-    public long get_duration()
+    public long getDuration()
     {
-        return _duration;
+      return _duration;
     }
 
-    public void set_duration(long _duration)
+    public void setDuration(long _duration)
     {
-        this._duration = _duration;
+        _duration = _duration;
     }
 
-    public int get_positionId()
+    public int getPositionId()
     {
-        return _positionId;
+       return _positionId;
     }
 
-    public void set_positionId(int _positionId)
+    public void setPositionId(int _positionId)
     {
-        this._positionId = _positionId;
+        _positionId = _positionId;
     }
 
 }
