@@ -1,58 +1,159 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.graphics.Color;
 import android.location.Location;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GpsManager;
+import com.uni.kevintruong.flextime.models.GeoLocation;
+import com.uni.kevintruong.flextime.models.GeofenceStore;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
+import java.util.ArrayList;
+
+public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
 
     private GoogleMap mMap;
     private GpsManager gpsManager;
     private Location currentLocation;
+    private GeofenceStore geofenceStore;
+    private ArrayList<Geofence> geofences;
+    private ArrayList<GeoLocation> geoLocations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        gpsManager = new GpsManager(getApplicationContext());
+        //Initialize properties
+        this.geofences = new ArrayList<>();
+        this.geoLocations = new ArrayList<>();
+        this.gpsManager = new GpsManager(getApplicationContext());
         this.currentLocation = gpsManager.getLocation();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //DEBUG
+        this.geoLocations = getTestData();
+
+        for (int i = 0; i < geoLocations.size(); i++)
+        {
+            geofences.add(mapToGeofence(geoLocations.get(i)));
+        }
+        this.geofenceStore = new GeofenceStore(this, this.geofences);
     }
 
+    public ArrayList<GeoLocation> getTestData()
+    {
+        ArrayList<GeoLocation> temp = new ArrayList<>();
+        temp.add(new GeoLocation(1, "test1", 57.771702, 12.033851, 100));
+        temp.add(new GeoLocation(2, "test2", 57.771462, 12.026233, 100));
+        temp.add(new GeoLocation(3, "test3", 57.769425, 12.025793, 100));
+        temp.add(new GeoLocation(4, "test4", 57.770684, 12.020762, 100));
+
+        return temp;
+    }
+
+    private Geofence mapToGeofence(GeoLocation geoLocation)
+    {
+        return new Geofence.Builder()
+                .setRequestId(geoLocation.getName())
+                .setCircularRegion(geoLocation.getCoordinates().latitude, geoLocation.getCoordinates().longitude, geoLocation.getRadius())
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .setLoiteringDelay(3000)
+                .setTransitionTypes(
+                        Geofence.GEOFENCE_TRANSITION_ENTER
+                                | Geofence.GEOFENCE_TRANSITION_DWELL
+                                | Geofence.GEOFENCE_TRANSITION_EXIT).build();
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        // mGeofenceStore.disconnect();
+        super.onStop();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        if (GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) == ConnectionResult.SUCCESS)
+        {
+            setUpMapIfNeeded();
+        } else
+        {
+            GooglePlayServicesUtil.getErrorDialog(
+                    GooglePlayServicesUtil.isGooglePlayServicesAvailable(this),
+                    this, 0);
+        }
+    }
+
+    private void setUpMapIfNeeded()
+    {
+        // Do a null check to confirm that we have not already instantiated the
+        // map.
+        if (mMap == null)
+        {
+            // Try to obtain the map from the SupportMapFragment.
+            mMap = ((SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map)).getMap();
+
+            // Check if we were successful in obtaining the map.
+            if (mMap != null)
+            {
+                setUpMap();
+            }
+        }
+    }
 
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * This is where we can add markers or lines, add listeners or move the
+     * camera. In this case, we just add a marker near Africa.
+     * <p>
+     * This should only be called once and when we are sure that {@link #mMap}
+     * is not null.
      */
-    @Override
-    public void onMapReady(GoogleMap googleMap)
+    private void setUpMap()
     {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
+        // Centers the camera over the building and zooms int far enough to
+        // show the floor picker.
         LatLng currentLocation = new LatLng(this.currentLocation.getLatitude(), this.currentLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
+
+        // Hide labels.
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.setIndoorEnabled(false);
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnCameraChangeListener(this);
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition position)
+    {
+        // Makes sure the visuals remain when zoom changes.
+        for (int i = 0; i < this.geoLocations.size(); i++)
+        {
+            mMap.addCircle(new CircleOptions().center(this.geoLocations.get(i).getCoordinates())
+                    .radius(this.geoLocations.get(i).getRadius())
+                    .fillColor(0x40ff0000)
+                    .strokeColor(Color.TRANSPARENT).strokeWidth(2));
+        }
     }
 }

@@ -1,22 +1,22 @@
 package com.uni.kevintruong.flextime.models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by kwan8 on 2015-11-03.
  */
-public class Position
+public class GeoLocation
 {
     private int id;
     private String name;
-    private double latitude;
-    private double longitude;
-    private int radius;
+    private LatLng coordinates;
+        private int radius;
 
-    public Position(int id, String name, double latitude, double longitude, int radius)
+    public GeoLocation(int id, String name, double latitude, double longitude, int radius)
     {
         this.id = id;
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.coordinates = new LatLng(latitude, longitude);
         this.radius = radius;
     }
 
@@ -40,24 +40,14 @@ public class Position
         this.name = name;
     }
 
-    public double getLatitude()
+    public LatLng getCoordinates()
     {
-        return latitude;
+        return coordinates;
     }
 
-    public void setLatitude(double latitude)
+    public void setCoordinates(LatLng coordinates)
     {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude()
-    {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude)
-    {
-        this.longitude = longitude;
+        this.coordinates = coordinates;
     }
 
     public int getRadius()
