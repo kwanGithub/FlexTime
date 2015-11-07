@@ -2,4 +2,5 @@
     <string name="app_name">FlexTime</string>
     <string name="title_activity_maps">Map</string>
     <string name="main_options_btn">Options</string>
+    <string name="title_activity_mylocations">My Locations </string>
 </resources>

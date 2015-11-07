@@ -10,12 +10,8 @@
         android:id="@+id/option_AddPositionByCoordinates"
         android:title="Add Position by Coordinates"/>
     <item
-        android:id="@+id/option_Statistics"
-        android:title="Statistics"/>
-
-    <item
-        android:id="@+id/option_Positions"
-        android:title="My Positions"/>
+        android:id="@+id/option_MyLocations"
+        android:title="My Locations"/>
 
     <item
         android:id="@+id/option_Map"

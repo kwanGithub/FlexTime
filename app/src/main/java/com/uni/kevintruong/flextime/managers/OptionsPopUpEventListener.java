@@ -26,19 +26,17 @@ public class OptionsPopUpEventListener implements PopupMenu.OnMenuItemClickListe
         switch (item.getItemId())
         {
             case R.id.option_Pause:
-                Toast.makeText(this.context, "Pause", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.context, "Pause", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.option_CurrentPosition:
-                Toast.makeText(this.context, "Add Current Positon selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.context, "Monitor Current Location", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.option_AddPositionByCoordinates:
-                Toast.makeText(this.context, "Add Positon by Coordinates selected", Toast.LENGTH_LONG).show();
+                Toast.makeText(this.context, "Monitor Location by Coordinates", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.option_Statistics:
-                Toast.makeText(this.context, "Statistics selected", Toast.LENGTH_LONG).show();
-                return true;
-            case R.id.option_Positions:
-                Toast.makeText(this.context, "Positions selected", Toast.LENGTH_LONG).show();
+            case R.id.option_MyLocations:
+                //TODO CONTEXT MENU LIST VIEW
+                Toast.makeText(this.context, "My Locations", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.option_Map:
                 Toast.makeText(this.context, "Map selected", Toast.LENGTH_LONG).show();
