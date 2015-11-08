@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.Geofence;
@@ -46,7 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         this.currentLocation = gpsManager.getLocation();
         this.db = DatabaseManager.getInstance(this);
         //DEBUG
-        this.geoLocations = db.getTestData();
+        this.geoLocations = db.getGeolocationTestData();
 
         for (int i = 0; i < geoLocations.size(); i++)
         {

@@ -37,12 +37,15 @@ public class OptionsPopUpEventListener implements PopupMenu.OnMenuItemClickListe
             case R.id.option_MyLocations:
                 //TODO CONTEXT MENU LIST VIEW
                 Toast.makeText(this.context, "My Locations", Toast.LENGTH_SHORT).show();
+                Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
+                myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.context.startActivity(myLocationsIntent);
                 return true;
             case R.id.option_Map:
-                Toast.makeText(this.context, "Map selected", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                this.context.startActivity(intent);
+                Toast.makeText(this.context, "Map", Toast.LENGTH_LONG).show();
+                Intent mapIntent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
+                mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                this.context.startActivity(mapIntent);
                 return true;
         }
         return false;

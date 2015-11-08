@@ -23,8 +23,11 @@ public class MyLocationsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_locations);
 
-        myLocationsListView = (ListView) findViewById(R.id.myLocationList);
+        this.db = DatabaseManager.getInstance(this);
+        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, db.getMyLocationsTestData());
 
+        myLocationsListView = (ListView) findViewById(R.id.myLocationList);
+        myLocationsListView.setAdapter(adapter);
     }
 
     private void populateListView()

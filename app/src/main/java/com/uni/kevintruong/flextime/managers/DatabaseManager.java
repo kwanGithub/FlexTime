@@ -17,7 +17,7 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     public static synchronized DatabaseManager getInstance(Context context)
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = new DatabaseManager(context.getApplicationContext());
         }
@@ -32,17 +32,18 @@ public class DatabaseManager extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTablePositions = "CREATE TABLE geolocation (id INTEGER PRIMARY KEY, name TEXT, latitude REAL , longitude REAL, radius INTEGER)";
+        String createTablePositions = "CREATE TABLE geolocations (id INTEGER PRIMARY KEY, name TEXT, latitude REAL , longitude REAL, radius INTEGER)";
         db.execSQL(createTablePositions);
 
         String CreateTableSessions = "CREATE TABLE sessions (session_id INTEGER  PRIMARY KEY, enter INTEGER," +
-                "exit INTEGER, duration INTEGER, positionId_fk INTEGER, FOREIGN KEY(id_fk) REFERENCES geolocation(id))";
+                "exit INTEGER, duration INTEGER, positionId_fk INTEGER, FOREIGN KEY(id_fk) REFERENCES geolocations(id))";
 
 
         db.execSQL(CreateTableSessions);
     }
 
-    public ArrayList<GeoLocation> getTestData()
+
+    public ArrayList<GeoLocation> getGeolocationTestData()
     {
         ArrayList<GeoLocation> temp = new ArrayList<>();
         temp.add(new GeoLocation(1, "test1", 57.771702, 12.033851, 100));
@@ -53,10 +54,21 @@ public class DatabaseManager extends SQLiteOpenHelper
         return temp;
     }
 
+    public String[] getMyLocationsTestData()
+    {
+        String[] locations = {"Jobbet",
+                "Hemmet",
+                "Test",
+                "Mölndal"
+        };
+
+        return locations;
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
-        String query = "DROP TABLE IF EXISTS positions";
+        String query = "DROP TABLE IF EXISTS geolocations";
         db.execSQL(query);
         String query2 = "DROP TABLE IF EXISTS sessions";
         db.execSQL(query2);
