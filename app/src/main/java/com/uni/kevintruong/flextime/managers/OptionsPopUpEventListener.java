@@ -35,7 +35,7 @@ public class OptionsPopUpEventListener implements PopupMenu.OnMenuItemClickListe
                 Toast.makeText(this.context, "Monitor Location by Coordinates", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.option_MyLocations:
-                //TODO CONTEXT MENU LIST VIEW
+                //TODO ON ITEM CLICK SHOW LOCATION DATA AND STAT
                 Toast.makeText(this.context, "My Locations", Toast.LENGTH_SHORT).show();
                 Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
                 myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -2,8 +2,11 @@ package com.uni.kevintruong.flextime.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
@@ -28,10 +31,21 @@ public class MyLocationsActivity extends AppCompatActivity
 
         myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(adapter);
+
+        myLocationsListView.setOnItemClickListener(handleItemClick());
     }
 
-    private void populateListView()
+    private AdapterView.OnItemClickListener handleItemClick()
     {
+        AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
+            }
+        };
 
+        return onItemClickListener;
     }
 }
