@@ -13,7 +13,7 @@ import com.uni.kevintruong.flextime.R;
  */
 public class OptionsPopUpEventListener implements PopupMenu.OnMenuItemClickListener
 {
-    Context context;
+    private Context context;
 
     public OptionsPopUpEventListener(Context context)
     {

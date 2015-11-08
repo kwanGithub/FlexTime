@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.GpsManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.GeofenceStore;
@@ -31,6 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     private GeofenceStore geofenceStore;
     private ArrayList<Geofence> geofences;
     private ArrayList<GeoLocation> geoLocations;
+    private DatabaseManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,26 +44,15 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         this.geoLocations = new ArrayList<>();
         this.gpsManager = new GpsManager(getApplicationContext());
         this.currentLocation = gpsManager.getLocation();
-
+        this.db = DatabaseManager.getInstance(this);
         //DEBUG
-        this.geoLocations = getTestData();
+        this.geoLocations = db.getTestData();
 
         for (int i = 0; i < geoLocations.size(); i++)
         {
             geofences.add(mapDataToGeofence(geoLocations.get(i)));
         }
         this.geofenceStore = new GeofenceStore(this, this.geofences);
-    }
-
-    public ArrayList<GeoLocation> getTestData()
-    {
-        ArrayList<GeoLocation> temp = new ArrayList<>();
-        temp.add(new GeoLocation(1, "test1", 57.771702, 12.033851, 100));
-        temp.add(new GeoLocation(2, "test2", 57.771462, 12.026233, 100));
-        temp.add(new GeoLocation(3, "test3", 57.769425, 12.025793, 100));
-        temp.add(new GeoLocation(4, "test4", 57.770684, 12.020762, 100));
-
-        return temp;
     }
 
     private Geofence mapDataToGeofence(GeoLocation geoLocation)
