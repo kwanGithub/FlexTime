@@ -32,10 +32,10 @@ public class MyLocationsActivity extends AppCompatActivity
         myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(adapter);
 
-        myLocationsListView.setOnItemClickListener(handleItemClick());
+        myLocationsListView.setOnItemClickListener(handleListViewItemClick());
     }
 
-    private AdapterView.OnItemClickListener handleItemClick()
+    private AdapterView.OnItemClickListener handleListViewItemClick()
     {
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener()
         {

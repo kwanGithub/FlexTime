@@ -1,14 +1,16 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.OptionsPopUpEventListener;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -33,8 +35,6 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View v)
             {
                 showOptionsMenuPopUp(v);
-                //Intent intent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
-                //startActivity(intent);
 
                 return false;
             }
@@ -46,8 +46,47 @@ public class MainActivity extends AppCompatActivity
         PopupMenu optionsPopupMenu = new PopupMenu(this, view);
         MenuInflater menuInflater = optionsPopupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.options_popup_menu, optionsPopupMenu.getMenu());
-        OptionsPopUpEventListener optionsPopUpEventListener = new OptionsPopUpEventListener(getApplicationContext());
-        optionsPopupMenu.setOnMenuItemClickListener(optionsPopUpEventListener);
+        //OptionsPopUpEventListener optionsPopUpEventListener = new OptionsPopUpEventListener(getApplicationContext());
+        optionsPopupMenu.setOnMenuItemClickListener(handlePopupMenuClick());
         optionsPopupMenu.show();
+    }
+
+    private PopupMenu.OnMenuItemClickListener handlePopupMenuClick()
+    {
+        PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener()
+        {
+            @Override
+            public boolean onMenuItemClick(MenuItem item)
+            {
+                switch (item.getItemId())
+                {
+                    case R.id.option_Pause:
+                        Toast.makeText(getApplicationContext(), "Pause", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.option_CurrentPosition:
+                        Toast.makeText(getApplicationContext(), "Monitor Current Location", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.option_AddPositionByCoordinates:
+                        Toast.makeText(getApplicationContext(), "Monitor Location by Coordinates", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.option_MyLocations:
+                        //TODO ON ITEM CLICK SHOW LOCATION DATA AND STAT
+                        Toast.makeText(getApplicationContext(), "My Locations", Toast.LENGTH_SHORT).show();
+                        Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
+                        myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(myLocationsIntent);
+                        return true;
+                    case R.id.option_Map:
+                        Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_LONG).show();
+                        Intent mapIntent = new Intent("com.uni.kevintruong.flextime.MapsActivity");
+                        mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(mapIntent);
+                        return true;
+                }
+                return false;
+            }
+        };
+
+        return onMenuItemClickListener;
     }
 }
