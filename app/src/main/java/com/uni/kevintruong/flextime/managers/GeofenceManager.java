@@ -1,4 +1,4 @@
-package com.uni.kevintruong.flextime.models;
+package com.uni.kevintruong.flextime.managers;
 
 import android.app.PendingIntent;
 import android.content.Context;
@@ -17,14 +17,13 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.uni.kevintruong.flextime.managers.GeofenceIntentService;
 
 import java.util.ArrayList;
 
 /**
  * Created by kwan8 on 2015-11-07.
  */
-    public class GeofenceStore implements GoogleApiClient.ConnectionCallbacks,
+    public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
             GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>, LocationListener {
 
         private final String TAG = this.getClass().getSimpleName();
@@ -60,14 +59,14 @@ import java.util.ArrayList;
         private LocationRequest mLocationRequest;
 
         /**
-         * Constructs a new GeofenceStore.
+         * Constructs a new GeofenceManager.
          *
          * @param context The context to use.
          * @param geofences List of geofences to monitor.
          */
-        public GeofenceStore(Context context, ArrayList<Geofence> geofences) {
+        public GeofenceManager(Context context, ArrayList<Geofence> geofences) {
             mContext = context;
-            mGeofences = new ArrayList<Geofence>(geofences);
+            mGeofences = new ArrayList<>(geofences);
             mPendingIntent = null;
 
             // Build a new GoogleApiClient, specify that we want to use LocationServices

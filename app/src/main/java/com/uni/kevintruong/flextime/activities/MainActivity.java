@@ -1,5 +1,6 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity
             public boolean onLongClick(View v)
             {
                 showOptionsMenuPopUp(v);
-
                 return false;
             }
         });
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity
         PopupMenu optionsPopupMenu = new PopupMenu(this, view);
         MenuInflater menuInflater = optionsPopupMenu.getMenuInflater();
         menuInflater.inflate(R.menu.options_popup_menu, optionsPopupMenu.getMenu());
-        //OptionsPopUpEventListener optionsPopUpEventListener = new OptionsPopUpEventListener(getApplicationContext());
         optionsPopupMenu.setOnMenuItemClickListener(handlePopupMenuClick());
         optionsPopupMenu.show();
     }
@@ -64,9 +63,15 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Pause", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_CurrentPosition:
+                        //TODO DIALOG FOR USER TO CONFIRM ADDING CURRENT LOCATION
                         Toast.makeText(getApplicationContext(), "Monitor Current Location", Toast.LENGTH_SHORT).show();
+                        Dialog dialog = new Dialog(MainActivity.this);
+                        dialog.setTitle("Add Current Location");
+                        dialog.setContentView(R.layout.dialog_add_location);
+                        dialog.show();
                         return true;
                     case R.id.option_AddPositionByCoordinates:
+                        //TODO SHOW 2 INPUT DIALOGS ONE FOR LATITUDE AND ONE FOR LONGITUDE
                         Toast.makeText(getApplicationContext(), "Monitor Location by Coordinates", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_MyLocations:

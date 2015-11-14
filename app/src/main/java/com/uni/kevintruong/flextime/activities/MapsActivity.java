@@ -16,9 +16,9 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeofenceManager;
 import com.uni.kevintruong.flextime.managers.GpsManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
-import com.uni.kevintruong.flextime.models.GeofenceStore;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     private GoogleMap mMap;
     private GpsManager gpsManager;
     private Location currentLocation;
-    private GeofenceStore geofenceStore;
+    private GeofenceManager geofenceStore;
     private ArrayList<Geofence> geofences;
     private ArrayList<GeoLocation> geoLocations;
     private DatabaseManager db;
@@ -51,7 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         {
             geofences.add(mapDataToGeofence(geoLocations.get(i)));
         }
-        this.geofenceStore = new GeofenceStore(this, this.geofences);
+        this.geofenceStore = new GeofenceManager(this, this.geofences);
     }
 
     private Geofence mapDataToGeofence(GeoLocation geoLocation)
