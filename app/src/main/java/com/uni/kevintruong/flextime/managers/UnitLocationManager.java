@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 /**
  * Created by kwan8 on 2015-11-01.
  */
-public class GpsManager extends Service implements LocationListener
+public class UnitLocationManager extends Service implements LocationListener
 {
     private Context context;
     protected LocationManager locationManager;
@@ -26,7 +26,7 @@ public class GpsManager extends Service implements LocationListener
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
 
-    public GpsManager(Context context)
+    public UnitLocationManager(Context context)
     {
         this.context = context;
 

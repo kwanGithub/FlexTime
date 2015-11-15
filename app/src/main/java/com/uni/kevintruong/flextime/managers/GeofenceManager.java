@@ -88,6 +88,11 @@ import java.util.ArrayList;
             mGoogleApiClient.connect();
         }
 
+        public void disconnect()
+        {
+            mGoogleApiClient.disconnect();
+        }
+
         @Override
         public void onResult(Status result) {
             if (result.isSuccess()) {
