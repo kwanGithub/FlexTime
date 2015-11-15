@@ -39,4 +39,16 @@
         android:hint="Enter Longitude"
         android:inputType="numberDecimal"/>
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="14dp"
+        android:hint="Enter Location Name"
+        android:ems="10"
+        android:id="@+id/addLocationName"/>
+
 </LinearLayout>

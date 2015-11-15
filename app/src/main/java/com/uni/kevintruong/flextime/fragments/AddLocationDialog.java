@@ -23,6 +23,7 @@ public class AddLocationDialog extends DialogFragment
     private View view;
     private EditText latitude;
     private EditText longitude;
+    private EditText locationName;
     private UnitLocationManager unitLocationManager;
 
     @Override
@@ -35,6 +36,7 @@ public class AddLocationDialog extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         latitude = (EditText) view.findViewById(R.id.addLocationLatitude);
         longitude = (EditText) view.findViewById(R.id.addLocationLongitude);
+        locationName =  (EditText) view.findViewById(R.id.addLocationName);
 
         latitude.setText(String.valueOf(currentLocation.getLatitude()));
         longitude.setText(String.valueOf(currentLocation.getLongitude()));
