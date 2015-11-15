@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
  */
 public class UnitLocationManager extends Service implements LocationListener
 {
+    private static UnitLocationManager instance;
     private Context context;
     protected LocationManager locationManager;
 
@@ -25,6 +26,15 @@ public class UnitLocationManager extends Service implements LocationListener
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
+
+    public static UnitLocationManager getInstance(Context context)
+    {
+        if (instance == null)
+        {
+            instance = new UnitLocationManager(context.getApplicationContext());
+        }
+        return instance;
+    }
 
     public UnitLocationManager(Context context)
     {

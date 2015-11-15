@@ -1,6 +1,5 @@
 package com.uni.kevintruong.flextime.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +11,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.fragments.AddLocationDialog;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity
         optionsPopupMenu.show();
     }
 
+    private void addLocationDialog()
+    {
+        AddLocationDialog addLocationDialog = new AddLocationDialog();
+        addLocationDialog.show(getFragmentManager(), "Add Location Dialog");
+    }
+
     private PopupMenu.OnMenuItemClickListener handlePopupMenuClick()
     {
         PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener()
@@ -63,12 +69,8 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Pause", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_CurrentPosition:
-                        //TODO DIALOG FOR USER TO CONFIRM ADDING CURRENT LOCATION
                         Toast.makeText(getApplicationContext(), "Monitor Current Location", Toast.LENGTH_SHORT).show();
-                        Dialog dialog = new Dialog(MainActivity.this);
-                        dialog.setTitle("Add Current Location");
-                        dialog.setContentView(R.layout.dialog_add_location);
-                        dialog.show();
+                        addLocationDialog();
                         return true;
                     case R.id.option_AddPositionByCoordinates:
                         //TODO SHOW 2 INPUT DIALOGS ONE FOR LATITUDE AND ONE FOR LONGITUDE
