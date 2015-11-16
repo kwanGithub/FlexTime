@@ -45,13 +45,12 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         this.unitLocationManager = UnitLocationManager.getInstance(this);
         this.db = DatabaseManager.getInstance(this);
 
-        this.currentLocation = unitLocationManager.getLocation();
-        this.geoLocations = db.getGeolocationTestData();
-        this.geofences = mapGeolocationsToGeofences(this.geoLocations);
+        this.currentLocation = unitLocationManager.getUnitLocation();
+        this.geoLocations = this.db.getGeolocationTestData();
+        this.geofences = this.db.mapGeolocationsToGeofences(this.geoLocations);
 
         this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
     }
-
 
     @Override
     protected void onStart()
@@ -79,31 +78,6 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
                     GooglePlayServicesUtil.isGooglePlayServicesAvailable(this),
                     this, 0);
         }
-    }
-
-    private ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
-    {
-        ArrayList<Geofence> temp = new ArrayList<>();
-
-        for (int i = 0; i < geoLocations.size(); i++)
-        {
-            temp.add(buildGeoLocationToGoefence(geoLocations.get(i)));
-        }
-
-        return temp;
-    }
-
-    private Geofence buildGeoLocationToGoefence(GeoLocation geoLocation)
-    {
-        return new Geofence.Builder()
-                .setRequestId(geoLocation.getName())
-                .setCircularRegion(geoLocation.getCoordinates().latitude, geoLocation.getCoordinates().longitude, geoLocation.getRadius())
-                .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                .setLoiteringDelay(3000)
-                .setTransitionTypes(
-                        Geofence.GEOFENCE_TRANSITION_ENTER
-                                | Geofence.GEOFENCE_TRANSITION_DWELL
-                                | Geofence.GEOFENCE_TRANSITION_EXIT).build();
     }
 
     private void setUpMapIfNeeded()
@@ -150,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     public void onCameraChange(CameraPosition position)
     {
         //updates current Location
-        this.currentLocation = unitLocationManager.getLocation();
+        this.currentLocation = unitLocationManager.getUnitLocation();
 
         // Makes sure the visuals remain when zoom changes.
         for (int i = 0; i < this.geoLocations.size(); i++)

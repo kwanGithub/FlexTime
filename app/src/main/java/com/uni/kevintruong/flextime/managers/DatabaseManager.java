@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 import java.util.ArrayList;
@@ -42,6 +43,30 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.execSQL(CreateTableSessions);
     }
 
+    public ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
+    {
+        ArrayList<Geofence> temp = new ArrayList<>();
+
+        for (int i = 0; i < geoLocations.size(); i++)
+        {
+            temp.add(buildGeoLocationToGoefence(geoLocations.get(i)));
+        }
+
+        return temp;
+    }
+
+    public Geofence buildGeoLocationToGoefence(GeoLocation geoLocation)
+    {
+        return new Geofence.Builder()
+                .setRequestId(geoLocation.getName())
+                .setCircularRegion(geoLocation.getCoordinates().latitude, geoLocation.getCoordinates().longitude, geoLocation.getRadius())
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .setLoiteringDelay(3000)
+                .setTransitionTypes(
+                        Geofence.GEOFENCE_TRANSITION_ENTER
+                                | Geofence.GEOFENCE_TRANSITION_DWELL
+                                | Geofence.GEOFENCE_TRANSITION_EXIT).build();
+    }
 
     public ArrayList<GeoLocation> getGeolocationTestData()
     {

@@ -17,12 +17,13 @@ public class UnitLocationManager extends Service implements LocationListener
 {
     private static UnitLocationManager instance;
     private Context context;
+    private Location unitLocation;
+
     protected LocationManager locationManager;
 
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     boolean canGetLocation = false;
-
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
@@ -39,10 +40,15 @@ public class UnitLocationManager extends Service implements LocationListener
     private UnitLocationManager(Context context)
     {
         this.context = context;
-
     }
 
-    public Location getLocation()
+    public Location getUnitLocation()
+    {
+        getLocation();
+        return this.unitLocation;
+    }
+
+    private void getLocation()
     {
         Location location = null;
         try
@@ -55,20 +61,18 @@ public class UnitLocationManager extends Service implements LocationListener
 
             if (!isNetworkEnabled && !isGPSEnabled)
             {
-
+                //TODO: ALERT DIALOG FOR USER
             } else
             {
                 this.canGetLocation = true;
 
                 if (isNetworkEnabled)
                 {
-
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME_BW_UPDATES, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
 
                     if (locationManager != null)
                     {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
                     }
                 }
 
@@ -90,12 +94,12 @@ public class UnitLocationManager extends Service implements LocationListener
             e.printStackTrace();
         }
 
-        return location;
+        this.unitLocation = location;
     }
     @Override
     public void onLocationChanged(Location location)
     {
-
+        getLocation();
     }
 
     @Override

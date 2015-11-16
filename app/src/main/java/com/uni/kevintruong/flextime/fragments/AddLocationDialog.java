@@ -30,7 +30,7 @@ public class AddLocationDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         unitLocationManager = UnitLocationManager.getInstance(getActivity());
-        Location currentLocation = unitLocationManager.getLocation();
+        Location currentLocation = unitLocationManager.getUnitLocation();
         this.inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.dialog_add_location, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
