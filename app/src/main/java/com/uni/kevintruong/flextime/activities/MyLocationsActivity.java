@@ -48,13 +48,16 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                GeoLocation test = db.getGeoLocations().get(position);
-                Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
+                GeoLocation geoLocation = db.getGeoLocations().get(position);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("GeoLocation", geoLocation);
 
                 Intent locationIntent = new Intent("com.uni.kevintruong.flextime.LocationActivity");
+                locationIntent.putExtras(bundle);
                 locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                 getApplicationContext().startActivity(locationIntent);
+
+                Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
 
             }
         };

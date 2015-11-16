@@ -6,6 +6,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.models.GeoLocation;
 
 public class LocationActivity extends AppCompatActivity
 {
@@ -20,11 +21,16 @@ public class LocationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
+        Bundle bundle = this.getIntent().getExtras();
+        GeoLocation geoLocation = bundle.getParcelable("GeoLocation");
+
         locationTitle = (TextView) findViewById(R.id.locationTitle);
         locationName =  (EditText) findViewById(R.id.locationName);
         locationLatitude = (EditText) findViewById(R.id.locationLatitude);
         locationLongitude = (EditText) findViewById(R.id.locationLongitude);
-
-
+        
+        locationName.setText(geoLocation.getName());
+        locationLatitude.setText(String.valueOf(geoLocation.getCoordinates().latitude));
+        locationLongitude.setText(String.valueOf(geoLocation.getCoordinates().longitude));
     }
 }

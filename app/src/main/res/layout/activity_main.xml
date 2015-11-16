@@ -28,7 +28,7 @@
         android:layout_alignParentEnd="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:text="HEJ NOOMI"/>
+        android:text="FLEXTIME"/>
 
     <EditText
         android:layout_width="wrap_content"
