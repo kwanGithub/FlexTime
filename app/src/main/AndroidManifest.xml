@@ -25,6 +25,7 @@
         <activity android:name=".activities.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -45,15 +46,24 @@
             android:label="@string/title_activity_maps" >
             <intent-filter>
                 <action android:name="com.uni.kevintruong.flextime.MapsActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activities.MyLocationsActivity"
-            android:label="@string/title_activity_mylocations">
-
+            android:label="@string/title_activity_mylocations" >
             <intent-filter>
                 <action android:name="com.uni.kevintruong.flextime.MyLocationsActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.LocationActivity"
+            android:label="title_activity_location">
+            <intent-filter>
+                <action android:name="com.uni.kevintruong.flextime.LocationActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

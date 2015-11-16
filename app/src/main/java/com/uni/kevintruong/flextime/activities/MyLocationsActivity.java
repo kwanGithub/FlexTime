@@ -1,5 +1,6 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.models.GeoLocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyLocationsActivity extends AppCompatActivity
@@ -27,7 +30,10 @@ public class MyLocationsActivity extends AppCompatActivity
         setContentView(R.layout.activity_my_locations);
 
         this.db = DatabaseManager.getInstance(this);
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, db.getMyLocationsTestData());
+        myLocations = getLocationNames(this.db.getGeoLocations());
+
+
+        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, myLocations);
 
         myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(adapter);
@@ -42,10 +48,29 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Toast.makeText(getBaseContext(), parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
+                GeoLocation test = db.getGeoLocations().get(position);
+                Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
+
+                Intent locationIntent = new Intent("com.uni.kevintruong.flextime.LocationActivity");
+                locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                getApplicationContext().startActivity(locationIntent);
+
             }
         };
 
         return onItemClickListener;
+    }
+
+    private ArrayList<String> getLocationNames(ArrayList<GeoLocation> geoLocations)
+    {
+        ArrayList<String> temp = new ArrayList<>();
+
+        for(GeoLocation location : geoLocations)
+        {
+            temp.add(location.getName());
+        }
+
+        return temp;
     }
 }

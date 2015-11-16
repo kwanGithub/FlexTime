@@ -11,7 +11,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.fragments.AddLocationDialog;
+import com.uni.kevintruong.flextime.dialogs.AddLocationDialog;
 
 public class MainActivity extends AppCompatActivity
 {

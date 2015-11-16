@@ -92,17 +92,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         return temp;
     }
 
-    public String[] getMyLocationsTestData()
-    {
-        String[] locations = {"Jobbet",
-                "Hemmet",
-                "Test",
-                "Mölndal"
-        };
-
-        return locations;
-    }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
