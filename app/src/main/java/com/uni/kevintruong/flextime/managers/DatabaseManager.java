@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class DatabaseManager extends SQLiteOpenHelper
 {
     private static DatabaseManager instance;
+    private ArrayList<GeoLocation> geoLocations;
 
     public static synchronized DatabaseManager getInstance(Context context)
     {
@@ -25,9 +26,21 @@ public class DatabaseManager extends SQLiteOpenHelper
         return instance;
     }
 
+    public ArrayList<GeoLocation> getGeoLocations()
+    {
+        return this.geoLocations;
+    }
+
+    public void addGeoLocations(int id, String name, double latitude, double longitude)
+    {
+        int radius = 100;
+        this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
+    }
+
     private DatabaseManager(Context context)
     {
         super(context, "flexTime.db", null, 1);
+        this.geoLocations = getGeolocationTestData();
     }
 
     @Override

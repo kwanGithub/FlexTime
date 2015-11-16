@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.UnitLocationManager;
 
 /**
@@ -47,7 +49,12 @@ public class AddLocationDialog extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
+                DatabaseManager db = DatabaseManager.getInstance(getActivity());
 
+                double lat = Double.parseDouble(String.valueOf(latitude.getText()));
+                double lng = Double.parseDouble(String.valueOf(longitude.getText()));
+                db.addGeoLocations(db.getGeoLocations().size() + 1, locationName.getText().toString(), lat, lng);
+                Toast.makeText(getActivity(),locationName.getText().toString() + " Added" , Toast.LENGTH_SHORT).show();
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener()
         {

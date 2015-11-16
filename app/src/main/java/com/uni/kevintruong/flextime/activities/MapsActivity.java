@@ -19,7 +19,6 @@ import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 import com.uni.kevintruong.flextime.managers.UnitLocationManager;
-import com.uni.kevintruong.flextime.models.GeoLocation;
 
 import java.util.ArrayList;
 
@@ -31,7 +30,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     private Location currentLocation;
     private GeofenceManager geofenceManager;
     private ArrayList<Geofence> geofences;
-    private ArrayList<GeoLocation> geoLocations;
+    //private ArrayList<GeoLocation> geoLocations;
     private DatabaseManager db;
 
     @Override
@@ -41,14 +40,12 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         setContentView(R.layout.activity_maps);
         //Initialize properties
         this.geofences = new ArrayList<>();
-        this.geoLocations = new ArrayList<>();
         this.unitLocationManager = UnitLocationManager.getInstance(this);
         this.db = DatabaseManager.getInstance(this);
 
         this.currentLocation = unitLocationManager.getUnitLocation();
-        this.geoLocations = this.db.getGeolocationTestData();
-        this.geofences = this.db.mapGeolocationsToGeofences(this.geoLocations);
-
+        this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
+        //Initialize geofences
         this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
     }
 
@@ -127,10 +124,10 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         this.currentLocation = unitLocationManager.getUnitLocation();
 
         // Makes sure the visuals remain when zoom changes.
-        for (int i = 0; i < this.geoLocations.size(); i++)
+        for (int i = 0; i < this.db.getGeoLocations().size(); i++)
         {
-            this.googleMap.addCircle(new CircleOptions().center(this.geoLocations.get(i).getCoordinates())
-                    .radius(this.geoLocations.get(i).getRadius())
+            this.googleMap.addCircle(new CircleOptions().center(this.db.getGeoLocations().get(i).getCoordinates())
+                    .radius(this.db.getGeoLocations().get(i).getRadius())
                     .fillColor(0x40ff0000)
                     .strokeColor(Color.TRANSPARENT).strokeWidth(2));
         }
