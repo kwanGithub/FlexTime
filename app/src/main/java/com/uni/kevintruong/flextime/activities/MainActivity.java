@@ -68,13 +68,9 @@ public class MainActivity extends AppCompatActivity
                     case R.id.option_Pause:
                         Toast.makeText(getApplicationContext(), "Pause", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.option_CurrentPosition:
-                        Toast.makeText(getApplicationContext(), "Monitor Current Location", Toast.LENGTH_SHORT).show();
+                    case R.id.option_AddLocation:
+                        Toast.makeText(getApplicationContext(), "Add Location", Toast.LENGTH_SHORT).show();
                         addLocationDialog();
-                        return true;
-                    case R.id.option_AddPositionByCoordinates:
-                        //TODO SHOW 2 INPUT DIALOGS ONE FOR LATITUDE AND ONE FOR LONGITUDE
-                        Toast.makeText(getApplicationContext(), "Monitor Location by Coordinates", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_MyLocations:
                         //TODO ON ITEM CLICK SHOW LOCATION DATA AND STAT
@@ -82,6 +78,10 @@ public class MainActivity extends AppCompatActivity
                         Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
                         myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(myLocationsIntent);
+                        return true;
+                    case R.id.option_LocationStats:
+                        //TODO SHOW 2 INPUT DIALOGS ONE FOR LATITUDE AND ONE FOR LONGITUDE
+                        Toast.makeText(getApplicationContext(), "Location Stats", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_Map:
                         Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_LONG).show();

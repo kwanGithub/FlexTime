@@ -4,15 +4,14 @@
         android:id="@+id/option_Pause"
         android:title="Pause"/>
     <item
-        android:id="@+id/option_CurrentPosition"
-        android:title="Add Current Position"/>
-    <item
-        android:id="@+id/option_AddPositionByCoordinates"
-        android:title="Add Position by Coordinates"/>
+        android:id="@+id/option_AddLocation"
+        android:title="Add Location"/>
     <item
         android:id="@+id/option_MyLocations"
         android:title="My Locations"/>
-
+    <item
+        android:id="@+id/option_LocationStats"
+        android:title="Location Statistics"/>
     <item
         android:id="@+id/option_Map"
         android:title="Map"/>

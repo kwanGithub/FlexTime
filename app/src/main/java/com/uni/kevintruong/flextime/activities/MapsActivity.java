@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.Geofence;
@@ -42,30 +43,15 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         this.geofences = new ArrayList<>();
         this.geoLocations = new ArrayList<>();
         this.unitLocationManager = UnitLocationManager.getInstance(this);
-        this.currentLocation = unitLocationManager.getLocation();
         this.db = DatabaseManager.getInstance(this);
-        //DEBUG
+
+        this.currentLocation = unitLocationManager.getLocation();
         this.geoLocations = db.getGeolocationTestData();
+        this.geofences = mapGeolocationsToGeofences(this.geoLocations);
 
-        for (int i = 0; i < geoLocations.size(); i++)
-        {
-            geofences.add(mapDataToGeofence(geoLocations.get(i)));
-        }
-        this.geofenceManager = new GeofenceManager(this, this.geofences);
+        this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
     }
 
-    private Geofence mapDataToGeofence(GeoLocation geoLocation)
-    {
-        return new Geofence.Builder()
-                .setRequestId(geoLocation.getName())
-                .setCircularRegion(geoLocation.getCoordinates().latitude, geoLocation.getCoordinates().longitude, geoLocation.getRadius())
-                .setExpirationDuration(Geofence.NEVER_EXPIRE)
-                .setLoiteringDelay(3000)
-                .setTransitionTypes(
-                        Geofence.GEOFENCE_TRANSITION_ENTER
-                                | Geofence.GEOFENCE_TRANSITION_DWELL
-                                | Geofence.GEOFENCE_TRANSITION_EXIT).build();
-    }
 
     @Override
     protected void onStart()
@@ -93,6 +79,31 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
                     GooglePlayServicesUtil.isGooglePlayServicesAvailable(this),
                     this, 0);
         }
+    }
+
+    private ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
+    {
+        ArrayList<Geofence> temp = new ArrayList<>();
+
+        for (int i = 0; i < geoLocations.size(); i++)
+        {
+            temp.add(buildGeoLocationToGoefence(geoLocations.get(i)));
+        }
+
+        return temp;
+    }
+
+    private Geofence buildGeoLocationToGoefence(GeoLocation geoLocation)
+    {
+        return new Geofence.Builder()
+                .setRequestId(geoLocation.getName())
+                .setCircularRegion(geoLocation.getCoordinates().latitude, geoLocation.getCoordinates().longitude, geoLocation.getRadius())
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .setLoiteringDelay(3000)
+                .setTransitionTypes(
+                        Geofence.GEOFENCE_TRANSITION_ENTER
+                                | Geofence.GEOFENCE_TRANSITION_DWELL
+                                | Geofence.GEOFENCE_TRANSITION_EXIT).build();
     }
 
     private void setUpMapIfNeeded()

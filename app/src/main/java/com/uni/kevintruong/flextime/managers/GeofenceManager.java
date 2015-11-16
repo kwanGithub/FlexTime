@@ -26,7 +26,9 @@ import java.util.ArrayList;
     public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
             GoogleApiClient.OnConnectionFailedListener, ResultCallback<Status>, LocationListener {
 
+        private static GeofenceManager instance;
         private final String TAG = this.getClass().getSimpleName();
+
 
         /**
          * Context
@@ -58,13 +60,22 @@ import java.util.ArrayList;
          */
         private LocationRequest mLocationRequest;
 
+    public static synchronized GeofenceManager getInstance(Context context, ArrayList<Geofence> geofences )
+    {
+        if (instance == null)
+        {
+            instance = new GeofenceManager(context.getApplicationContext(), geofences);
+        }
+        return instance;
+    }
+
         /**
          * Constructs a new GeofenceManager.
          *
          * @param context The context to use.
          * @param geofences List of geofences to monitor.
          */
-        public GeofenceManager(Context context, ArrayList<Geofence> geofences) {
+        private GeofenceManager(Context context, ArrayList<Geofence> geofences) {
             mContext = context;
             mGeofences = new ArrayList<>(geofences);
             mPendingIntent = null;

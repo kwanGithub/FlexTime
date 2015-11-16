@@ -15,7 +15,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="44dp"
-        android:text="Add Current Location"/>
+        android:text="Add current location or custom location by entering latitude and longitude"/>
 
     <EditText
         android:id="@+id/addLocationLatitude"

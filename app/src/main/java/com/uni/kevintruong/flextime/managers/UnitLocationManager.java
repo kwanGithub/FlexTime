@@ -36,7 +36,7 @@ public class UnitLocationManager extends Service implements LocationListener
         return instance;
     }
 
-    public UnitLocationManager(Context context)
+    private UnitLocationManager(Context context)
     {
         this.context = context;
 
