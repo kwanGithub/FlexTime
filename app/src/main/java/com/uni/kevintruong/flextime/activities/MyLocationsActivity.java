@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
-import com.uni.kevintruong.flextime.models.GeoLocation;
+import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ public class MyLocationsActivity extends AppCompatActivity
         setContentView(R.layout.activity_my_locations);
 
         this.db = DatabaseManager.getInstance(this);
-        myLocations = getLocationNames(this.db.getGeoLocations());
+        myLocations = getLocationNames(this.db.getSessionTestData());
 
 
         this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, myLocations);
@@ -48,14 +48,15 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                GeoLocation geoLocation = db.getGeoLocations().get(position);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("GeoLocation", geoLocation);
+                Session session = db.getSessionTestData().get(position);
 
-                Intent locationIntent = new Intent("com.uni.kevintruong.flextime.LocationActivity");
-                locationIntent.putExtras(bundle);
-                locationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(locationIntent);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("Session", session);
+
+                Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsActivity");
+                sessionsIntent.putExtras(bundle);
+                sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(sessionsIntent);
 
                 Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
 
@@ -65,13 +66,13 @@ public class MyLocationsActivity extends AppCompatActivity
         return onItemClickListener;
     }
 
-    private ArrayList<String> getLocationNames(ArrayList<GeoLocation> geoLocations)
+    private ArrayList<String> getLocationNames(ArrayList<Session> geofences)
     {
         ArrayList<String> temp = new ArrayList<>();
 
-        for(GeoLocation location : geoLocations)
+        for(Session session : geofences)
         {
-            temp.add(location.getName());
+            temp.add(session.getGeofenceId());
         }
 
         return temp;

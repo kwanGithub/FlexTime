@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:text="New Date"
+        android:text="DMY fre 13 nov. 2015"
         android:id="@+id/locationDate"
         android:textAlignment="center"/>
 
@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="47dp"
-            android:text="New Text"
+            android:text="DM 13/11"
             android:id="@+id/locationDay"
             android:layout_weight="0.25"
             android:inputType="time"
@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="47dp"
-            android:text="New Text"
+            android:text="En 16:13"
             android:id="@+id/locationEnterTime"
             android:layout_weight="0.25"
             android:inputType="time"
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="47dp"
-            android:text="New Text"
+            android:text="Ex 17:13"
             android:id="@+id/locationExitTime"
             android:layout_weight="0.25"
             android:inputType="time"
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="47dp"
-            android:text="New Text"
+            android:text="D 60m 00s"
             android:id="@+id/locationDuration"
             android:layout_weight="0.25"
             android:inputType="time"

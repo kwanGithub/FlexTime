@@ -3,6 +3,7 @@ package com.uni.kevintruong.flextime.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -10,20 +11,20 @@ import java.util.Date;
  */
 public class Session implements Parcelable
 {
-    private int positionId;
+    private String geofenceId;
     private Date sessionStart;
     private Date sessionEnd;
     private long duration;
 
-    public Session(int positionId, Date start)
+    public Session(String geofenceId, Date start)
     {
-        this.positionId = positionId;
+        this.geofenceId = geofenceId;
         this.sessionStart = start;
     }
 
     private Session(Parcel parcel)
     {
-        this.positionId = parcel.readInt();
+        this.geofenceId = parcel.readString();
         this.sessionStart = new Date(parcel.readLong());
         this.sessionEnd = new Date(parcel.readLong());
         this.duration = parcel.readLong();
@@ -32,7 +33,7 @@ public class Session implements Parcelable
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeInt(positionId);
+        dest.writeString(geofenceId);
         dest.writeLong(this.sessionStart.getTime());
         dest.writeLong(this.sessionEnd.getTime());
         dest.writeLong(duration);
@@ -44,24 +45,19 @@ public class Session implements Parcelable
         return 0;
     }
 
-    public int getPositionId()
+    public String getGeofenceId()
     {
-        return positionId;
+        return geofenceId;
     }
 
-    public void setPositionId(int positionId)
+    public void setGeofenceId(String geofenceId)
     {
-        this.positionId = positionId;
+        this.geofenceId = geofenceId;
     }
 
     public Date getSessionStart()
     {
         return sessionStart;
-    }
-
-    public void setSessionStart(Date sessionStart)
-    {
-        this.sessionStart = sessionStart;
     }
 
     public Date getSessionEnd()
@@ -71,7 +67,16 @@ public class Session implements Parcelable
 
     public void setSessionEnd(Date sessionEnd)
     {
+        Calendar calendar = Calendar.getInstance();
+
         this.sessionEnd = sessionEnd;
+        calendar.setTime(this.sessionStart);
+        long sessinoStartMillis = calendar.getTimeInMillis();
+
+        calendar.setTime(this.sessionEnd);
+        long sessionEndMillis = calendar.getTimeInMillis();
+
+        this.duration = (sessionEndMillis - sessinoStartMillis);
     }
 
     public long getDuration()

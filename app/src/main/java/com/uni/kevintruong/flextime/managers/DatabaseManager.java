@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.models.GeoLocation;
+import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by kwan8 on 2015-11-02.
@@ -92,6 +95,27 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         return temp;
     }
+
+    public ArrayList<Session> getSessionTestData()
+    {
+        Calendar cl = new GregorianCalendar();
+
+        Session session = new Session("Hemma", cl.getTime());
+
+
+        cl.add(Calendar.HOUR_OF_DAY, 1);
+        cl.add(Calendar.MINUTE, 23);
+        cl.add(Calendar.SECOND, 33);
+
+        session.setSessionEnd(cl.getTime());
+
+        ArrayList<Session> temp = new ArrayList<>();
+        temp.add(session);
+
+
+        return temp;
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)

@@ -59,10 +59,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LocationActivity"
+        <activity android:name=".activities.SessionsActivity"
             android:label="title_activity_location">
             <intent-filter>
-                <action android:name="com.uni.kevintruong.flextime.LocationActivity" />
+                <action android:name="com.uni.kevintruong.flextime.SessionsActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
