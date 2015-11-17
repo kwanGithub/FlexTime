@@ -79,6 +79,8 @@ public class GeofenceIntentService extends IntentService {
         }
     }
 
+
+
     private void sendNotification(Context context, String notificationText,
                                   String notificationTitle) {
 

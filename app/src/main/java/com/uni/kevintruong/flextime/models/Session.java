@@ -12,31 +12,35 @@ import java.util.Date;
 public class Session implements Parcelable
 {
     private String geofenceId;
-    private Date sessionStart;
-    private Date sessionEnd;
+    private Date date;
+    private Date enter;
+    private Date exit;
     private long duration;
 
     public Session(String geofenceId, Date start)
     {
         this.geofenceId = geofenceId;
-        this.sessionStart = start;
+        this.date = start;
+        this.enter = start;
     }
 
     private Session(Parcel parcel)
     {
         this.geofenceId = parcel.readString();
-        this.sessionStart = new Date(parcel.readLong());
-        this.sessionEnd = new Date(parcel.readLong());
+        this.date =  new Date(parcel.readLong());
+        this.enter = new Date(parcel.readLong());
+        this.exit = new Date(parcel.readLong());
         this.duration = parcel.readLong();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {
-        dest.writeString(geofenceId);
-        dest.writeLong(this.sessionStart.getTime());
-        dest.writeLong(this.sessionEnd.getTime());
-        dest.writeLong(duration);
+        dest.writeString(this.geofenceId);
+        dest.writeLong(this.date.getTime());
+        dest.writeLong(this.enter.getTime());
+        dest.writeLong(this.exit.getTime());
+        dest.writeLong(this.duration);
     }
 
     @Override
@@ -55,28 +59,28 @@ public class Session implements Parcelable
         this.geofenceId = geofenceId;
     }
 
-    public Date getSessionStart()
+    public Date getEnter()
     {
-        return sessionStart;
+        return enter;
     }
 
-    public Date getSessionEnd()
+    public Date getExit()
     {
-        return sessionEnd;
+        return exit;
     }
 
-    public void setSessionEnd(Date sessionEnd)
+    public void setExit(Date exit)
     {
         Calendar calendar = Calendar.getInstance();
 
-        this.sessionEnd = sessionEnd;
-        calendar.setTime(this.sessionStart);
+        this.exit = exit;
+        calendar.setTime(this.enter);
         long sessinoStartMillis = calendar.getTimeInMillis();
 
-        calendar.setTime(this.sessionEnd);
-        long sessionEndMillis = calendar.getTimeInMillis();
+        calendar.setTime(this.exit);
+        long exitMillis = calendar.getTimeInMillis();
 
-        this.duration = (sessionEndMillis - sessinoStartMillis);
+        this.duration = (exitMillis - sessinoStartMillis);
     }
 
     public long getDuration()

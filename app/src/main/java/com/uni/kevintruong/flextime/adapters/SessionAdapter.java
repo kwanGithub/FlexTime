@@ -40,10 +40,10 @@ public class SessionAdapter extends ArrayAdapter<Session>
         SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM");
         SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd MMM. yyyy");
 
-        locationDate.setText(sdfYear.format(singleSession.getSessionStart()));
-        locationDay.setText(sdfDay.format(singleSession.getSessionStart()));
-        locationEnter.setText(sdfTime.format(singleSession.getSessionStart()));
-        locationExit.setText(sdfTime.format(singleSession.getSessionEnd()));
+        locationDate.setText(sdfYear.format(singleSession.getEnter()));
+        locationDay.setText(sdfDay.format(singleSession.getEnter()));
+        locationEnter.setText(sdfTime.format(singleSession.getEnter()));
+        locationExit.setText(sdfTime.format(singleSession.getExit()));
         locationDuration.setText(convertMillis(singleSession.getDuration()));
 
         return locationView;

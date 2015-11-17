@@ -87,11 +87,11 @@ public class DatabaseManager extends SQLiteOpenHelper
     public ArrayList<GeoLocation> getGeolocationTestData()
     {
         ArrayList<GeoLocation> temp = new ArrayList<>();
-        temp.add(new GeoLocation(1, "test1", 57.771702, 12.033851, 100));
-        temp.add(new GeoLocation(2, "test2", 57.771462, 12.026233, 100));
-        temp.add(new GeoLocation(3, "test3", 57.769425, 12.025793, 100));
-        temp.add(new GeoLocation(4, "test4", 57.770684, 12.020762, 100));
-        temp.add(new GeoLocation(5, "HEMMA", 57.769567, 12.030206, 100));
+        temp.add(new GeoLocation(1, "Hjällbo", 57.771702, 12.033851, 100));
+        temp.add(new GeoLocation(2, "Eriksbo", 57.771462, 12.026233, 100));
+        temp.add(new GeoLocation(3, "Göteborg", 57.769425, 12.025793, 100));
+        temp.add(new GeoLocation(4, "Sthlm", 57.770684, 12.020762, 100));
+        temp.add(new GeoLocation(5, "Hemma", 57.769567, 12.030206, 100));
 
         return temp;
     }
@@ -100,6 +100,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     {
         Calendar cl = new GregorianCalendar();
 
+
         Session session = new Session("Hemma", cl.getTime());
 
 
@@ -107,7 +108,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         cl.add(Calendar.MINUTE, 23);
         cl.add(Calendar.SECOND, 33);
 
-        session.setSessionEnd(cl.getTime());
+        session.setExit(cl.getTime());
 
         ArrayList<Session> temp = new ArrayList<>();
         temp.add(session);

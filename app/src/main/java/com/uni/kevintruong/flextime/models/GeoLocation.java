@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
+
 /**
  * Created by kwan8 on 2015-11-03.
  */
@@ -16,6 +18,7 @@ public class GeoLocation implements Parcelable
     private double latitude;
     private double longitude;
     private int radius;
+    private ArrayList<Session> sessions;
 
     public GeoLocation(int id, String name, double latitude, double longitude, int radius)
     {
@@ -25,6 +28,7 @@ public class GeoLocation implements Parcelable
         this.longitude = longitude;
         this.radius = radius;
         this.coordinates = new LatLng(this.latitude, this.longitude);
+        this.sessions = new ArrayList<>();
     }
 
     private GeoLocation(Parcel parcel)
@@ -35,6 +39,7 @@ public class GeoLocation implements Parcelable
         this.longitude = parcel.readDouble();
         this.radius = parcel.readInt();
         this.coordinates = new LatLng(this.latitude, this.longitude);
+        this.sessions = parcel.readArrayList(ClassLoader.getSystemClassLoader());
     }
     @Override
     public void writeToParcel(Parcel dest, int flags)
@@ -44,12 +49,23 @@ public class GeoLocation implements Parcelable
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeInt(radius);
+        dest.writeList(sessions);
     }
 
     @Override
     public int describeContents()
     {
         return 0;
+    }
+
+    public void addSession(Session session)
+    {
+        this.sessions.add(session);
+    }
+
+    public ArrayList<Session> getSessions()
+    {
+        return sessions;
     }
 
     public int getId()
