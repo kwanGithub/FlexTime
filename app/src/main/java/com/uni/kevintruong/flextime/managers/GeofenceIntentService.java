@@ -14,6 +14,8 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -47,19 +49,27 @@ public class GeofenceIntentService extends IntentService {
         if(!geofencingEvent.hasError()) {
             int transition = geofencingEvent.getGeofenceTransition();
             String notificationTitle;
+            //Debug
+            GeofencingEvent geoFenceEvent = GeofencingEvent.fromIntent(intent);
 
             switch(transition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
-                    Log.v(TAG, "Geofence Entered");
+                    Calendar cl = new GregorianCalendar();
+                    cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    Log.v(TAG, "Geofence Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = "Geofence Dwell";
-                    Log.v(TAG, "Dwelling in Geofence");
+                    Calendar cl2 = new GregorianCalendar();
+                    cl2.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    Log.v(TAG, "Dwelling in Geofence " + cl2.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
-                    Log.v(TAG, "Geofence Exited");
+                    Calendar cl3 = new GregorianCalendar();
+                    cl3.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    Log.v(TAG, "Geofence Exited " + cl3.getTime());
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";

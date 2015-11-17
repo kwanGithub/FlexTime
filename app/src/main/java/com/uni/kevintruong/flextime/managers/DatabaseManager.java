@@ -62,13 +62,13 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         for (int i = 0; i < geoLocations.size(); i++)
         {
-            temp.add(buildGeoLocationToGoefence(geoLocations.get(i)));
+            temp.add(buildGoefence(geoLocations.get(i)));
         }
 
         return temp;
     }
 
-    public Geofence buildGeoLocationToGoefence(GeoLocation geoLocation)
+    public Geofence buildGoefence(GeoLocation geoLocation)
     {
         return new Geofence.Builder()
                 .setRequestId(geoLocation.getName())
@@ -88,6 +88,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         temp.add(new GeoLocation(2, "test2", 57.771462, 12.026233, 100));
         temp.add(new GeoLocation(3, "test3", 57.769425, 12.025793, 100));
         temp.add(new GeoLocation(4, "test4", 57.770684, 12.020762, 100));
+        temp.add(new GeoLocation(5, "HEMMA", 57.769567, 12.030206, 100));
 
         return temp;
     }
