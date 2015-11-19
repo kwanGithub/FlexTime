@@ -39,8 +39,14 @@ public class GeoLocation implements Parcelable
         this.longitude = parcel.readDouble();
         this.radius = parcel.readInt();
         this.coordinates = new LatLng(this.latitude, this.longitude);
-        this.sessions = parcel.readArrayList(ClassLoader.getSystemClassLoader());
+        this.sessions = parcel.readArrayList(null);
     }
+
+    public void setSessions(ArrayList<Session> sessions)
+    {
+        this.sessions = sessions;
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {

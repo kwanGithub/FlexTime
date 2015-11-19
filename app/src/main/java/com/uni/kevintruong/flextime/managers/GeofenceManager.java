@@ -128,23 +128,31 @@ import java.util.ArrayList;
         public void onConnected(Bundle connectionHint) {
             // We're connected, now we need to create a GeofencingRequest with
             // the geofences we have stored.
-            mGeofencingRequest = new GeofencingRequest.Builder().addGeofences(
-                    mGeofences).build();
+            try {
+                mGeofencingRequest = new GeofencingRequest.Builder().addGeofences(
+                        mGeofences).build();
 
-            mPendingIntent = createRequestPendingIntent();
+                mPendingIntent = createRequestPendingIntent();
 
-            // This is for debugging only and does not affect
-            // geofencing.
-            LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
+                // This is for debugging only and does not affect
+                // geofencing.
+                LocationServices.FusedLocationApi.requestLocationUpdates(
+                        mGoogleApiClient, mLocationRequest, this);
 
-            // Submitting the request to monitor geofences.
-            PendingResult<Status> pendingResult = LocationServices.GeofencingApi
-                    .addGeofences(mGoogleApiClient, mGeofencingRequest,
-                            mPendingIntent);
+                // Submitting the request to monitor geofences.
+                PendingResult<Status> pendingResult = LocationServices.GeofencingApi
+                        .addGeofences(mGoogleApiClient, mGeofencingRequest,
+                                mPendingIntent);
 
-            // Set the result callbacks listener to this class.
-            pendingResult.setResultCallback(this);
+                // Set the result callbacks listener to this class.
+                pendingResult.setResultCallback(this);
+
+            }catch (IllegalArgumentException ex)
+            {
+                //do nothing
+            }
+
+
         }
 
         @Override

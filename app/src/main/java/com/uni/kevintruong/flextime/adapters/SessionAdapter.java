@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionAdapter extends ArrayAdapter<Session>
 {
+    String lastYearFormat = "";
+
     public SessionAdapter(Context context, Session[] resource)
     {
         super(context, R.layout.session_row, resource);
@@ -27,27 +29,35 @@ public class SessionAdapter extends ArrayAdapter<Session>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        View locationView = layoutInflater.inflate(R.layout.session_row, parent, false);
+        View sessionView = layoutInflater.inflate(R.layout.session_row, parent, false);
 
         Session singleSession = getItem(position);
-        TextView locationDate = (TextView) locationView.findViewById(R.id.locationDate);
-        TextView locationDay = (TextView) locationView.findViewById(R.id.locationDay);
-        TextView locationEnter = (TextView) locationView.findViewById(R.id.locationEnterTime);
-        TextView locationExit = (TextView) locationView.findViewById(R.id.locationExitTime);
-        TextView locationDuration = (TextView) locationView.findViewById(R.id.locationDuration);
+        TextView sessionDate = (TextView) sessionView.findViewById(R.id.sessionDate);
+        TextView sessionDay = (TextView) sessionView.findViewById(R.id.sessionDay);
+        TextView sessionEnter = (TextView) sessionView.findViewById(R.id.sessionEnter);
+        TextView sessionExit = (TextView) sessionView.findViewById(R.id.sessionExit);
+        TextView sessionDuration = (TextView) sessionView.findViewById(R.id.sessionDuration);
 
         SimpleDateFormat sdfTime = new SimpleDateFormat("kk:mm");
         SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM");
         SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd MMM. yyyy");
 
-        locationDate.setText(sdfYear.format(singleSession.getEnter()));
-        locationDay.setText(sdfDay.format(singleSession.getEnter()));
-        locationEnter.setText(sdfTime.format(singleSession.getEnter()));
-        locationExit.setText(sdfTime.format(singleSession.getExit()));
-        locationDuration.setText(convertMillis(singleSession.getDuration()));
+        if(!lastYearFormat.equals(sdfYear.format(singleSession.getEnter())))
+        {
+            sessionDate.setText(sdfYear.format(singleSession.getEnter()));
+        }
 
-        return locationView;
+
+        sessionDay.setText(sdfDay.format(singleSession.getEnter()));
+        sessionEnter.setText(sdfTime.format(singleSession.getEnter()));
+        sessionExit.setText(sdfTime.format(singleSession.getExit()));
+        sessionDuration.setText(convertMillis(singleSession.getDuration()));
+
+        lastYearFormat = sdfYear.format(singleSession.getEnter());
+
+        return sessionView;
     }
+
 
     private String convertMillis(long miliSeconds)
     {

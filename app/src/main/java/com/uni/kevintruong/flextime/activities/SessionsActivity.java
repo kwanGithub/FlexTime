@@ -9,6 +9,8 @@ import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.adapters.SessionAdapter;
 import com.uni.kevintruong.flextime.models.Session;
 
+import java.util.ArrayList;
+
 public class SessionsActivity extends AppCompatActivity
 {
     @Override
@@ -18,11 +20,26 @@ public class SessionsActivity extends AppCompatActivity
         setContentView(R.layout.activity_sessions);
 
         Bundle bundle = this.getIntent().getExtras();
-        Session session = bundle.getParcelable("Session");
-        Session[] sessions = {session};
-        ListAdapter sessionsAdapter = new SessionAdapter(this, sessions);
+
+
+        ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("test");
+
+        Session[] sessionsArray = mapListToArray(sessionsArrayList);
+        ListAdapter sessionsAdapter = new SessionAdapter(this, sessionsArray);
 
         ListView sessionsListView = (ListView) findViewById(R.id.sessionsListView);
         sessionsListView.setAdapter(sessionsAdapter);
+    }
+
+    private Session[] mapListToArray(ArrayList<Session> sessions)
+    {
+        Session[] temp = new Session[sessions.size()];
+
+        for (int i = 0; i < sessions.size(); i++)
+        {
+            temp[i] = sessions.get(i);
+        }
+
+        return temp;
     }
 }

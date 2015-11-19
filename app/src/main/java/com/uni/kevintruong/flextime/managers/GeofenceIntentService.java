@@ -13,6 +13,8 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.models.GeoLocation;
+import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -49,14 +51,21 @@ public class GeofenceIntentService extends IntentService {
         if(!geofencingEvent.hasError()) {
             int transition = geofencingEvent.getGeofenceTransition();
             String notificationTitle;
-            //Debug
+
             GeofencingEvent geoFenceEvent = GeofencingEvent.fromIntent(intent);
+            DatabaseManager db = DatabaseManager.getInstance(getApplicationContext());
+
+            Session session = null;
+            GeoLocation location = null;
 
             switch(transition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
                     Calendar cl = new GregorianCalendar();
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    location = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
+                    session = new Session(location.getName(), cl.getTime());
+
                     Log.v(TAG, "Geofence Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
@@ -69,6 +78,8 @@ public class GeofenceIntentService extends IntentService {
                     notificationTitle = "Geofence Exit";
                     Calendar cl3 = new GregorianCalendar();
                     cl3.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    session.setExit(cl3.getTime());
+                    location.addSession(session);
                     Log.v(TAG, "Geofence Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl3.getTime());
                     break;
                 default:
@@ -78,8 +89,6 @@ public class GeofenceIntentService extends IntentService {
             sendNotification(this, getTriggeringGeofences(intent), notificationTitle);
         }
     }
-
-
 
     private void sendNotification(Context context, String notificationText,
                                   String notificationTitle) {

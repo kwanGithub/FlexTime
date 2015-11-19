@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public class MyLocationsActivity extends AppCompatActivity
         setContentView(R.layout.activity_my_locations);
 
         this.db = DatabaseManager.getInstance(this);
-        myLocations = getLocationNames(this.db.getSessionTestData());
+        //TODO: Bygg en location ADAPTER
+        myLocations = getLocationNames(this.db.getGeoLocations());
 
 
         this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, myLocations);
@@ -48,13 +50,14 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                Session session = db.getSessionTestData().get(position);
+                //TODO: BEHÖVER Hämta ut location först och sen skicka med sessionsListan
+                //Session session = db.getSessionTestData().get(position);
+                int test = position;
 
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("Session", session);
+                ArrayList<Session> sessions = db.getSessionTestData();
 
                 Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsActivity");
-                sessionsIntent.putExtras(bundle);
+                sessionsIntent.putParcelableArrayListExtra("test", sessions);
                 sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(sessionsIntent);
 
@@ -66,13 +69,13 @@ public class MyLocationsActivity extends AppCompatActivity
         return onItemClickListener;
     }
 
-    private ArrayList<String> getLocationNames(ArrayList<Session> geofences)
+    private ArrayList<String> getLocationNames(ArrayList<GeoLocation> geoLocations)
     {
         ArrayList<String> temp = new ArrayList<>();
 
-        for(Session session : geofences)
+        for(GeoLocation geoLocation: geoLocations)
         {
-            temp.add(session.getGeofenceId());
+            temp.add(geoLocation.getName());
         }
 
         return temp;

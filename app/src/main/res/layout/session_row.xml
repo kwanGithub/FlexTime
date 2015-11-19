@@ -11,7 +11,7 @@
         android:inputType="date"
         android:ems="10"
         android:text="DMY fre 13 nov. 2015"
-        android:id="@+id/locationDate"
+        android:id="@+id/sessionDate"
         android:textAlignment="center"/>
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:text="DM 13/11"
-            android:id="@+id/locationDay"
+            android:id="@+id/sessionDay"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:text="En 16:13"
-            android:id="@+id/locationEnterTime"
+            android:id="@+id/sessionEnter"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:text="Ex 17:13"
-            android:id="@+id/locationExitTime"
+            android:id="@+id/sessionExit"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="47dp"
             android:text="D 60m 00s"
-            android:id="@+id/locationDuration"
+            android:id="@+id/sessionDuration"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>

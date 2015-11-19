@@ -29,20 +29,11 @@ public class DatabaseManager extends SQLiteOpenHelper
         return instance;
     }
 
-    public ArrayList<GeoLocation> getGeoLocations()
-    {
-        return this.geoLocations;
-    }
-
-    public void addGeoLocations(int id, String name, double latitude, double longitude)
-    {
-        int radius = 100;
-        this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
-    }
-
     private DatabaseManager(Context context)
     {
         super(context, "flexTime.db", null, 1);
+        this.geoLocations = new ArrayList<>();
+        //DEBUG TEST Locations
         this.geoLocations = getGeolocationTestData();
     }
 
@@ -69,6 +60,34 @@ public class DatabaseManager extends SQLiteOpenHelper
         }
 
         return temp;
+    }
+
+    public GeoLocation getGeoLoactionByName(String name)
+    {
+        GeoLocation geoLocationTemp = null;
+
+        for (GeoLocation geoLocation: getGeoLocations())
+        {
+            if(geoLocation.getName().equals(name))
+            {
+                geoLocationTemp = geoLocation;
+            }
+        }
+        return geoLocationTemp;
+    }
+
+    public GeoLocation getGeoLocationByIndex(int i)
+    {
+        GeoLocation geoLocationTemp = null;
+
+        for (GeoLocation geoLocation: getGeoLocations())
+        {
+            if(geoLocation.getId() == i)
+            {
+                geoLocationTemp = geoLocation;
+            }
+        }
+        return geoLocationTemp;
     }
 
     public Geofence buildGoefence(GeoLocation geoLocation)
@@ -99,24 +118,30 @@ public class DatabaseManager extends SQLiteOpenHelper
     public ArrayList<Session> getSessionTestData()
     {
         Calendar cl = new GregorianCalendar();
-
-
         Session session = new Session("Hemma", cl.getTime());
-
 
         cl.add(Calendar.HOUR_OF_DAY, 1);
         cl.add(Calendar.MINUTE, 23);
         cl.add(Calendar.SECOND, 33);
 
         session.setExit(cl.getTime());
-
         ArrayList<Session> temp = new ArrayList<>();
         temp.add(session);
-
+        temp.add(session);
 
         return temp;
     }
 
+    public ArrayList<GeoLocation> getGeoLocations()
+    {
+        return this.geoLocations;
+    }
+
+    public void addGeoLocations(int id, String name, double latitude, double longitude)
+    {
+        int radius = 100;
+        this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
