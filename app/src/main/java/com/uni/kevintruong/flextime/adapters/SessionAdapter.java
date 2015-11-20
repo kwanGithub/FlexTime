@@ -32,7 +32,7 @@ public class SessionAdapter extends ArrayAdapter<Session>
         View sessionView = layoutInflater.inflate(R.layout.session_row, parent, false);
 
         Session singleSession = getItem(position);
-        TextView sessionDate = (TextView) sessionView.findViewById(R.id.sessionDate);
+        //TextView sessionDate = (TextView) sessionView.findViewById(R.id.sessionDate);
         TextView sessionDay = (TextView) sessionView.findViewById(R.id.sessionDay);
         TextView sessionEnter = (TextView) sessionView.findViewById(R.id.sessionEnter);
         TextView sessionExit = (TextView) sessionView.findViewById(R.id.sessionExit);
@@ -40,15 +40,11 @@ public class SessionAdapter extends ArrayAdapter<Session>
 
         SimpleDateFormat sdfTime = new SimpleDateFormat("kk:mm");
         SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM");
-        SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd MMM. yyyy");
-
-        if(!lastYearFormat.equals(sdfYear.format(singleSession.getEnter())))
-        {
-            sessionDate.setText(sdfYear.format(singleSession.getEnter()));
-        }
+        SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd/MM yyyy");
 
 
-        sessionDay.setText(sdfDay.format(singleSession.getEnter()));
+        //sessionDate.setText(sdfYear.format(singleSession.getEnter()));
+        sessionDay.setText(sdfYear.format(singleSession.getEnter()));
         sessionEnter.setText(sdfTime.format(singleSession.getEnter()));
         sessionExit.setText(sdfTime.format(singleSession.getExit()));
         sessionDuration.setText(convertMillis(singleSession.getDuration()));

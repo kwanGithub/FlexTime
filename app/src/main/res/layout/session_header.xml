@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:weightSum="1">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Date"
+        android:id="@+id/headerSessionDay"
+        android:layout_weight="0.25"
+        android:inputType="time"
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Entered"
+        android:id="@+id/HeaderSessionEnter"
+        android:layout_weight="0.25"
+        android:inputType="time"
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Exit"
+        android:id="@+id/headerSessionExit"
+        android:layout_weight="0.25"
+        android:inputType="time"
+        android:textAlignment="center"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="Duration"
+        android:id="@+id/headerSessionDuration"
+        android:layout_weight="0.25"
+        android:inputType="time"
+        android:textAlignment="center"/>
+
+</LinearLayout>

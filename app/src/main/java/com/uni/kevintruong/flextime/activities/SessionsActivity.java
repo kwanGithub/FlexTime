@@ -2,6 +2,7 @@ package com.uni.kevintruong.flextime.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -28,7 +29,13 @@ public class SessionsActivity extends AppCompatActivity
         ListAdapter sessionsAdapter = new SessionAdapter(this, sessionsArray);
 
         ListView sessionsListView = (ListView) findViewById(R.id.sessionsListView);
+
+        View headerView = View.inflate(this, R.layout.session_header, null);
+
+
+        sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);
+
     }
 
     private Session[] mapListToArray(ArrayList<Session> sessions)
