@@ -14,7 +14,6 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.models.GeoLocation;
-import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -25,47 +24,51 @@ import java.util.List;
  */
 
 
-public class GeofenceIntentService extends IntentService {
+public class GeofenceIntentService extends IntentService
+{
 
     private final String TAG = this.getClass().getCanonicalName();
+    TransitionManager tm = TransitionManager.getInstance();
 
-    public GeofenceIntentService() {
+    public GeofenceIntentService()
+    {
         super("GeofenceIntentService");
         Log.v(TAG, "Constructor.");
     }
 
-    public void onCreate() {
+    public void onCreate()
+    {
         super.onCreate();
         Log.v(TAG, "onCreate");
     }
 
-    public void onDestroy() {
+    public void onDestroy()
+    {
         super.onDestroy();
         Log.v(TAG, "onDestroy");
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent)
+    {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         Log.v(TAG, "onHandleIntent");
-        if(!geofencingEvent.hasError()) {
+        if (!geofencingEvent.hasError())
+        {
             int transition = geofencingEvent.getGeofenceTransition();
             String notificationTitle;
 
             GeofencingEvent geoFenceEvent = GeofencingEvent.fromIntent(intent);
             DatabaseManager db = DatabaseManager.getInstance(getApplicationContext());
+            Calendar cl = new GregorianCalendar();
 
-            Session session = null;
-            GeoLocation location = null;
+            switch (transition)
+            {
 
-            switch(transition) {
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
-                    Calendar cl = new GregorianCalendar();
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    location = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                    session = new Session(location.getName(), cl.getTime());
-
+                    tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime());
                     Log.v(TAG, "Geofence Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
@@ -76,11 +79,10 @@ public class GeofenceIntentService extends IntentService {
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
-                    Calendar cl3 = new GregorianCalendar();
-                    cl3.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    session.setExit(cl3.getTime());
-                    location.addSession(session);
-                    Log.v(TAG, "Geofence Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl3.getTime());
+                    cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
+                    geoLocation.addSession(tm.endSession(cl.getTime()));
+                    Log.v(TAG, "Geofence Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
@@ -91,7 +93,8 @@ public class GeofenceIntentService extends IntentService {
     }
 
     private void sendNotification(Context context, String notificationText,
-                                  String notificationTitle) {
+                                  String notificationTitle)
+    {
 
         PowerManager pm = (PowerManager) context
                 .getSystemService(Context.POWER_SERVICE);
@@ -112,14 +115,16 @@ public class GeofenceIntentService extends IntentService {
         wakeLock.release();
     }
 
-    private String getTriggeringGeofences(Intent intent) {
+    private String getTriggeringGeofences(Intent intent)
+    {
         GeofencingEvent geofenceEvent = GeofencingEvent.fromIntent(intent);
         List<Geofence> geofences = geofenceEvent
                 .getTriggeringGeofences();
 
         String[] geofenceIds = new String[geofences.size()];
 
-        for (int i = 0; i < geofences.size(); i++) {
+        for (int i = 0; i < geofences.size(); i++)
+        {
             geofenceIds[i] = geofences.get(i).getRequestId();
         }
 

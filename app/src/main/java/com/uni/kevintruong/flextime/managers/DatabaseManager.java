@@ -34,7 +34,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         super(context, "flexTime.db", null, 1);
         this.geoLocations = new ArrayList<>();
         //DEBUG TEST Locations
-        this.geoLocations = getGeolocationTestData();
+        //this.geoLocations = getGeolocationTestData();
     }
 
     @Override

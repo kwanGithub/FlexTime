@@ -47,7 +47,6 @@ public class MyLocationsActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 GeoLocation geoLocation = db.getGeoLocations().get(position);
-                geoLocation.setSessions(db.getSessionTestData());
 
                 ArrayList<Session> sessions = geoLocation.getSessions();
 
