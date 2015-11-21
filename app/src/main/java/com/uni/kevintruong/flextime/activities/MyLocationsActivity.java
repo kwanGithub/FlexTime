@@ -5,23 +5,21 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.adapters.GeoLocationAdapter;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyLocationsActivity extends AppCompatActivity
 {
     private ListView myLocationsListView;
-    private List<String> myLocations;
-    private ArrayAdapter<String> adapter;
     private DatabaseManager db;
 
     @Override
@@ -31,14 +29,12 @@ public class MyLocationsActivity extends AppCompatActivity
         setContentView(R.layout.activity_my_locations);
 
         this.db = DatabaseManager.getInstance(this);
-        //TODO: Bygg en location ADAPTER
-        myLocations = getLocationNames(this.db.getGeoLocations());
 
-
-        this.adapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, myLocations);
+        GeoLocation[] geoLocationsArray = mapListToArray(this.db.getGeoLocations());
+        ListAdapter geoLocationAdapter = new GeoLocationAdapter(this, geoLocationsArray);
 
         myLocationsListView = (ListView) findViewById(R.id.myLocationList);
-        myLocationsListView.setAdapter(adapter);
+        myLocationsListView.setAdapter(geoLocationAdapter);
 
         myLocationsListView.setOnItemClickListener(handleListViewItemClick());
     }
@@ -50,11 +46,10 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                //TODO: BEHÖVER Hämta ut location först och sen skicka med sessionsListan
-                //Session session = db.getSessionTestData().get(position);
-                int test = position;
+                GeoLocation geoLocation = db.getGeoLocations().get(position);
+                geoLocation.setSessions(db.getSessionTestData());
 
-                ArrayList<Session> sessions = db.getSessionTestData();
+                ArrayList<Session> sessions = geoLocation.getSessions();
 
                 Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsActivity");
                 sessionsIntent.putParcelableArrayListExtra("test", sessions);
@@ -69,13 +64,13 @@ public class MyLocationsActivity extends AppCompatActivity
         return onItemClickListener;
     }
 
-    private ArrayList<String> getLocationNames(ArrayList<GeoLocation> geoLocations)
+    private GeoLocation[] mapListToArray(ArrayList<GeoLocation> geoLocations)
     {
-        ArrayList<String> temp = new ArrayList<>();
+        GeoLocation[] temp = new GeoLocation[geoLocations.size()];
 
-        for(GeoLocation geoLocation: geoLocations)
+        for (int i = 0; i < geoLocations.size(); i++)
         {
-            temp.add(geoLocation.getName());
+            temp[i] = geoLocations.get(i);
         }
 
         return temp;

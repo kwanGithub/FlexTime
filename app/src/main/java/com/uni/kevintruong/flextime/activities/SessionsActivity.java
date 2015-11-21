@@ -20,9 +20,6 @@ public class SessionsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions);
 
-        Bundle bundle = this.getIntent().getExtras();
-
-
         ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("test");
 
         Session[] sessionsArray = mapListToArray(sessionsArrayList);
@@ -30,8 +27,7 @@ public class SessionsActivity extends AppCompatActivity
 
         ListView sessionsListView = (ListView) findViewById(R.id.sessionsListView);
 
-        View headerView = View.inflate(this, R.layout.session_header, null);
-
+        View headerView = View.inflate(this, R.layout.session_row, null);
 
         sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);

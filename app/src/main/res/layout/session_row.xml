@@ -1,49 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:weightSum="1">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.07"
-        android:weightSum="1">
-
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:text="DM 13/11"
+            android:layout_height="20dp"
+            android:text="Date"
             android:id="@+id/sessionDay"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:text="En 16:13"
+            android:layout_height="20dp"
+            android:text="Enter"
             android:id="@+id/sessionEnter"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:text="Ex 17:13"
+            android:layout_height="20dp"
+            android:text="Exit"
             android:id="@+id/sessionExit"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="47dp"
-            android:text="D 60m 00s"
+            android:layout_height="20dp"
+            android:text="Duration"
             android:id="@+id/sessionDuration"
             android:layout_weight="0.25"
             android:inputType="time"
             android:textAlignment="center"/>
-    </LinearLayout>
+
 </LinearLayout>
 

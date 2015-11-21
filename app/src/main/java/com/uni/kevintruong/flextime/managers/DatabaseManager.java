@@ -76,20 +76,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         return geoLocationTemp;
     }
 
-    public GeoLocation getGeoLocationByIndex(int i)
-    {
-        GeoLocation geoLocationTemp = null;
-
-        for (GeoLocation geoLocation: getGeoLocations())
-        {
-            if(geoLocation.getId() == i)
-            {
-                geoLocationTemp = geoLocation;
-            }
-        }
-        return geoLocationTemp;
-    }
-
     public Geofence buildGoefence(GeoLocation geoLocation)
     {
         return new Geofence.Builder()

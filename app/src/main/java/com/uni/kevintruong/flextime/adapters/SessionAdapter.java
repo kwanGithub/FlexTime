@@ -18,8 +18,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class SessionAdapter extends ArrayAdapter<Session>
 {
-    String lastYearFormat = "";
-
     public SessionAdapter(Context context, Session[] resource)
     {
         super(context, R.layout.session_row, resource);
@@ -32,28 +30,22 @@ public class SessionAdapter extends ArrayAdapter<Session>
         View sessionView = layoutInflater.inflate(R.layout.session_row, parent, false);
 
         Session singleSession = getItem(position);
-        //TextView sessionDate = (TextView) sessionView.findViewById(R.id.sessionDate);
+
         TextView sessionDay = (TextView) sessionView.findViewById(R.id.sessionDay);
         TextView sessionEnter = (TextView) sessionView.findViewById(R.id.sessionEnter);
         TextView sessionExit = (TextView) sessionView.findViewById(R.id.sessionExit);
         TextView sessionDuration = (TextView) sessionView.findViewById(R.id.sessionDuration);
 
         SimpleDateFormat sdfTime = new SimpleDateFormat("kk:mm");
-        SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM");
         SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd/MM yyyy");
 
-
-        //sessionDate.setText(sdfYear.format(singleSession.getEnter()));
         sessionDay.setText(sdfYear.format(singleSession.getEnter()));
         sessionEnter.setText(sdfTime.format(singleSession.getEnter()));
         sessionExit.setText(sdfTime.format(singleSession.getExit()));
         sessionDuration.setText(convertMillis(singleSession.getDuration()));
 
-        lastYearFormat = sdfYear.format(singleSession.getEnter());
-
         return sessionView;
     }
-
 
     private String convertMillis(long miliSeconds)
     {
