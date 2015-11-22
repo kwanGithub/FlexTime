@@ -30,7 +30,6 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     private Location currentLocation;
     private GeofenceManager geofenceManager;
     private ArrayList<Geofence> geofences;
-    //private ArrayList<GeoLocation> geoLocations;
     private DatabaseManager db;
 
     @Override

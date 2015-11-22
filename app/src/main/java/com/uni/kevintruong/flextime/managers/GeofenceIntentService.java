@@ -68,7 +68,8 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime());
+                    GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
+                    tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
                     Log.v(TAG, "Geofence Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
@@ -80,7 +81,7 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
+                    geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
                     geoLocation.addSession(tm.endSession(cl.getTime()));
                     Log.v(TAG, "Geofence Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;

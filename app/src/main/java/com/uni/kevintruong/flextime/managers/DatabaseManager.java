@@ -1,6 +1,8 @@
 package com.uni.kevintruong.flextime.managers;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -17,6 +19,9 @@ import java.util.GregorianCalendar;
  */
 public class DatabaseManager extends SQLiteOpenHelper
 {
+    private static final String DATABASE_NAME = "flexTime.db";
+    private static final int DATABASE_VERSION = 1;
+
     private static DatabaseManager instance;
     private ArrayList<GeoLocation> geoLocations;
 
@@ -31,7 +36,7 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     private DatabaseManager(Context context)
     {
-        super(context, "flexTime.db", null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.geoLocations = new ArrayList<>();
         //DEBUG TEST Locations
         //this.geoLocations = getGeolocationTestData();
@@ -40,15 +45,94 @@ public class DatabaseManager extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        String createTablePositions = "CREATE TABLE geolocations (id INTEGER PRIMARY KEY, name TEXT, latitude REAL , longitude REAL, radius INTEGER)";
+        String createTablePositions = "CREATE TABLE geolocations (id INTEGER, name TEXT, latitude REAL , longitude REAL, radius INTEGER, PRIMARY KEY (id))";
+        //Debug
+        String dropTable = "drop table flexTime.db";
+
         db.execSQL(createTablePositions);
 
-        String CreateTableSessions = "CREATE TABLE sessions (session_id INTEGER  PRIMARY KEY, enter INTEGER," +
-                "exit INTEGER, duration INTEGER, positionId_fk INTEGER, FOREIGN KEY(id_fk) REFERENCES geolocations(id))";
+        String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date NUMERIC, enter NUMERIC, exit NUMERIC, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
 
 
         db.execSQL(CreateTableSessions);
     }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        String query = "DROP TABLE IF EXISTS geolocations";
+        db.execSQL(query);
+        String query2 = "DROP TABLE IF EXISTS sessions";
+        db.execSQL(query2);
+
+        onCreate(db);
+    }
+
+    public void insertGeoLocation(GeoLocation geoLocation)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("id", geoLocation.getId());
+        values.put("name", geoLocation.getName());
+        values.put("latitude", geoLocation.getCoordinates().latitude);
+        values.put("longitude", geoLocation.getCoordinates().longitude);
+        values.put("radius", geoLocation.getRadius());
+
+        db.insert("geolocations", null, values);
+        db.close();
+    }
+
+    public void deleteGeoLocation(int geoLocationId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM geolocations WHERE id =" + geoLocationId + ";");
+    }
+
+    public String databaseToString()
+    {
+        String dbString = "";
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM geolocations WHERE id = 1";
+
+        Cursor c = db.rawQuery(query, null);
+
+        c.moveToFirst();
+
+        dbString += c.getString(c.getColumnIndex("id"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("name"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("latitude"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("longitude"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("radius"));
+        dbString += "\n";
+
+
+        db.close();
+        return dbString;
+    }
+
+    public void insertSession(Session session)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("session_id", session.getGeofenceId());
+        values.put("date", String.valueOf(session.getDate()));
+        values.put("enter", String.valueOf(session.getEnter()));
+        values.put("exit", String.valueOf(session.getExit()));
+        values.put("duration", String.valueOf(session.getExit()));
+        values.put("geolocationId_fk_fk", session.getGeoLocationId_fk());
+
+        db.insert("sessions", null, values);
+        db.close();
+    }
+
 
     public ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
     {
@@ -66,9 +150,9 @@ public class DatabaseManager extends SQLiteOpenHelper
     {
         GeoLocation geoLocationTemp = null;
 
-        for (GeoLocation geoLocation: getGeoLocations())
+        for (GeoLocation geoLocation : getGeoLocations())
         {
-            if(geoLocation.getName().equals(name))
+            if (geoLocation.getName().equals(name))
             {
                 geoLocationTemp = geoLocation;
             }
@@ -104,7 +188,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     public ArrayList<Session> getSessionTestData()
     {
         Calendar cl = new GregorianCalendar();
-        Session session = new Session("Hemma", cl.getTime());
+        Session session = new Session("Hemma", cl.getTime(), 1);
 
         cl.add(Calendar.HOUR_OF_DAY, 1);
         cl.add(Calendar.MINUTE, 23);
@@ -127,16 +211,11 @@ public class DatabaseManager extends SQLiteOpenHelper
     {
         int radius = 100;
         this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
+        //DEBUG
+        deleteGeoLocation(1);
+        insertGeoLocation(new GeoLocation(id, name, latitude, longitude, radius));
+
     }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
-        String query = "DROP TABLE IF EXISTS geolocations";
-        db.execSQL(query);
-        String query2 = "DROP TABLE IF EXISTS sessions";
-        db.execSQL(query2);
 
-        onCreate(db);
-    }
 }

@@ -22,9 +22,9 @@ public class TransitionManager
         return instance;
     }
 
-    public Session startSession(String name, Date enter)
+    public Session startSession(String name, Date enter, int geoLocationId)
     {
-      return this.currentSession = new Session(name, enter);
+      return this.currentSession = new Session(name, enter, geoLocationId);
     }
 
     public Session endSession(Date exit)

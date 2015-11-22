@@ -62,7 +62,7 @@ public class AddLocationDialog extends DialogFragment
                 double lat = Double.parseDouble(String.valueOf(locationLatitude.getText()));
                 double lng = Double.parseDouble(String.valueOf(locationLongitude.getText()));
                 db.addGeoLocations(db.getGeoLocations().size() + 1, locationName.getText().toString(), lat, lng);
-                Toast.makeText(getActivity(),locationName.getText().toString() + " Added" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener()
         {

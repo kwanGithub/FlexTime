@@ -16,12 +16,14 @@ public class Session implements Parcelable
     private Date enter;
     private Date exit;
     private long duration;
+    private int geoLocationId_fk;
 
-    public Session(String geofenceId, Date start)
+    public Session(String geofenceId, Date start, int geoLocation_Id)
     {
         this.geofenceId = geofenceId;
         this.date = start;
         this.enter = start;
+        this.geoLocationId_fk = geoLocation_Id;
     }
 
     private Session(Parcel parcel)
@@ -31,6 +33,7 @@ public class Session implements Parcelable
         this.enter = new Date(parcel.readLong());
         this.exit = new Date(parcel.readLong());
         this.duration = parcel.readLong();
+        this.geoLocationId_fk = parcel.readInt();
     }
 
     @Override
@@ -41,12 +44,38 @@ public class Session implements Parcelable
         dest.writeLong(this.enter.getTime());
         dest.writeLong(this.exit.getTime());
         dest.writeLong(this.duration);
+        dest.writeInt(this.geoLocationId_fk);
     }
 
     @Override
     public int describeContents()
     {
         return 0;
+    }
+
+    public Date getDate()
+    {
+        return date;
+    }
+
+    public void setDate(Date date)
+    {
+        this.date = date;
+    }
+
+    public void setEnter(Date enter)
+    {
+        this.enter = enter;
+    }
+
+    public int getGeoLocationId_fk()
+    {
+        return geoLocationId_fk;
+    }
+
+    public void setGeoLocationId_fk(int geoLocationId_fk)
+    {
+        this.geoLocationId_fk = geoLocationId_fk;
     }
 
     public String getGeofenceId()
