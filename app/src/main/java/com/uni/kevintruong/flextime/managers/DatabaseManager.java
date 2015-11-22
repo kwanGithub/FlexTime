@@ -10,8 +10,11 @@ import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -23,7 +26,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
 
     private static DatabaseManager instance;
-    private ArrayList<GeoLocation> geoLocations;
+    //private ArrayList<GeoLocation> geoLocations;
 
     public static synchronized DatabaseManager getInstance(Context context)
     {
@@ -37,7 +40,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     private DatabaseManager(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.geoLocations = new ArrayList<>();
+        //this.geoLocations = new ArrayList<>();
         //DEBUG TEST Locations
         //this.geoLocations = getGeolocationTestData();
     }
@@ -51,7 +54,7 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         db.execSQL(createTablePositions);
 
-        String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date NUMERIC, enter NUMERIC, exit NUMERIC, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
+        String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date TEXT, enter TEXT, exit TEXT, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
 
 
         db.execSQL(CreateTableSessions);
@@ -68,8 +71,11 @@ public class DatabaseManager extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public void insertGeoLocation(GeoLocation geoLocation)
+    public void addGeoLocation(GeoLocation geoLocation)
     {
+        //Debug
+        //deleteGeoLocation(1);
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -83,11 +89,43 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.insert("geolocations", null, values);
         db.close();
     }
+    public void addGeoLocations(int id, String name, double latitude, double longitude)
+    {
+        int radius = 100;
+       // this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
+        //DEBUG
+        //deleteGeoLocation(1);
+        //   insertGeoLocation(new GeoLocation(id, name, latitude, longitude, radius));
+
+    }
 
     public void deleteGeoLocation(int geoLocationId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM geolocations WHERE id =" + geoLocationId + ";");
+    }
+
+    public void addSession(Session session)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("session_id", session.getGeofenceId());
+        values.put("date", String.valueOf(session.getDate()));
+        values.put("enter", String.valueOf(session.getEnter()));
+        values.put("exit", String.valueOf(session.getExit()));
+        values.put("duration", String.valueOf(session.getExit()));
+        values.put("geolocationId_fk", session.getGeoLocationId_fk());
+
+        db.insert("sessions", null, values);
+        db.close();
+    }
+
+    public void deleteSession(String sessionId)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM sessions WHERE session_id =" + sessionId + ";");
     }
 
     public String databaseToString()
@@ -116,23 +154,33 @@ public class DatabaseManager extends SQLiteOpenHelper
         return dbString;
     }
 
-    public void insertSession(Session session)
+    public String databaseSessionsToString()
     {
+        String dbString = "";
         SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM sessions WHERE geolocationId_fk = 1";
 
-        ContentValues values = new ContentValues();
+        Cursor c = db.rawQuery(query, null);
 
-        values.put("session_id", session.getGeofenceId());
-        values.put("date", String.valueOf(session.getDate()));
-        values.put("enter", String.valueOf(session.getEnter()));
-        values.put("exit", String.valueOf(session.getExit()));
-        values.put("duration", String.valueOf(session.getExit()));
-        values.put("geolocationId_fk_fk", session.getGeoLocationId_fk());
+        c.moveToFirst();
 
-        db.insert("sessions", null, values);
+        dbString += c.getString(c.getColumnIndex("session_id"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("date"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("enter"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("exit"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("duration"));
+        dbString += "\n";
+        dbString += c.getString(c.getColumnIndex("geolocationId_fk"));
+        dbString += "\n";
+
+
         db.close();
+        return dbString;
     }
-
 
     public ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
     {
@@ -202,20 +250,63 @@ public class DatabaseManager extends SQLiteOpenHelper
         return temp;
     }
 
+    public ArrayList<Session> getSessions(int geoLocationId) throws ParseException
+    {
+        //Debug
+        //deleteGeoLocation(1);
+        //deleteGeoLocation(2);
+
+        ArrayList<Session> sessions = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String getLocationsQuery = "SELECT * FROM sessions WHERE geolocationId_fk = " + geoLocationId;
+
+        Cursor cursor = db.rawQuery(getLocationsQuery, null);
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                {
+                    SimpleDateFormat sdf = new SimpleDateFormat();
+                    Date date = sdf.parse(cursor.getString(1));
+                    Date enter  = sdf.parse(cursor.getString(2));
+                    Date exit = sdf.parse(cursor.getString(3));
+
+                    Session session = new Session(cursor.getString(0), date, enter, exit, cursor.getLong(4), cursor.getInt(5));
+                    sessions.add(session);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return sessions;
+    }
+
     public ArrayList<GeoLocation> getGeoLocations()
     {
-        return this.geoLocations;
+        //Debug
+        //deleteGeoLocation(1);
+        //deleteGeoLocation(2);
+
+        ArrayList<GeoLocation> geoLocations = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String getLocationsQuery = "SELECT * FROM geolocations";
+
+        Cursor cursor = db.rawQuery(getLocationsQuery, null);
+
+        if (cursor.moveToFirst())
+        {
+            do
+            {
+                {
+                    GeoLocation place = new GeoLocation(cursor.getInt(0), cursor.getString(1), cursor.getDouble(2), cursor.getDouble(3), cursor.getInt(4));
+                    geoLocations.add(place);
+                }
+            } while (cursor.moveToNext());
+        }
+
+        return geoLocations;
     }
-
-    public void addGeoLocations(int id, String name, double latitude, double longitude)
-    {
-        int radius = 100;
-        this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
-        //DEBUG
-        deleteGeoLocation(1);
-        insertGeoLocation(new GeoLocation(id, name, latitude, longitude, radius));
-
-    }
-
 
 }

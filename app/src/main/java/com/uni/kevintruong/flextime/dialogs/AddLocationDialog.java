@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.UnitLocationManager;
+import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
  * Created by kwan8 on 2015-11-15.
@@ -61,7 +62,7 @@ public class AddLocationDialog extends DialogFragment
 
                 double lat = Double.parseDouble(String.valueOf(locationLatitude.getText()));
                 double lng = Double.parseDouble(String.valueOf(locationLongitude.getText()));
-                db.addGeoLocations(db.getGeoLocations().size() + 1, locationName.getText().toString(), lat, lng);
+                db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, locationName.getText().toString(), lat, lng, 100));
                 Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener()

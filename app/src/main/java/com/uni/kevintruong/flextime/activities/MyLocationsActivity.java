@@ -15,6 +15,7 @@ import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class MyLocationsActivity extends AppCompatActivity
@@ -47,6 +48,13 @@ public class MyLocationsActivity extends AppCompatActivity
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 GeoLocation geoLocation = db.getGeoLocations().get(position);
+                try
+                {
+                    geoLocation.setSessions(db.getSessions(geoLocation.getId()));
+                } catch (ParseException e)
+                {
+                    e.printStackTrace();
+                }
 
                 ArrayList<Session> sessions = geoLocation.getSessions();
 

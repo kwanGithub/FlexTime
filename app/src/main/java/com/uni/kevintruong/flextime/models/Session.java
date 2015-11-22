@@ -26,6 +26,16 @@ public class Session implements Parcelable
         this.geoLocationId_fk = geoLocation_Id;
     }
 
+    public Session(String geofenceId, Date date, Date enter, Date exit, long duration, int geoLocationId_fk)
+    {
+        this.geofenceId = geofenceId;
+        this.date = date;
+        this.enter = enter;
+        this.exit = exit;
+        this.duration = duration;
+        this.geoLocationId_fk = geoLocationId_fk;
+    }
+
     private Session(Parcel parcel)
     {
         this.geofenceId = parcel.readString();

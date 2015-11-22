@@ -82,8 +82,10 @@ public class GeofenceIntentService extends IntentService
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                    geoLocation.addSession(tm.endSession(cl.getTime()));
-                    Log.v(TAG, "Geofence Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                  //  geoLocation.addSession(tm.endSession(cl.getTime()));
+                    db.addSession(tm.endSession(cl.getTime()));
+                    String test = db.databaseSessionsToString();
+                    Log.v(TAG, "Geofence Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
