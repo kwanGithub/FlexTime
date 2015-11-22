@@ -11,7 +11,6 @@ import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,7 +53,7 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         db.execSQL(createTablePositions);
 
-        String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date TEXT, enter TEXT, exit TEXT, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
+        String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date REAL, enter REAL, exit REAL, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
 
 
         db.execSQL(CreateTableSessions);
@@ -111,21 +110,26 @@ public class DatabaseManager extends SQLiteOpenHelper
 
         ContentValues values = new ContentValues();
 
+        Calendar cl = new GregorianCalendar();
+
         values.put("session_id", session.getGeofenceId());
-        values.put("date", String.valueOf(session.getDate()));
-        values.put("enter", String.valueOf(session.getEnter()));
-        values.put("exit", String.valueOf(session.getExit()));
-        values.put("duration", String.valueOf(session.getExit()));
+        cl.setTime(session.getDate());
+        values.put("date", cl.getTimeInMillis());
+        cl.setTime(session.getEnter());
+        values.put("enter", cl.getTimeInMillis());
+        cl.setTime(session.getExit());
+        values.put("exit", cl.getTimeInMillis());
+        values.put("duration", session.getDuration());
         values.put("geolocationId_fk", session.getGeoLocationId_fk());
 
         db.insert("sessions", null, values);
         db.close();
     }
 
-    public void deleteSession(String sessionId)
+    public void deleteSession(int sessionId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM sessions WHERE session_id =" + sessionId + ";");
+        db.execSQL("DELETE FROM sessions WHERE geolocationId_fk =" + sessionId + ";");
     }
 
     public String databaseToString()
@@ -253,8 +257,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     public ArrayList<Session> getSessions(int geoLocationId) throws ParseException
     {
         //Debug
-        //deleteGeoLocation(1);
-        //deleteGeoLocation(2);
+        //deleteSession(1);
 
         ArrayList<Session> sessions = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -268,10 +271,13 @@ public class DatabaseManager extends SQLiteOpenHelper
             do
             {
                 {
-                    SimpleDateFormat sdf = new SimpleDateFormat();
-                    Date date = sdf.parse(cursor.getString(1));
-                    Date enter  = sdf.parse(cursor.getString(2));
-                    Date exit = sdf.parse(cursor.getString(3));
+                    Calendar cl = new GregorianCalendar();
+                    cl.setTimeInMillis(new Long(cursor.getLong(1)));
+                    Date date = cl.getTime();
+                    cl.setTimeInMillis(new Long(cursor.getLong(2)));
+                    Date enter = cl.getTime();
+                    cl.setTimeInMillis(new Long(cursor.getLong(3)));
+                    Date exit = cl.getTime();
 
                     Session session = new Session(cursor.getString(0), date, enter, exit, cursor.getLong(4), cursor.getInt(5));
                     sessions.add(session);

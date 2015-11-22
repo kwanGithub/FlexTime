@@ -62,6 +62,7 @@ public class GeofenceIntentService extends IntentService
             DatabaseManager db = DatabaseManager.getInstance(getApplicationContext());
             Calendar cl = new GregorianCalendar();
 
+
             switch (transition)
             {
 

@@ -68,16 +68,6 @@ public class Session implements Parcelable
         return date;
     }
 
-    public void setDate(Date date)
-    {
-        this.date = date;
-    }
-
-    public void setEnter(Date enter)
-    {
-        this.enter = enter;
-    }
-
     public int getGeoLocationId_fk()
     {
         return geoLocationId_fk;
@@ -114,12 +104,12 @@ public class Session implements Parcelable
 
         this.exit = exit;
         calendar.setTime(this.enter);
-        long sessinoStartMillis = calendar.getTimeInMillis();
+        long sessionStartMillis = calendar.getTimeInMillis();
 
         calendar.setTime(this.exit);
         long exitMillis = calendar.getTimeInMillis();
-
-        this.duration = (exitMillis - sessinoStartMillis);
+        long dur = (exitMillis - sessionStartMillis);
+        this.duration = (exitMillis - sessionStartMillis);
     }
 
     public long getDuration()
@@ -127,10 +117,6 @@ public class Session implements Parcelable
         return duration;
     }
 
-    public void setDuration(long duration)
-    {
-        this.duration = duration;
-    }
 
     public static final Creator<Session> CREATOR = new Creator<Session>()
     {
