@@ -29,35 +29,11 @@ import java.util.ArrayList;
         private static GeofenceManager instance;
         private final String TAG = this.getClass().getSimpleName();
 
-
-        /**
-         * Context
-         */
         private Context mContext;
-
-        /**
-         * Google API client object.
-         */
         private GoogleApiClient mGoogleApiClient;
-
-        /**
-         * Geofencing PendingIntent
-         */
         private PendingIntent mPendingIntent;
-
-        /**
-         * List of geofences to monitor.
-         */
         private ArrayList<Geofence> mGeofences;
-
-        /**
-         * Geofence request.
-         */
         private GeofencingRequest mGeofencingRequest;
-
-        /**
-         * Location Request object.
-         */
         private LocationRequest mLocationRequest;
 
     public static synchronized GeofenceManager getInstance(Context context, ArrayList<Geofence> geofences )
@@ -151,15 +127,12 @@ import java.util.ArrayList;
             {
                 //do nothing
             }
-
-
         }
 
         @Override
         public void onConnectionSuspended(int cause) {
             Log.v(TAG, "Connection suspended.");
         }
-
         /**
          * This creates a PendingIntent that is to be fired when geofence transitions
          * take place. In this instance, we are using an IntentService to handle the

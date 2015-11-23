@@ -25,6 +25,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     private static final int DATABASE_VERSION = 1;
 
     private static DatabaseManager instance;
+    //DEBUG
     //private ArrayList<GeoLocation> geoLocations;
 
     public static synchronized DatabaseManager getInstance(Context context)
@@ -48,14 +49,9 @@ public class DatabaseManager extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         String createTablePositions = "CREATE TABLE geolocations (id INTEGER, name TEXT, latitude REAL , longitude REAL, radius INTEGER, PRIMARY KEY (id))";
-        //Debug
-        String dropTable = "drop table flexTime.db";
-
         db.execSQL(createTablePositions);
 
         String CreateTableSessions = "CREATE TABLE sessions (session_id TEXT, date REAL, enter REAL, exit REAL, duration REAL, geolocationId_fk INTEGER, FOREIGN KEY(geolocationId_fk) REFERENCES geolocations(id), PRIMARY KEY (session_id, date, enter))";
-
-
         db.execSQL(CreateTableSessions);
     }
 
@@ -88,15 +84,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.insert("geolocations", null, values);
         db.close();
     }
-    public void addGeoLocations(int id, String name, double latitude, double longitude)
-    {
-        int radius = 100;
-       // this.geoLocations.add(new GeoLocation(id, name, latitude, longitude, radius));
-        //DEBUG
-        //deleteGeoLocation(1);
-        //   insertGeoLocation(new GeoLocation(id, name, latitude, longitude, radius));
-
-    }
 
     public void deleteGeoLocation(int geoLocationId)
     {
@@ -126,12 +113,14 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.close();
     }
 
+    // Wont be used for this version maybe later?
     public void deleteSession(int sessionId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM sessions WHERE geolocationId_fk =" + sessionId + ";");
     }
 
+    //DEBUG return entered to verify geoLocation is created?
     public String databaseToString()
     {
         String dbString = "";
@@ -153,11 +142,11 @@ public class DatabaseManager extends SQLiteOpenHelper
         dbString += c.getString(c.getColumnIndex("radius"));
         dbString += "\n";
 
-
         db.close();
         return dbString;
     }
 
+    //DEBUG return entered to verify session is created?
     public String databaseSessionsToString()
     {
         String dbString = "";
@@ -225,6 +214,7 @@ public class DatabaseManager extends SQLiteOpenHelper
                                 | Geofence.GEOFENCE_TRANSITION_EXIT).build();
     }
 
+    //DEBUG
     public ArrayList<GeoLocation> getGeolocationTestData()
     {
         ArrayList<GeoLocation> temp = new ArrayList<>();
@@ -237,6 +227,7 @@ public class DatabaseManager extends SQLiteOpenHelper
         return temp;
     }
 
+    //DEBUG
     public ArrayList<Session> getSessionTestData()
     {
         Calendar cl = new GregorianCalendar();
@@ -292,7 +283,6 @@ public class DatabaseManager extends SQLiteOpenHelper
     {
         //Debug
         //deleteGeoLocation(1);
-        //deleteGeoLocation(2);
 
         ArrayList<GeoLocation> geoLocations = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();

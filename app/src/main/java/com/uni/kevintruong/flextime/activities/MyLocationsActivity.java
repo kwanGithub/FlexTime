@@ -59,7 +59,7 @@ public class MyLocationsActivity extends AppCompatActivity
                 ArrayList<Session> sessions = geoLocation.getSessions();
 
                 Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsActivity");
-                sessionsIntent.putParcelableArrayListExtra("test", sessions);
+                sessionsIntent.putParcelableArrayListExtra("sessions", sessions);
                 sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(sessionsIntent);
 

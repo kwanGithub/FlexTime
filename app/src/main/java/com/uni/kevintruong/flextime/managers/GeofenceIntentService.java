@@ -28,7 +28,7 @@ public class GeofenceIntentService extends IntentService
 {
 
     private final String TAG = this.getClass().getCanonicalName();
-    TransitionManager tm = TransitionManager.getInstance();
+    private TransitionManager tm = TransitionManager.getInstance();
 
     public GeofenceIntentService()
     {
@@ -65,7 +65,6 @@ public class GeofenceIntentService extends IntentService
 
             switch (transition)
             {
-
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
