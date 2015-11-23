@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.location.Geofence;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
@@ -17,10 +16,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
-import com.uni.kevintruong.flextime.managers.GeofenceManager;
 import com.uni.kevintruong.flextime.managers.UnitLocationManager;
-
-import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
@@ -28,8 +24,8 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     private GoogleMap googleMap;
     private UnitLocationManager unitLocationManager;
     private Location currentLocation;
-    private GeofenceManager geofenceManager;
-    private ArrayList<Geofence> geofences;
+    // private GeofenceManager geofenceManager;
+    // private ArrayList<Geofence> geofences;
     private DatabaseManager db;
 
     @Override
@@ -38,14 +34,14 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         //Initialize properties
-        this.geofences = new ArrayList<>();
+        //   this.geofences = new ArrayList<>();
         this.unitLocationManager = UnitLocationManager.getInstance(this);
         this.db = DatabaseManager.getInstance(this);
 
         this.currentLocation = unitLocationManager.getUnitLocation();
-        this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
+        // this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
         //Initialize geofences
-        this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
+        // this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
     }
 
     @Override
@@ -57,7 +53,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     @Override
     protected void onStop()
     {
-        this.geofenceManager.disconnect();
+        // this.geofenceManager.disconnect();
         super.onStop();
     }
 

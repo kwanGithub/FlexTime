@@ -10,18 +10,33 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.dialogs.AddLocationDialog;
+import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeofenceManager;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
     private Button optionsBtn;
+    private GeofenceManager geofenceManager;
+    private ArrayList<Geofence> geofences;
+    private DatabaseManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.geofences = new ArrayList<>();
+
+        this.db = DatabaseManager.getInstance(this);
+        this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
+        //Initialize geofences
+        this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
 
         OnClickOptionsBtnListener();
     }
