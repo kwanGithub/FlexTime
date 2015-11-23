@@ -73,15 +73,10 @@ public class MainActivity extends AppCompatActivity
                         addLocationDialog();
                         return true;
                     case R.id.option_MyLocations:
-                        //TODO ON ITEM CLICK SHOW LOCATION DATA AND STAT
                         Toast.makeText(getApplicationContext(), "My Locations", Toast.LENGTH_SHORT).show();
                         Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
                         myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         getApplicationContext().startActivity(myLocationsIntent);
-                        return true;
-                    case R.id.option_LocationStats:
-                        //TODO SHOW 2 INPUT DIALOGS ONE FOR LATITUDE AND ONE FOR LONGITUDE
-                        Toast.makeText(getApplicationContext(), "Location Stats", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_Map:
                         Toast.makeText(getApplicationContext(), "Map", Toast.LENGTH_LONG).show();

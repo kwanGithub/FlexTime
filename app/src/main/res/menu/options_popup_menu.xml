@@ -10,9 +10,6 @@
         android:id="@+id/option_MyLocations"
         android:title="My Locations"/>
     <item
-        android:id="@+id/option_LocationStats"
-        android:title="Location Statistics"/>
-    <item
         android:id="@+id/option_Map"
         android:title="Map"/>
 

@@ -81,10 +81,7 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                  //  geoLocation.addSession(tm.endSession(cl.getTime()));
                     db.addSession(tm.endSession(cl.getTime()));
-                    String test = db.databaseSessionsToString();
                     Log.v(TAG, "Geofence Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
@@ -98,7 +95,6 @@ public class GeofenceIntentService extends IntentService
     private void sendNotification(Context context, String notificationText,
                                   String notificationTitle)
     {
-
         PowerManager pm = (PowerManager) context
                 .getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = pm.newWakeLock(

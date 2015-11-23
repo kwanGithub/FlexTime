@@ -71,7 +71,7 @@ public class GeoLocation implements Parcelable
 
     public ArrayList<Session> getSessions()
     {
-        return sessions;
+        return this.sessions;
     }
 
     public int getId()
@@ -106,12 +106,7 @@ public class GeoLocation implements Parcelable
 
     public int getRadius()
     {
-        return radius;
-    }
-
-    public void setRadius(int radius)
-    {
-        this.radius = radius;
+        return this.radius;
     }
 
     public static final Creator<GeoLocation> CREATOR = new Creator<GeoLocation>(){

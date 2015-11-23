@@ -65,27 +65,27 @@ public class Session implements Parcelable
 
     public Date getDate()
     {
-        return date;
+        return this.date;
     }
 
     public int getGeoLocationId_fk()
     {
-        return geoLocationId_fk;
+        return this.geoLocationId_fk;
     }
 
     public String getGeofenceId()
     {
-        return geofenceId;
+        return this.geofenceId;
     }
 
     public Date getEnter()
     {
-        return enter;
+        return this.enter;
     }
 
     public Date getExit()
     {
-        return exit;
+        return this.exit;
     }
 
     public void setExit(Date exit)
@@ -103,9 +103,8 @@ public class Session implements Parcelable
 
     public long getDuration()
     {
-        return duration;
+        return this.duration;
     }
-
 
     public static final Creator<Session> CREATOR = new Creator<Session>()
     {
