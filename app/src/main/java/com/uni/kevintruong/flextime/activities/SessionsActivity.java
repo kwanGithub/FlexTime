@@ -3,8 +3,10 @@ package com.uni.kevintruong.flextime.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.adapters.SessionAdapter;
@@ -31,6 +33,17 @@ public class SessionsActivity extends AppCompatActivity
 
         sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);
+
+
+        Button singleBtn = (Button) findViewById(R.id.single);
+        singleBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "Single clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private Session[] mapListToArray(ArrayList<Session> sessions)
