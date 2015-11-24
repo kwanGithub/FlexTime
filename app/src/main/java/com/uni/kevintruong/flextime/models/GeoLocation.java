@@ -64,11 +64,6 @@ public class GeoLocation implements Parcelable
         return 0;
     }
 
-    public void addSession(Session session)
-    {
-        this.sessions.add(session);
-    }
-
     public ArrayList<Session> getSessions()
     {
         return this.sessions;
@@ -99,12 +94,7 @@ public class GeoLocation implements Parcelable
         return coordinates;
     }
 
-    public void setCoordinates(LatLng coordinates)
-    {
-        this.coordinates = coordinates;
-    }
-
-    public int getRadius()
+      public int getRadius()
     {
         return this.radius;
     }

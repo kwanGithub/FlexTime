@@ -27,9 +27,7 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
         View locationView = layoutInflater.inflate(R.layout.geolocation_row, parent, false);
 
         GeoLocation singleGeoLocation = getItem(position);
-
         TextView locationName = (TextView) locationView.findViewById(R.id.locationName);
-
         locationName.setText(singleGeoLocation.getName());
 
         return locationView;

@@ -74,9 +74,8 @@ public class GeofenceIntentService extends IntentService
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = "Geofence Dwell";
-                    Calendar cl2 = new GregorianCalendar();
-                    cl2.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    Log.v(TAG, "Dwelling in Geofence " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl2.getTime());
+                    cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
+                    Log.v(TAG, "Dwelling in Geofence " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
