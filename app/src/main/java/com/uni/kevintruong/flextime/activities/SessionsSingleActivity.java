@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -14,13 +15,13 @@ import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
 
-public class SessionsActivity extends AppCompatActivity
+public class SessionsSingleActivity extends AppCompatActivity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sessions);
+        setContentView(R.layout.activity_sessions_single);
 
         ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("sessions");
 
@@ -34,14 +35,16 @@ public class SessionsActivity extends AppCompatActivity
         sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);
 
+        LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsBtns);
 
-        Button singleBtn = (Button) findViewById(R.id.single);
-        singleBtn.setOnClickListener(new View.OnClickListener()
+        //TODO fixa mockarna
+        Button dayBtn = (Button)includedLayout.findViewById(R.id.sessionDay);
+        dayBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getApplicationContext(), "Single clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Day Selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
