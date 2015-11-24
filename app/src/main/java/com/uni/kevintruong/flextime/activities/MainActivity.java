@@ -10,20 +10,13 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.dialogs.AddLocationDialog;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity
 {
-    private Button optionsBtn;
-    private GeofenceManager geofenceManager;
-    private ArrayList<Geofence> geofences;
-    private DatabaseManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,19 +24,16 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.geofences = new ArrayList<>();
-
-        this.db = DatabaseManager.getInstance(this);
-        this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
-        //Initialize geofences
-        this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
+        DatabaseManager db;
+        db = DatabaseManager.getInstance(this);
+        GeofenceManager.getInstance(this, db.mapGeolocationsToGeofences(db.getGeoLocations()));
 
         OnClickOptionsBtnListener();
     }
 
     public void OnClickOptionsBtnListener()
     {
-        optionsBtn = (Button) findViewById(R.id.mainOptionsBtn);
+        Button optionsBtn = (Button) findViewById(R.id.mainOptionsBtn);
 
         optionsBtn.setOnLongClickListener(new View.OnLongClickListener()
         {

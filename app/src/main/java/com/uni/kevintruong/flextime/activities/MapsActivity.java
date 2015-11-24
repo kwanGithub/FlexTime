@@ -22,10 +22,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
 {
 
     private GoogleMap googleMap;
-    private UnitLocationManager unitLocationManager;
     private Location currentLocation;
-    // private GeofenceManager geofenceManager;
-    // private ArrayList<Geofence> geofences;
     private DatabaseManager db;
 
     @Override
@@ -34,14 +31,8 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         //Initialize properties
-        //   this.geofences = new ArrayList<>();
-        this.unitLocationManager = UnitLocationManager.getInstance(this);
         this.db = DatabaseManager.getInstance(this);
-
-        this.currentLocation = unitLocationManager.getUnitLocation();
-        // this.geofences = this.db.mapGeolocationsToGeofences(this.db.getGeoLocations());
-        //Initialize geofences
-        // this.geofenceManager = GeofenceManager.getInstance(this, this.geofences);
+        getCurrentLocation();
     }
 
     @Override
@@ -70,6 +61,11 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
                     GooglePlayServicesUtil.isGooglePlayServicesAvailable(this),
                     this, 0);
         }
+    }
+
+    private void getCurrentLocation()
+    {
+        this.currentLocation = UnitLocationManager.getInstance(this).getUnitLocation();
     }
 
     private void setUpMapIfNeeded()
@@ -116,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     public void onCameraChange(CameraPosition position)
     {
         //updates current Location
-        this.currentLocation = unitLocationManager.getUnitLocation();
+        getCurrentLocation();
 
         // Makes sure the visuals remain when zoom changes.
         for (int i = 0; i < this.db.getGeoLocations().size(); i++)
