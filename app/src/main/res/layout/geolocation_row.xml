@@ -8,5 +8,7 @@
         android:id="@+id/locationName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32dp"        />
+        android:textSize="32dp"
+        android:textColor="#33b5e5"
+        android:background="#212121"/>
 </RelativeLayout>

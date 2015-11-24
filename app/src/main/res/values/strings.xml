@@ -4,7 +4,7 @@
     <string name="main_options_btn">Options</string>
     <string name="title_activity_mylocations">My Locations </string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="title_activity_location">LocationActivity</string>
+    <string name="title_activity_sessions">Sessions</string>
 </resources>
