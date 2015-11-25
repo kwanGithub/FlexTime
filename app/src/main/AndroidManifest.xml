@@ -71,9 +71,9 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SessionsDayActivity">
+        <activity android:name=".activities.SessionsDaysActivity">
             <intent-filter>
-                <action android:name="com.uni.kevintruong.flextime.SessionsDayActivity"/>
+                <action android:name="com.uni.kevintruong.flextime.SessionsDaysActivity"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>

@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
-import com.uni.kevintruong.flextime.managers.UnitLocationManager;
+import com.uni.kevintruong.flextime.managers.UnitManager;
 
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
@@ -63,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
 
     private void getCurrentLocation()
     {
-        this.currentLocation = UnitLocationManager.getInstance(this).getUnitLocation();
+        this.currentLocation = UnitManager.getInstance(this).getUnitLocation();
     }
 
     private void setUpMapIfNeeded()

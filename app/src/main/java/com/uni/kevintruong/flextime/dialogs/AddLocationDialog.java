@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
-import com.uni.kevintruong.flextime.managers.UnitLocationManager;
+import com.uni.kevintruong.flextime.managers.UnitManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
@@ -29,13 +29,13 @@ public class AddLocationDialog extends DialogFragment
     private EditText locationLatitude;
     private EditText locationLongitude;
     private EditText locationName;
-    private UnitLocationManager unitLocationManager;
+    private UnitManager unitManager;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        unitLocationManager = UnitLocationManager.getInstance(getActivity());
-        Location currentLocation = unitLocationManager.getUnitLocation();
+        unitManager = UnitManager.getInstance(getActivity());
+        Location currentLocation = unitManager.getUnitLocation();
         this.inflater = getActivity().getLayoutInflater();
         view = inflater.inflate(R.layout.dialog_add_location, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -2,9 +2,12 @@ package com.uni.kevintruong.flextime.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.managers.SessionManager;
 
 public class SessionsWeeksActivity extends AppCompatActivity
 {
@@ -36,5 +39,19 @@ public class SessionsWeeksActivity extends AppCompatActivity
         TextView mock6 = (TextView) findViewById(R.id.textMock6);
         mock6.setText("42h 27m");
 
+        //Mock
+        LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsMenuBtns);
+
+        Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
+        Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
+        Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
+        Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
+
+        SessionManager sm = SessionManager.getInstance();
+
+        singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", "single"));
+        daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", "days"));
+        monthsBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsMonthsActivity", "months"));
     }
+
 }

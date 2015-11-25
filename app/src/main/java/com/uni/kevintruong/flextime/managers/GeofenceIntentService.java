@@ -27,7 +27,7 @@ import java.util.List;
 public class GeofenceIntentService extends IntentService
 {
     private final String TAG = this.getClass().getCanonicalName();
-    private TransitionManager tm = TransitionManager.getInstance();
+    private SessionManager tm = SessionManager.getInstance();
 
     public GeofenceIntentService()
     {
@@ -60,7 +60,6 @@ public class GeofenceIntentService extends IntentService
             GeofencingEvent geoFenceEvent = GeofencingEvent.fromIntent(intent);
             DatabaseManager db = DatabaseManager.getInstance(getApplicationContext());
             Calendar cl = new GregorianCalendar();
-
 
             switch (transition)
             {
