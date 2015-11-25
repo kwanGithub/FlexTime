@@ -39,12 +39,34 @@ public class SessionsSingleActivity extends AppCompatActivity
 
         //TODO fixa mockarna
         Button dayBtn = (Button)includedLayout.findViewById(R.id.sessionDay);
+        Button weeksBtn = (Button)includedLayout.findViewById(R.id.sessionWeeks);
+        Button monthsBtn = (Button)includedLayout.findViewById(R.id.sessionMonths);
+
+
         dayBtn.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 Toast.makeText(getApplicationContext(), "Day Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        weeksBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "Weeks Selected", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        monthsBtn.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(getApplicationContext(), "Months Selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
