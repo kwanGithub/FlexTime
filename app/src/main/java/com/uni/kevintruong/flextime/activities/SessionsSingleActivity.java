@@ -1,5 +1,6 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,40 +36,34 @@ public class SessionsSingleActivity extends AppCompatActivity
         sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);
 
-        LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsBtns);
+        LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsSingleBtns);
 
-        //TODO fixa mockarna
-        Button dayBtn = (Button)includedLayout.findViewById(R.id.sessionDay);
-        Button weeksBtn = (Button)includedLayout.findViewById(R.id.sessionWeeks);
-        Button monthsBtn = (Button)includedLayout.findViewById(R.id.sessionMonths);
+        //MOCK
+        Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
+        Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
+        Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
+        daysBtn.setOnClickListener(startActivityListener("com.uni.kevintruong.flextime.SessionsDayActivity", "days"));
+        weeksBtn.setOnClickListener(startActivityListener("com.uni.kevintruong.flextime.SessionsWeeksActivity", "weeks"));
+        monthsBtn.setOnClickListener(startActivityListener("com.uni.kevintruong.flextime.SessionsMonthsActivity", "months"));
 
-        dayBtn.setOnClickListener(new View.OnClickListener()
+    }
+
+    private View.OnClickListener startActivityListener(final String activity, final String toastMessage)
+    {
+        View.OnClickListener listener = new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getApplicationContext(), "Day Selected", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(intent);
             }
-        });
+        };
 
-        weeksBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(getApplicationContext(), "Weeks Selected", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        monthsBtn.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Toast.makeText(getApplicationContext(), "Months Selected", Toast.LENGTH_SHORT).show();
-            }
-        });
+        return listener;
     }
 
     private Session[] mapListToArray(ArrayList<Session> sessions)

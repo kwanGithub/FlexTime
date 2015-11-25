@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
                 switch (item.getItemId())
                 {
                     case R.id.option_Pause:
-                        Toast.makeText(getApplicationContext(), "Pause", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Stop Monitoring", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_AddLocation:
                         Toast.makeText(getApplicationContext(), "Add Location", Toast.LENGTH_SHORT).show();

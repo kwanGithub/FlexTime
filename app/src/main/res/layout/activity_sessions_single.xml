@@ -23,5 +23,5 @@
         android:background="#212121"/>
 
    <include layout="@layout/sessions_options"
-            android:id="@+id/includedSessionsBtns" />
+            android:id="@+id/includedSessionsSingleBtns" />
 </LinearLayout>

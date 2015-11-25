@@ -12,6 +12,6 @@ public class SessionsDayActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sessions_day);
+        setContentView(R.layout.activity_sessions_mock);
     }
 }

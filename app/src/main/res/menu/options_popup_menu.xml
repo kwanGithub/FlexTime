@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/option_Pause"
-        android:title="Pause"/>
+        android:title="Stop Monitoring"/>
     <item
         android:id="@+id/option_AddLocation"
         android:title="Add Location"/>
@@ -12,5 +12,4 @@
     <item
         android:id="@+id/option_Map"
         android:title="Map"/>
-
 </menu>
