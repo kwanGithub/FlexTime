@@ -20,7 +20,6 @@ import com.uni.kevintruong.flextime.managers.UnitLocationManager;
 
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
-
     private GoogleMap googleMap;
     private Location currentLocation;
     private DatabaseManager db;
@@ -44,7 +43,6 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     @Override
     protected void onStop()
     {
-        // this.geofenceManager.disconnect();
         super.onStop();
     }
 

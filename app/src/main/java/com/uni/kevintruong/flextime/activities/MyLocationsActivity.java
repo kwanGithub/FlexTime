@@ -20,7 +20,6 @@ import java.util.ArrayList;
 
 public class MyLocationsActivity extends AppCompatActivity
 {
-    private ListView myLocationsListView;
     private DatabaseManager db;
 
     @Override
@@ -34,9 +33,8 @@ public class MyLocationsActivity extends AppCompatActivity
         GeoLocation[] geoLocationsArray = mapListToArray(this.db.getGeoLocations());
         ListAdapter geoLocationAdapter = new GeoLocationAdapter(this, geoLocationsArray);
 
-        myLocationsListView = (ListView) findViewById(R.id.myLocationList);
+        ListView myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(geoLocationAdapter);
-
         myLocationsListView.setOnItemClickListener(handleListViewItemClick());
     }
 

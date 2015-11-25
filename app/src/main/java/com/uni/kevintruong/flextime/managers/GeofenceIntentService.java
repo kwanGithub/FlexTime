@@ -26,7 +26,6 @@ import java.util.List;
 
 public class GeofenceIntentService extends IntentService
 {
-
     private final String TAG = this.getClass().getCanonicalName();
     private TransitionManager tm = TransitionManager.getInstance();
 
