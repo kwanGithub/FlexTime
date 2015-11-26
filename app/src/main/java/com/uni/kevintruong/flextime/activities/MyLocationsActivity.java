@@ -49,20 +49,21 @@ public class MyLocationsActivity extends AppCompatActivity
                 try
                 {
                     geoLocation.setSessions(db.getSessions(geoLocation.getId()));
+                    ArrayList<Session> sessions = geoLocation.getSessions();
+
+                    Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsSingleActivity");
+                    sessionsIntent.putParcelableArrayListExtra("sessions", sessions);
+                    sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(sessionsIntent);
+
+                    Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
                 } catch (ParseException e)
                 {
                     e.printStackTrace();
+                } catch (Exception ex)
+                {
+                   ex.printStackTrace();
                 }
-
-                ArrayList<Session> sessions = geoLocation.getSessions();
-
-                Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsSingleActivity");
-                sessionsIntent.putParcelableArrayListExtra("sessions", sessions);
-                sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getApplicationContext().startActivity(sessionsIntent);
-
-                Toast.makeText(getBaseContext(), position + " " + parent.getItemAtPosition(position) + " is selected", Toast.LENGTH_SHORT).show();
-
             }
         };
 

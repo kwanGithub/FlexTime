@@ -5,11 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -169,7 +167,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         dbString += "\n";
         dbString += c.getString(c.getColumnIndex("geolocationId_fk"));
         dbString += "\n";
-
 
         db.close();
         return dbString;

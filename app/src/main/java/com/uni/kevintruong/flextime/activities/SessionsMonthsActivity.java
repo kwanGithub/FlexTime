@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.SessionManager;
+import com.uni.kevintruong.flextime.models.Session;
+
+import java.util.ArrayList;
 
 public class SessionsMonthsActivity extends AppCompatActivity
 {
@@ -17,6 +20,8 @@ public class SessionsMonthsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions_mock);
+
+        ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("sessions");
 
         TextView mockTitle = (TextView) findViewById(R.id.mockTitle);
         mockTitle.setText("2015");
@@ -49,9 +54,9 @@ public class SessionsMonthsActivity extends AppCompatActivity
 
         SessionManager sm = SessionManager.getInstance();
 
-        singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", "single"));
-        daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", "days"));
-        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", "weeks"));
+        singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", sessionsArrayList, "single"));
+        daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", sessionsArrayList, "days"));
+        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList, "weeks"));
 
     }
 }
