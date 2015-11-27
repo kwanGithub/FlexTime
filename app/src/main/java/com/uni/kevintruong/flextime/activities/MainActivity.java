@@ -1,5 +1,4 @@
 package com.uni.kevintruong.flextime.activities;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,21 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
-
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.dialogs.AddLocationDialog;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
+/**
+ * ViewModel of the main activity
+ */
 public class MainActivity extends AppCompatActivity
 {
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         DatabaseManager db;
         db = DatabaseManager.getInstance(this);
@@ -32,6 +31,9 @@ public class MainActivity extends AppCompatActivity
         OnClickOptionsBtnListener();
     }
 
+    /**
+     * OnClickLister for option button
+     */
     public void OnClickOptionsBtnListener()
     {
         Button optionsBtn = (Button) findViewById(R.id.mainOptionsBtn);
@@ -47,6 +49,10 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * Displays option menu for a View
+     * @param view the view you want to display the menu for
+     */
     public void showOptionsMenuPopUp(View view)
     {
         PopupMenu optionsPopupMenu = new PopupMenu(this, view);
@@ -56,12 +62,19 @@ public class MainActivity extends AppCompatActivity
         optionsPopupMenu.show();
     }
 
+    /**
+     * Creates addLocation dialog
+     */
     private void addLocationDialog()
     {
         AddLocationDialog addLocationDialog = new AddLocationDialog();
         addLocationDialog.show(getFragmentManager(), "Add Location Dialog");
     }
 
+    /**
+     * Handles menu options
+     * @return PopMenuOnMenuItemOnClickListener
+     */
     private PopupMenu.OnMenuItemClickListener handlePopupMenuClick()
     {
         PopupMenu.OnMenuItemClickListener onMenuItemClickListener = new PopupMenu.OnMenuItemClickListener()
@@ -75,7 +88,8 @@ public class MainActivity extends AppCompatActivity
                         Toast.makeText(getApplicationContext(), "Stop Monitoring", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_AddLocation:
-                        Toast.makeText(getApplicationContext(), "Add Location", Toast.LENGTH_SHORT).show();
+                        // No functionality not implemented for prototype
+                        Toast.makeText(getApplicationContext(), "Add Location ! Function not implemented yet!", Toast.LENGTH_SHORT).show();
                         addLocationDialog();
                         return true;
                     case R.id.option_MyLocations:

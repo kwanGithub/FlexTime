@@ -18,19 +18,22 @@ import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.managers.UnitManager;
 
+/**
+ * ViewModel of the googleMap activity
+ */
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
-    private GoogleMap googleMap;
-    private Location currentLocation;
-    private DatabaseManager db;
+    private GoogleMap _googleMap;
+    private Location _currentLocation;
+    private DatabaseManager _db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        //Initialize properties
-        this.db = DatabaseManager.getInstance(this);
+
+        _db = DatabaseManager.getInstance(this);
         getCurrentLocation();
     }
 
@@ -61,23 +64,23 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         }
     }
 
+
     private void getCurrentLocation()
     {
-        this.currentLocation = UnitManager.getInstance(this).getUnitLocation();
+        _currentLocation = UnitManager.getInstance(this).getUnitLocation();
     }
 
+    /**
+     * Obtains a googleMap
+     */
     private void setUpMapIfNeeded()
     {
-        // Do a null check to confirm that we have not already instantiated the
-        // map.
-        if (this.googleMap == null)
+        if (_googleMap == null)
         {
-            // Try to obtain the map from the SupportMapFragment.
-            this.googleMap = ((SupportMapFragment) getSupportFragmentManager()
+            _googleMap = ((SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map)).getMap();
 
-            // Check if we were successful in obtaining the map.
-            if (this.googleMap != null)
+            if (_googleMap != null)
             {
                 setUpMap();
             }
@@ -85,25 +88,17 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     }
 
     /**
-     * This is where we can add markers or lines, add listeners or move the
-     * camera. In this case, we just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #googleMap}
-     * is not null.
+     * Creates a googleMap
      */
     private void setUpMap()
     {
-        // Centers the camera over the building and zooms int far enough to
-        // show the floor picker.
+        LatLng currentLocation = new LatLng(_currentLocation.getLatitude(), _currentLocation.getLongitude());
+        _googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
 
-        LatLng currentLocation = new LatLng(this.currentLocation.getLatitude(), this.currentLocation.getLongitude());
-        this.googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 14));
-
-        // Hide labels.
-        this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        this.googleMap.setIndoorEnabled(false);
-        this.googleMap.setMyLocationEnabled(true);
-        this.googleMap.setOnCameraChangeListener(this);
+        _googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        _googleMap.setIndoorEnabled(false);
+        _googleMap.setMyLocationEnabled(true);
+        _googleMap.setOnCameraChangeListener(this);
     }
 
     @Override
@@ -113,10 +108,10 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         getCurrentLocation();
 
         // Makes sure the visuals remain when zoom changes.
-        for (int i = 0; i < this.db.getGeoLocations().size(); i++)
+        for (int i = 0; i < _db.getGeoLocations().size(); i++)
         {
-            this.googleMap.addCircle(new CircleOptions().center(this.db.getGeoLocations().get(i).getCoordinates())
-                    .radius(this.db.getGeoLocations().get(i).getRadius())
+            _googleMap.addCircle(new CircleOptions().center(_db.getGeoLocations().get(i).getCoordinates())
+                    .radius(_db.getGeoLocations().get(i).getRadius())
                     .fillColor(0x40ff0000)
                     .strokeColor(Color.TRANSPARENT).strokeWidth(2));
         }

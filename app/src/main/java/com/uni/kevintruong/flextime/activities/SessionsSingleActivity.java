@@ -25,11 +25,10 @@ public class SessionsSingleActivity extends AppCompatActivity
 
         ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("sessions");
 
-        Session[] sessionsArray = mapListToArray(sessionsArrayList);
+        Session[] sessionsArray = sessionsArrayList.toArray(new Session[sessionsArrayList.size()]);
         ListAdapter sessionsAdapter = new SessionAdapter(this, sessionsArray);
 
         ListView sessionsListView = (ListView) findViewById(R.id.sessionsListView);
-
         View headerView = View.inflate(this, R.layout.session_row, null);
 
         sessionsListView.addHeaderView(headerView);
@@ -45,20 +44,7 @@ public class SessionsSingleActivity extends AppCompatActivity
         SessionManager sm = SessionManager.getInstance();
 
         daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", sessionsArrayList, "days"));
-        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList,  "weeks"));
+        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList, "weeks"));
         monthsBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsMonthsActivity", sessionsArrayList, "months"));
-
-    }
-
-    private Session[] mapListToArray(ArrayList<Session> sessions)
-    {
-        Session[] temp = new Session[sessions.size()];
-
-        for (int i = 0; i < sessions.size(); i++)
-        {
-            temp[i] = sessions.get(i);
-        }
-
-        return temp;
     }
 }

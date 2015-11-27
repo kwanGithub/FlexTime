@@ -16,8 +16,8 @@ import android.support.annotation.Nullable;
 public class UnitManager extends Service implements LocationListener
 {
     private static UnitManager instance;
-    private Context context;
-    private Location unitLocation;
+    private Context _context;
+    private Location _unitLocation;
 
     protected LocationManager locationManager;
 
@@ -39,13 +39,13 @@ public class UnitManager extends Service implements LocationListener
 
     private UnitManager(Context context)
     {
-        this.context = context;
+        _context = context;
     }
 
     public Location getUnitLocation()
     {
         getLocation();
-        return this.unitLocation;
+        return _unitLocation;
     }
 
     private void getLocation()
@@ -53,7 +53,7 @@ public class UnitManager extends Service implements LocationListener
         Location location = null;
         try
         {
-            locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+            locationManager = (LocationManager) _context.getSystemService(LOCATION_SERVICE);
 
             isGPSEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
@@ -94,7 +94,7 @@ public class UnitManager extends Service implements LocationListener
             e.printStackTrace();
         }
 
-        this.unitLocation = location;
+        _unitLocation = location;
     }
     @Override
     public void onLocationChanged(Location location)

@@ -22,36 +22,31 @@ import com.uni.kevintruong.flextime.models.GeoLocation;
  */
 public class AddLocationDialog extends DialogFragment
 {
-
-    private LayoutInflater inflater;
-    private View view;
-    private TextView locationTitle;
-    private EditText locationLatitude;
-    private EditText locationLongitude;
-    private EditText locationName;
-    private UnitManager unitManager;
+    private EditText _locationLatitude;
+    private EditText _locationLongitude;
+    private EditText _locationName;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        unitManager = UnitManager.getInstance(getActivity());
+        UnitManager unitManager = UnitManager.getInstance(getActivity());
         Location currentLocation = unitManager.getUnitLocation();
-        this.inflater = getActivity().getLayoutInflater();
-        view = inflater.inflate(R.layout.dialog_add_location, null);
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_add_location, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        locationTitle = (TextView) view.findViewById(R.id.locationTitle);
-        locationName =  (EditText) view.findViewById(R.id.locationName);
-        locationLatitude = (EditText) view.findViewById(R.id.locationLatitude);
-        locationLongitude = (EditText) view.findViewById(R.id.locationLongitude);
+        TextView locationTitle = (TextView) view.findViewById(R.id.locationTitle);
+        _locationName =  (EditText) view.findViewById(R.id.locationName);
+        _locationLatitude = (EditText) view.findViewById(R.id.locationLatitude);
+        _locationLongitude = (EditText) view.findViewById(R.id.locationLongitude);
 
         locationTitle.setText("Add current location or custom location by editing latitude and longitude values");
-        locationName.setHint("Enter Location Name");
-        locationLatitude.setHint("Enter Latitude");
-        locationLongitude.setHint("Enter Longitude");
+        _locationName.setHint("Enter Location Name");
+        _locationLatitude.setHint("Enter Latitude");
+        _locationName.setHint("Enter Longitude");
 
-        locationLatitude.setText(String.valueOf(currentLocation.getLatitude()));
-        locationLongitude.setText(String.valueOf(currentLocation.getLongitude()));
+        _locationLatitude.setText(String.valueOf(currentLocation.getLatitude()));
+        _locationName.setText(String.valueOf(currentLocation.getLongitude()));
 
         builder.setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener()
         {
@@ -60,9 +55,9 @@ public class AddLocationDialog extends DialogFragment
             {
                 DatabaseManager db = DatabaseManager.getInstance(getActivity());
 
-                double lat = Double.parseDouble(String.valueOf(locationLatitude.getText()));
-                double lng = Double.parseDouble(String.valueOf(locationLongitude.getText()));
-                db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, locationName.getText().toString(), lat, lng, 100));
+                double lat = Double.parseDouble(String.valueOf(_locationLatitude.getText()));
+                double lng = Double.parseDouble(String.valueOf(_locationName.getText()));
+                db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
                 Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener()

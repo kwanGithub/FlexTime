@@ -29,12 +29,12 @@ import java.util.ArrayList;
         private static GeofenceManager instance;
         private final String TAG = this.getClass().getSimpleName();
 
-        private Context context;
-        private GoogleApiClient googleApiClient;
-        private PendingIntent pendingIntent;
-        private ArrayList<Geofence> geofences;
-        private GeofencingRequest geofencingRequest;
-        private LocationRequest locationRequest;
+        private Context _context;
+        private GoogleApiClient _googleApiClient;
+        private PendingIntent _pendingIntent;
+        private ArrayList<Geofence> _geofences;
+        //private GeofencingRequest _geofencingRequest;
+        private LocationRequest _locationRequest;
 
     public static synchronized GeofenceManager getInstance(Context context, ArrayList<Geofence> geofences )
     {
@@ -52,32 +52,32 @@ import java.util.ArrayList;
          * @param geofences List of geofences to monitor.
          */
         private GeofenceManager(Context context, ArrayList<Geofence> geofences) {
-            this.context = context;
-            this.geofences = new ArrayList<>(geofences);
-            pendingIntent = null;
+            _context = context;
+            _geofences = new ArrayList<>(geofences);
+            _pendingIntent = null;
 
             // Build a new GoogleApiClient, specify that we want to use LocationServices
             // by adding the API to the client, specify the connection callbacks are in
             // this class as well as the OnConnectionFailed method.
-            this.googleApiClient = new GoogleApiClient.Builder(context)
+            _googleApiClient = new GoogleApiClient.Builder(context)
                     .addApi(LocationServices.API).addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this).build();
 
             // This is purely optional and has nothing to do with geofencing.
             // I added this as a way of debugging.
             // Define the LocationRequest.
-            this.locationRequest = new LocationRequest();
+            _locationRequest = new LocationRequest();
             // We want a location update every 10 seconds.
-            this.locationRequest.setInterval(10000);
+            _locationRequest.setInterval(10000);
             // We want the location to be as accurate as possible.
-            this.locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-            this.googleApiClient.connect();
+            _googleApiClient.connect();
         }
 
         public void disconnect()
         {
-            this.googleApiClient.disconnect();
+            _googleApiClient.disconnect();
         }
 
         @Override
@@ -105,20 +105,20 @@ import java.util.ArrayList;
             // We're connected, now we need to create a GeofencingRequest with
             // the geofences we have stored.
             try {
-                this.geofencingRequest = new GeofencingRequest.Builder().addGeofences(
-                        this.geofences).build();
+                GeofencingRequest  geofencingRequest = new GeofencingRequest.Builder().addGeofences(
+                        _geofences).build();
 
-                this.pendingIntent = createRequestPendingIntent();
+                _pendingIntent = createRequestPendingIntent();
 
                 // This is for debugging only and does not affect
                 // geofencing.
                 LocationServices.FusedLocationApi.requestLocationUpdates(
-                        this.googleApiClient, this.locationRequest, this);
+                        _googleApiClient, _locationRequest, this);
 
                 // Submitting the request to monitor geofences.
                 PendingResult<Status> pendingResult = LocationServices.GeofencingApi
-                        .addGeofences(this.googleApiClient, this.geofencingRequest,
-                                this.pendingIntent);
+                        .addGeofences(_googleApiClient, geofencingRequest,
+                                _pendingIntent);
 
                 // Set the result callbacks listener to this class.
                 pendingResult.setResultCallback(this);
@@ -141,14 +141,14 @@ import java.util.ArrayList;
          * @return A PendingIntent that will handle geofence transitions.
          */
         private PendingIntent createRequestPendingIntent() {
-            if (this.pendingIntent == null) {
+            if (_pendingIntent == null) {
                 Log.v(TAG, "Creating PendingIntent");
-                Intent intent = new Intent(this.context, GeofenceIntentService.class);
-                this.pendingIntent = PendingIntent.getService(this.context, 0, intent,
+                Intent intent = new Intent(_context, GeofenceIntentService.class);
+                _pendingIntent = PendingIntent.getService(_context, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT);
             }
 
-            return pendingIntent;
+            return _pendingIntent;
         }
 
         @Override
