@@ -98,13 +98,15 @@ public class DatabaseManager extends SQLiteOpenHelper
     }
 
     /**
-     * Deletes geoLocation by its Id
+     * Deletes geoLocation by its Id and also removes the sessions connected to the id.
      * @param geoLocationId
      */
     public void deleteGeoLocation(int geoLocationId)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM geolocations WHERE id =" + geoLocationId + ";");
+
+        deleteSession(geoLocationId);
     }
 
     /**
@@ -132,11 +134,14 @@ public class DatabaseManager extends SQLiteOpenHelper
         db.close();
     }
 
-    // Wont be used for this version maybe later?
-    public void deleteSession(int sessionId)
+    /**
+     * Deletes all sessions realted to the getoLocationId
+     * @param geloactionId_fk
+     */
+    public void deleteSession(int geloactionId_fk)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM sessions WHERE geolocationId_fk =" + sessionId + ";");
+        db.execSQL("DELETE FROM sessions WHERE geolocationId_fk =" + geloactionId_fk + ";");
     }
 
     public ArrayList<Geofence> mapGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
