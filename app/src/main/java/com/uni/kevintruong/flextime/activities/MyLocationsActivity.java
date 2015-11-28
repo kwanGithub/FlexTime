@@ -39,7 +39,6 @@ public class MyLocationsActivity extends AppCompatActivity
         ListView myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(geoLocationAdapter);
         myLocationsListView.setOnItemClickListener(handleListViewItemClick());
-
     }
 
     /**

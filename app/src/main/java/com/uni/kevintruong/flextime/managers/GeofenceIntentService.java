@@ -68,18 +68,18 @@ public class GeofenceIntentService extends IntentService
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
                     tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
-                    Log.v(TAG, "Geofence Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = "Geofence Dwell";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    Log.v(TAG, "Dwelling in Geofence " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    Log.v(TAG, "Dwelling in " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     db.addSession(tm.endSession(cl.getTime()));
-                    Log.v(TAG, "Geofence Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    Log.v(TAG, "Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
