@@ -47,7 +47,7 @@ public class AddLocationDialog extends DialogFragment
         _locationName.setHint("Enter Longitude");
 
         _locationLatitude.setText(String.valueOf(currentLocation.getLatitude()));
-        _locationName.setText(String.valueOf(currentLocation.getLongitude()));
+        _locationLongitude.setText(String.valueOf(currentLocation.getLongitude()));
 
         builder.setView(view).setPositiveButton("OK", new DialogInterface.OnClickListener()
         {
@@ -57,7 +57,7 @@ public class AddLocationDialog extends DialogFragment
                 DatabaseManager db = DatabaseManager.getInstance(getActivity());
 
                 double lat = Double.parseDouble(String.valueOf(_locationLatitude.getText()));
-                double lng = Double.parseDouble(String.valueOf(_locationName.getText()));
+                double lng = Double.parseDouble(String.valueOf(_locationLongitude.getText()));
                 db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
                 Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
             }

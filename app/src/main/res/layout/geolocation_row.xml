@@ -2,13 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:descendantFocusability="blocksDescendants"
                 android:orientation="vertical">
 
     <TextView
         android:id="@+id/locationName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="32dp"
+        android:background="#212121"
         android:textColor="#33b5e5"
-        android:background="#212121"/>
+        android:textSize="32dp"/>
+
+    <Button
+        android:id="@+id/geoLocationDelete"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/locationName"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="84dp"
+        android:background="#212121"
+        android:text="Delete"
+        android:textColor="#FF4081"/>
+
 </RelativeLayout>

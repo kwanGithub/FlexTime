@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     // No functionality not implemented for prototype
                     case R.id.option_Pause:
-                        Toast.makeText(getApplicationContext(), "Stop Monitoring", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Stop Monitoring  ! Function not implemented yet!", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.option_AddLocation:
                         //Starts a dialog for the user to add a GeoLocation
-                        Toast.makeText(getApplicationContext(), "Add Location ! Function not implemented yet!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Add Location", Toast.LENGTH_SHORT).show();
                         addLocationDialog();
                         return true;
                     //Starts MyLocations activity

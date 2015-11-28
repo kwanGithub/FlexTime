@@ -1,4 +1,5 @@
 package com.uni.kevintruong.flextime.activities;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +8,13 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.adapters.GeoLocationAdapter;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -36,10 +39,12 @@ public class MyLocationsActivity extends AppCompatActivity
         ListView myLocationsListView = (ListView) findViewById(R.id.myLocationList);
         myLocationsListView.setAdapter(geoLocationAdapter);
         myLocationsListView.setOnItemClickListener(handleListViewItemClick());
+
     }
 
     /**
      * Set OnClickListener för listView
+     *
      * @return onItemClickListener
      */
     private AdapterView.OnItemClickListener handleListViewItemClick()
@@ -66,11 +71,12 @@ public class MyLocationsActivity extends AppCompatActivity
                     e.printStackTrace();
                 } catch (Exception ex)
                 {
-                   ex.printStackTrace();
+                    ex.printStackTrace();
                 }
             }
         };
 
         return onItemClickListener;
     }
+
 }
