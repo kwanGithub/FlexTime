@@ -10,6 +10,7 @@ import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
  * Created by kwan8 on 2015-11-17.
+ * Handles and Converts GeoLocation data to listRow
  */
 public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
 {

@@ -15,6 +15,9 @@ import com.uni.kevintruong.flextime.models.Session;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+/**
+ * Handles MyLocationsActivity
+ */
 public class MyLocationsActivity extends AppCompatActivity
 {
     private DatabaseManager _db;
@@ -35,6 +38,10 @@ public class MyLocationsActivity extends AppCompatActivity
         myLocationsListView.setOnItemClickListener(handleListViewItemClick());
     }
 
+    /**
+     * Set OnClickListener för listView
+     * @return onItemClickListener
+     */
     private AdapterView.OnItemClickListener handleListViewItemClick()
     {
         AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener()

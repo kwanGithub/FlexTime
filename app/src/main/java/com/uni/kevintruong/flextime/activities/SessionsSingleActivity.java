@@ -23,19 +23,22 @@ public class SessionsSingleActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sessions_single);
 
+        //Gets sessions of the clicked GeoLocation
         ArrayList<Session> sessionsArrayList = this.getIntent().getParcelableArrayListExtra("sessions");
 
         Session[] sessionsArray = sessionsArrayList.toArray(new Session[sessionsArrayList.size()]);
+        //Sets the sessionList with data
         ListAdapter sessionsAdapter = new SessionAdapter(this, sessionsArray);
 
         ListView sessionsListView = (ListView) findViewById(R.id.sessionsListView);
         View headerView = View.inflate(this, R.layout.session_row, null);
-
+        //Adds a header to the listView
         sessionsListView.addHeaderView(headerView);
         sessionsListView.setAdapter(sessionsAdapter);
 
         LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsMenuBtns);
 
+        //TODO: Add highlighting to the current Activity
         Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
         Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);

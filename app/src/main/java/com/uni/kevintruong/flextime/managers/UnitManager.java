@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by kwan8 on 2015-11-01.
+ * Handles device gps and network location services
  */
 public class UnitManager extends Service implements LocationListener
 {
@@ -48,9 +49,13 @@ public class UnitManager extends Service implements LocationListener
         return _unitLocation;
     }
 
+    /**
+     * Gets current location
+     */
     private void getLocation()
     {
         Location location = null;
+        //Checks if gps and network of the device is availabe
         try
         {
             locationManager = (LocationManager) _context.getSystemService(LOCATION_SERVICE);

@@ -12,10 +12,10 @@ import java.util.Date;
 
 /**
  * Created by kwan8 on 2015-11-21.
+ * Handles the creation of Sessions and adds buttonListner for the session stats buttons
  */
 public class SessionManager
 {
-
     private static SessionManager instance;
     private Session currentSession;
 

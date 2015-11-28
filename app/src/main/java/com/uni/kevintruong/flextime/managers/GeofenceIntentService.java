@@ -89,6 +89,12 @@ public class GeofenceIntentService extends IntentService
         }
     }
 
+    /**
+     * Displays notification on the unit
+     * @param context
+     * @param notificationText to display
+     * @param notificationTitle to display
+     */
     private void sendNotification(Context context, String notificationText,
                                   String notificationTitle)
     {
@@ -111,6 +117,11 @@ public class GeofenceIntentService extends IntentService
         wakeLock.release();
     }
 
+    /**
+     * Display triggerd geoFences
+     * @param intent
+     * @return string of geoFence
+     */
     private String getTriggeringGeofences(Intent intent)
     {
         GeofencingEvent geofenceEvent = GeofencingEvent.fromIntent(intent);

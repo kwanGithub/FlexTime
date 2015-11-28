@@ -19,6 +19,7 @@ import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
  * Created by kwan8 on 2015-11-15.
+ * Handles the addLocation dialog
  */
 public class AddLocationDialog extends DialogFragment
 {

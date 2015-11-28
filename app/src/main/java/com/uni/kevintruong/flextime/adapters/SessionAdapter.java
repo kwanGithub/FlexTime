@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Created by kwan8 on 2015-11-17.
+ * Handles and Converts Sessions data to sessionsRow layout
  */
 public class SessionAdapter extends ArrayAdapter<Session>
 {

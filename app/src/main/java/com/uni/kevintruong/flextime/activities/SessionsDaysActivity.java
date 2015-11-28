@@ -1,16 +1,16 @@
 package com.uni.kevintruong.flextime.activities;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
-
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.util.ArrayList;
 
+/**
+ * Handles SessionMonthsActivity
+ */
 public class SessionsDaysActivity extends AppCompatActivity
 {
 
@@ -26,6 +26,7 @@ public class SessionsDaysActivity extends AppCompatActivity
         LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsMenuBtns);
 
         Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
+        //TODO: Add highlighting to the current Activity
         Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
