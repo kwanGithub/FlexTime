@@ -62,17 +62,10 @@ public class AddLocationDialog extends DialogFragment
                 db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
                 Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
 
+                //Start intentService after we have our first location
                 GeofenceManager.getInstance(getActivity(), db.mapGeolocationsToGeofences(db.getGeoLocations()));
-
             }
-        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-
-            }
-        });
+        }).setNegativeButton("CANCEL", null);
 
         return builder.create();
     }
