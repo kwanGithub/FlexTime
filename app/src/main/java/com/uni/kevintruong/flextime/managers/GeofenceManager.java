@@ -1,12 +1,10 @@
 package com.uni.kevintruong.flextime.managers;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -17,7 +15,6 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-
 import java.util.ArrayList;
 
 /**
@@ -59,19 +56,14 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
         _pendingIntent = null;
 
         // Build a new GoogleApiClient, specify that we want to use LocationServices
-        // by adding the API to the client, specify the connection callbacks are in
-        // this class as well as the OnConnectionFailed method.
         _googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API).addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this).build();
 
-        // This is purely optional and has nothing to do with geofencing.
-        // I added this as a way of debugging.
-        // Define the LocationRequest.
         _locationRequest = new LocationRequest();
-        // We want a location update every 10 seconds.
+        //updates every 10 seconds.
         _locationRequest.setInterval(10000);
-        // We want the location to be as accurate as possible.
+        //sets locationRequest accuracy.
         _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         _googleApiClient.connect();
@@ -109,7 +101,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnected(Bundle connectionHint)
     {
-        // We're connected, now we need to create a GeofencingRequest with the geofences we have stored.
         try
         {
             GeofencingRequest geofencingRequest = new GeofencingRequest.Builder().addGeofences(
@@ -121,17 +112,15 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     _googleApiClient, _locationRequest, this);
 
-            // Submitting the request to monitor geofences.
             PendingResult<Status> pendingResult = LocationServices.GeofencingApi
                     .addGeofences(_googleApiClient, geofencingRequest,
                             _pendingIntent);
 
-            // Set the result callbacks listener to this class.
             pendingResult.setResultCallback(this);
 
         } catch (IllegalArgumentException ex)
         {
-            //do nothing
+            ex.printStackTrace();
         }
     }
 
@@ -143,8 +132,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 
     /**
      * This creates a PendingIntent that is to be fired when geofence transitions
-     * take place. In this instance, we are using an IntentService to handle the
-     * transitions.
+     * take place.
      *
      * @return A PendingIntent that will handle geofence transitions.
      */
