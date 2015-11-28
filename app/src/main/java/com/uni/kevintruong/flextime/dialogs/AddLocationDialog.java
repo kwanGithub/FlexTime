@@ -45,7 +45,7 @@ public class AddLocationDialog extends DialogFragment
         locationTitle.setText("Add current location or custom location by editing latitude and longitude values");
         _locationName.setHint("Enter Location Name");
         _locationLatitude.setHint("Enter Latitude");
-        _locationName.setHint("Enter Longitude");
+        _locationLongitude.setHint("Enter Longitude");
 
         _locationLatitude.setText(String.valueOf(currentLocation.getLatitude()));
         _locationLongitude.setText(String.valueOf(currentLocation.getLongitude()));
