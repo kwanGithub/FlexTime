@@ -45,7 +45,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 
     /**
      * Constructs a new GeofenceManager.
-     *
      * @param context   The context to use.
      * @param geofences List of geofences to monitor.
      */
@@ -108,7 +107,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 
             _pendingIntent = createRequestPendingIntent();
 
-            // This is for debugging only and does not affect geofencing.
             LocationServices.FusedLocationApi.requestLocationUpdates(
                     _googleApiClient, _locationRequest, this);
 

@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             {
                 switch (item.getItemId())
                 {
-                    // No functionality not implemented for prototype
+                    // No functionality implemented for prototype
                     case R.id.option_Pause:
                         Toast.makeText(getApplicationContext(), "Stop Monitoring  ! Function not implemented yet!", Toast.LENGTH_SHORT).show();
                         return true;
