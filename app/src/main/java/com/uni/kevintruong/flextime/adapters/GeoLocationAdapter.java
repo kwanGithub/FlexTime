@@ -65,8 +65,10 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
                                 Toast.makeText(tcontext, "Deleted " + currentGeoLocation.getName(), Toast.LENGTH_SHORT).show();
                                 //Reloads list by restarting myLocations activity
                                 Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");
+                                myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 myLocationsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 tcontext.startActivity(myLocationsIntent);
+
                             }
                         })
                         .setNegativeButton("No", null)
