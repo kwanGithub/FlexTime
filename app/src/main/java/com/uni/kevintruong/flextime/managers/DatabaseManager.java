@@ -56,7 +56,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     /**
      * If table entities are changed or updated with new ones we need to drop the old one
      *
-     * @param db         the db we are updating
+     * @param db the db we are updating
      * @param oldVersion db version
      * @param newVersion db version
      */

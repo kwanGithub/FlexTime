@@ -15,6 +15,8 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.uni.kevintruong.flextime.services.GeofenceIntentService;
+
 import java.util.ArrayList;
 
 /**

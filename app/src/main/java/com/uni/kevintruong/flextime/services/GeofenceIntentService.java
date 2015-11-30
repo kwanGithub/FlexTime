@@ -1,4 +1,4 @@
-package com.uni.kevintruong.flextime.managers;
+package com.uni.kevintruong.flextime.services;
 
 import android.app.IntentService;
 import android.app.Notification;
@@ -13,6 +13,8 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
+import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 import java.util.Calendar;

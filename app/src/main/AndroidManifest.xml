@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".managers.GeofenceIntentService"/>
+        <service android:name=".services.GeofenceIntentService"/>
 
         <activity android:name=".activities.MainActivity">
             <intent-filter>
