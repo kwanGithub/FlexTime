@@ -5,7 +5,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.SessionManager;
+import com.uni.kevintruong.flextime.managers.TransitionManager;
 import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class SessionsMonthsActivity extends AppCompatActivity
         //TODO: Add highlighting to the current Activity
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
-        SessionManager sm = SessionManager.getInstance();
+        TransitionManager sm = TransitionManager.getInstance();
 
         singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", sessionsArrayList, "single"));
         daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", sessionsArrayList, "days"));

@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.adapters.SessionAdapter;
-import com.uni.kevintruong.flextime.managers.SessionManager;
+import com.uni.kevintruong.flextime.managers.TransitionManager;
 import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class SessionsSingleActivity extends AppCompatActivity
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
-        SessionManager sm = SessionManager.getInstance();
+        TransitionManager sm = TransitionManager.getInstance();
 
         daysBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsDaysActivity", sessionsArrayList, "days"));
         weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList, "weeks"));

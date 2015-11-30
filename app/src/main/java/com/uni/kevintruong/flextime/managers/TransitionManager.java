@@ -14,29 +14,29 @@ import java.util.Date;
  * Created by kwan8 on 2015-11-21.
  * Handles the creation of Sessions and adds buttonListner for the session stats buttons
  */
-public class SessionManager
+public class TransitionManager
 {
-    private static SessionManager instance;
-    private Session currentSession;
+    private static TransitionManager instance;
+    private Session _currentSession;
 
-    public static synchronized SessionManager getInstance()
+    public static synchronized TransitionManager getInstance()
     {
         if (instance == null)
         {
-            instance = new SessionManager();
+            instance = new TransitionManager();
         }
         return instance;
     }
 
     public Session startSession(String name, Date enter, int geoLocationId)
     {
-      return this.currentSession = new Session(name, enter, geoLocationId);
+      return _currentSession = new Session(name, enter, geoLocationId);
     }
 
     public Session endSession(Date exit)
     {
-        this.currentSession.setExit(exit);
-        return this.currentSession;
+        _currentSession.setExit(exit);
+        return _currentSession ;
     }
 
     public View.OnClickListener sessionsBtnListener(final Context context, final String activity, final ArrayList<Session> sessions, final String toastMessage)

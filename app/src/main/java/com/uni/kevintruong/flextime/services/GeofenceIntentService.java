@@ -14,7 +14,7 @@ import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.DatabaseManager;
-import com.uni.kevintruong.flextime.managers.SessionManager;
+import com.uni.kevintruong.flextime.managers.TransitionManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 import java.util.Calendar;
@@ -29,7 +29,7 @@ import java.util.List;
 public class GeofenceIntentService extends IntentService
 {
     private final String TAG = this.getClass().getCanonicalName();
-    private SessionManager tm = SessionManager.getInstance();
+    private TransitionManager _tm = TransitionManager.getInstance();
 
     public GeofenceIntentService()
     {
@@ -69,7 +69,7 @@ public class GeofenceIntentService extends IntentService
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                    tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
+                    _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
                     Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
@@ -80,7 +80,7 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    db.addSession(tm.endSession(cl.getTime()));
+                    db.addSession(_tm.endSession(cl.getTime()));
                     Log.v(TAG, "Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
