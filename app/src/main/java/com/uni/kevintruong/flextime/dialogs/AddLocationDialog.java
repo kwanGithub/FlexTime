@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 import com.uni.kevintruong.flextime.managers.UnitManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
@@ -55,15 +55,15 @@ public class AddLocationDialog extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                DatabaseManager db = DatabaseManager.getInstance(getActivity());
+                GeoLocationManager gm = new GeoLocationManager(getActivity());
 
                 double lat = Double.parseDouble(String.valueOf(_locationLatitude.getText()));
                 double lng = Double.parseDouble(String.valueOf(_locationLongitude.getText()));
-                db.addGeoLocation(new GeoLocation(db.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
-                Toast.makeText(getActivity(),"Added " + db.databaseToString() , Toast.LENGTH_LONG).show();
+                gm.addGeoLocation(new GeoLocation(gm.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
+                Toast.makeText(getActivity(),"Added " , Toast.LENGTH_LONG).show();
 
                 //Start intentService after we have our first location
-                GeofenceManager.getInstance(getActivity(), db.mapGeolocationsToGeofences(db.getGeoLocations()));
+                GeofenceManager.getInstance(getActivity(), gm.getGeofences());
             }
         }).setNegativeButton("CANCEL", null);
 

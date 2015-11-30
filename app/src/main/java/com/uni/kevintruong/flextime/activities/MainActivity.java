@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.dialogs.AddLocationDialog;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
 /**
@@ -24,12 +25,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseManager db = DatabaseManager.getInstance(this);
+        GeoLocationManager gm = new GeoLocationManager(this);
 
         //Dont start intentService if we dont have any Location stored
-        if(db.getGeoLocations().size() != 0)
+        if(gm.getGeoLocations().size() != 0)
         {
-            GeofenceManager.getInstance(this, db.mapGeolocationsToGeofences(db.getGeoLocations()));
+            GeofenceManager.getInstance(this, gm.getGeofences());
         }
 
         OnClickOptionsBtnListener();

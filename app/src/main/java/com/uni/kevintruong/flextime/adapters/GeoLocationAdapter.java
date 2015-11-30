@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
@@ -61,7 +61,8 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
                             @Override
                             public void onClick(DialogInterface dialog, int which)
                             {
-                                DatabaseManager.getInstance(context).deleteGeoLocation(currentGeoLocation.getId());
+                                GeoLocationManager gm = new GeoLocationManager(context);
+                                gm.deleteGeoLocation(currentGeoLocation.getId());
                                 Toast.makeText(tcontext, "Deleted " + currentGeoLocation.getName(), Toast.LENGTH_SHORT).show();
                                 //Reloads list by restarting myLocations activity
                                 Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");

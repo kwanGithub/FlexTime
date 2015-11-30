@@ -3,6 +3,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -13,7 +14,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.UnitManager;
 
 /**
@@ -23,7 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
 {
     private GoogleMap _googleMap;
     private Location _currentLocation;
-    private DatabaseManager _db;
+    private GeoLocationManager _gm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +32,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        _db = DatabaseManager.getInstance(this);
+        _gm = new GeoLocationManager(this);
         getCurrentLocation();
     }
 
@@ -105,10 +106,10 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         getCurrentLocation();
 
         // Makes sure the visuals remain when zoom changes.
-        for (int i = 0; i < _db.getGeoLocations().size(); i++)
+        for (int i = 0; i < _gm.getGeoLocations().size(); i++)
         {
-            _googleMap.addCircle(new CircleOptions().center(_db.getGeoLocations().get(i).getCoordinates())
-                    .radius(_db.getGeoLocations().get(i).getRadius())
+            _googleMap.addCircle(new CircleOptions().center(_gm.getGeoLocations().get(i).getCoordinates())
+                    .radius(_gm.getGeoLocations().get(i).getRadius())
                     .fillColor(0x40ff0000)
                     .strokeColor(Color.TRANSPARENT).strokeWidth(2));
         }

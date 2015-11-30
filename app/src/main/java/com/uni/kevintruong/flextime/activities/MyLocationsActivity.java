@@ -11,7 +11,8 @@ import android.widget.Toast;
 
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.adapters.GeoLocationAdapter;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
+import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  */
 public class MyLocationsActivity extends AppCompatActivity
 {
-    private DatabaseManager _db;
+    private GeoLocationManager _gm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,9 +32,9 @@ public class MyLocationsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_locations);
 
-        _db = DatabaseManager.getInstance(this);
+        _gm = new GeoLocationManager(this);
 
-        GeoLocation[] geoLocationsArray = _db.getGeoLocations().toArray(new GeoLocation[_db.getGeoLocations().size()]);
+        GeoLocation[] geoLocationsArray = _gm.getGeoLocations().toArray(new GeoLocation[_gm.getGeoLocations().size()]);
         ListAdapter geoLocationAdapter = new GeoLocationAdapter(this, geoLocationsArray);
 
         ListView myLocationsListView = (ListView) findViewById(R.id.myLocationList);
@@ -53,10 +54,11 @@ public class MyLocationsActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                GeoLocation geoLocation = _db.getGeoLocations().get(position);
+                GeoLocation geoLocation = _gm.getGeoLocations().get(position);
+                SessionManager sm = new SessionManager(getApplicationContext());
                 try
                 {
-                    geoLocation.setSessions(_db.getSessions(geoLocation.getId()));
+                    geoLocation.setSessions(sm.getSessions(geoLocation.getId()));
                     ArrayList<Session> sessions = geoLocation.getSessions();
 
                     Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsSingleActivity");

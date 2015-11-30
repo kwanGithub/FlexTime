@@ -13,7 +13,8 @@ import android.util.Log;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.DatabaseManager;
+import com.uni.kevintruong.flextime.managers.GeoLocationManager;
+import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.managers.TransitionManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
@@ -60,7 +61,8 @@ public class GeofenceIntentService extends IntentService
             String notificationTitle;
 
             GeofencingEvent geoFenceEvent = GeofencingEvent.fromIntent(intent);
-            DatabaseManager db = DatabaseManager.getInstance(getApplicationContext());
+            GeoLocationManager gm = new GeoLocationManager(getApplicationContext());
+            SessionManager sm = new SessionManager(getApplicationContext());
             Calendar cl = new GregorianCalendar();
 
             switch (transition)
@@ -68,7 +70,7 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_ENTER:
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    GeoLocation geoLocation = db.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
+                    GeoLocation geoLocation = gm.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
                     _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
                     Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
@@ -80,8 +82,8 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    db.addSession(_tm.endSession(cl.getTime()));
-                    Log.v(TAG, "Exited "+ db.databaseSessionsToString() + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    sm.addSession(_tm.endSession(cl.getTime()));
+                    Log.v(TAG, "Exited "+ geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
