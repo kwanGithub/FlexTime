@@ -1,5 +1,6 @@
 package com.uni.kevintruong.flextime.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -43,8 +44,9 @@ public class SessionsWeeksActivity extends AppCompatActivity
 
         Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
         Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
-        //TODO: Add highlighting to the current Activity
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
+        weeksBtn.setBackgroundColor(Color.parseColor("#33b5e5"));
+        weeksBtn.setTextColor(Color.parseColor("#212121"));
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
         SessionManager sm = new SessionManager(getApplicationContext());

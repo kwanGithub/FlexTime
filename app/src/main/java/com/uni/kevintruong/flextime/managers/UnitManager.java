@@ -48,7 +48,7 @@ public class UnitManager extends Service implements LocationListener
     public Location getLocation()
     {
         Location location = null;
-        //Checks if gps and network of the device is availabe
+        //Checks if gps and network of the device is available
         try
         {
             locationManager = (LocationManager) _context.getSystemService(LOCATION_SERVICE);

@@ -1,4 +1,6 @@
 package com.uni.kevintruong.flextime.activities;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -28,15 +30,16 @@ public class SessionsDaysActivity extends AppCompatActivity
         LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsMenuBtns);
 
         Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
-        //TODO: Add highlighting to the current Activity
         Button daysBtn = (Button) includedLayout.findViewById(R.id.sessionDay);
+        daysBtn.setBackgroundColor(Color.parseColor("#33b5e5"));
+        daysBtn.setTextColor(Color.parseColor("#212121"));
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
         SessionManager sm = new SessionManager(getApplicationContext());
 
         singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", sessionsArrayList, "single"));
-        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList,"weeks"));
+        weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList, "weeks"));
         monthsBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsMonthsActivity", sessionsArrayList, "months"));
     }
 }
