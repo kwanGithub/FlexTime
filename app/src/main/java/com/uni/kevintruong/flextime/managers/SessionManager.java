@@ -3,7 +3,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
-
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.Session;
 import java.text.ParseException;
@@ -11,6 +10,7 @@ import java.util.ArrayList;
 
 /**
  * Created by kwan8 on 2015-11-30.
+ * Handles the creation of sessions and sessionbtn listener
  */
 public class SessionManager
 {

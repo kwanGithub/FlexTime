@@ -61,6 +61,22 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         }
     }
 
+    @Override
+    public void onCameraChange(CameraPosition position)
+    {
+        //updates current Location
+        getCurrentLocation();
+
+        // Makes sure the visuals remain when zoom changes.
+        for (int i = 0; i < _gm.getGeoLocations().size(); i++)
+        {
+            _googleMap.addCircle(new CircleOptions().center(_gm.getGeoLocations().get(i).getCoordinates())
+                    .radius(_gm.getGeoLocations().get(i).getRadius())
+                    .fillColor(0x40ff0000)
+                    .strokeColor(Color.TRANSPARENT).strokeWidth(2));
+        }
+    }
+
     private Location getCurrentLocation()
     {
       return GeofenceManager.getInstance(this).getLastKnownLocation();
@@ -95,21 +111,5 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         _googleMap.setIndoorEnabled(false);
         _googleMap.setMyLocationEnabled(true);
         _googleMap.setOnCameraChangeListener(this);
-    }
-
-    @Override
-    public void onCameraChange(CameraPosition position)
-    {
-        //updates current Location
-        getCurrentLocation();
-
-        // Makes sure the visuals remain when zoom changes.
-        for (int i = 0; i < _gm.getGeoLocations().size(); i++)
-        {
-            _googleMap.addCircle(new CircleOptions().center(_gm.getGeoLocations().get(i).getCoordinates())
-                    .radius(_gm.getGeoLocations().get(i).getRadius())
-                    .fillColor(0x40ff0000)
-                    .strokeColor(Color.TRANSPARENT).strokeWidth(2));
-        }
     }
 }

@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by kwan8 on 2015-11-30.
+ * Converts db data to geolocation and session objects and converts geoLocation to geofence objects
  */
 public class Converter
 {
@@ -65,6 +66,11 @@ public class Converter
                                 | Geofence.GEOFENCE_TRANSITION_EXIT).build();
     }
 
+    /**
+     * Converts data from db to sesson objects
+     * @param geoSessionsDataFromDb data from db
+     * @return list of sessions
+     */
     public ArrayList<Session> convertToSessions(Cursor geoSessionsDataFromDb)
     {
         ArrayList<Session> sessions = new ArrayList<>();

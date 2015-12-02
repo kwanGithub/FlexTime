@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * Created by kwan8 on 2015-11-21.
- * Handles the creation of Sessions when a Transition has is activated by entering and leaving a geofence
+ * Handles the creation of Sessions when a Transition has been activated by entering and leaving a geofence
  */
 public class TransitionManager
 {

@@ -42,9 +42,8 @@ public class UnitManager extends Service implements LocationListener
         _context = context;
     }
 
-
     /**
-     * Gets current location
+     * Gets current location from the unit
      */
     public Location getLocation()
     {
@@ -97,31 +96,19 @@ public class UnitManager extends Service implements LocationListener
     }
 
     @Override
-    public void onLocationChanged(Location location)
-    {
-        //Get latest Coordinates
-        getLocation();
-    }
+    public void onLocationChanged(Location location){}
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras)
-    {
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras){}
 
     @Override
-    public void onProviderEnabled(String provider)
-    {
-    }
+    public void onProviderEnabled(String provider){}
 
     @Override
-    public void onProviderDisabled(String provider)
-    {
-    }
+    public void onProviderDisabled(String provider){}
 
     @Nullable
     @Override
-    public IBinder onBind(Intent intent)
-    {
-        return null;
+    public IBinder onBind(Intent intent){ return null;
     }
 }

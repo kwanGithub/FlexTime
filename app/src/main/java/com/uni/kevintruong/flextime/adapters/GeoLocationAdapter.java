@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by kwan8 on 2015-11-17.
- * Handles and Converts GeoLocation data to listRow and the deleting for GeoLocation
+ * Handles and Converts GeoLocation data to listRow and removes geofences
  */
 public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
 {
@@ -69,7 +69,7 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 GeoLocationManager gm = new GeoLocationManager(context);
-                                //Ends session if there is on active before delete
+                                //Ends session, if thee is one active before deleting
                                 if ( TransitionManager.getInstance().getCurrentSession() != null)
                                 {
                                     sm.addSession( TransitionManager.getInstance().endSession(cl.getTime()));
@@ -80,7 +80,6 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
                                 Toast.makeText(context, "Deleted " + currentGeoLocation.getName(), Toast.LENGTH_SHORT).show();
                                 GeofenceManager gfm = GeofenceManager.getInstance(context);
                                 gfm.removeGeofence(currentGeoLocation.getName());
-                                gfm.connectGoogleApi();
 
                                 //Reloads list by restarting myLocations activity
                                 Intent myLocationsIntent = new Intent("com.uni.kevintruong.flextime.MyLocationsActivity");

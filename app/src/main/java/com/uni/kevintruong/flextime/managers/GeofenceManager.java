@@ -101,7 +101,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
             Log.v(TAG, "Success!");
         } else if (result.hasResolution())
         {
-            // TODO Handle resolution
+            Log.v(TAG, "Has Resolution!");
         } else if (result.isCanceled())
         {
             Log.v(TAG, "Canceled");
@@ -191,6 +191,5 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     public Location getLastKnownLocation()
     {
         return _lastKnownLocation;
-
     }
 }

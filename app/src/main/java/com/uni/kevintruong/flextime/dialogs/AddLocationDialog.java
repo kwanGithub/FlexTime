@@ -31,8 +31,9 @@ public class AddLocationDialog extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        Location currentLocation = null;
+        Location currentLocation;
 
+        //if Googleapis client haven't stored or activated lastKnownLocation we use the units gps. As soon as it it active we will use googleapi
         if (GeofenceManager.getInstance(getActivity().getApplicationContext()).getLastKnownLocation() == null)
         {
             currentLocation = UnitManager.getInstance(getActivity().getApplicationContext()).getLocation();
@@ -71,7 +72,7 @@ public class AddLocationDialog extends DialogFragment
 
                 Toast.makeText(getActivity().getApplicationContext(), "Added ", Toast.LENGTH_LONG).show();
 
-                //Start intentService after we have our first location
+                //Starts monitoring after we have our first location
                 GeofenceManager.getInstance(getActivity().getApplicationContext()).addGeoFences(gm.getGeofences());
                 GeofenceManager.getInstance(getActivity().getApplicationContext()).connectGoogleApi();
             }
