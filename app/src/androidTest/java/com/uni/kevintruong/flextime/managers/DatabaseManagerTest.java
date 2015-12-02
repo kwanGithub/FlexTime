@@ -3,11 +3,9 @@ package com.uni.kevintruong.flextime.managers;
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
 import android.test.suitebuilder.annotation.SmallTest;
-
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +14,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by kwan8 on 2015-12-02.
  */
-public class DatabaseManagerTest  extends AndroidTestCase
+public class DatabaseManagerTest extends AndroidTestCase
 {
     DatabaseManager databaseManager;
     Converter converter;
@@ -29,7 +27,6 @@ public class DatabaseManagerTest  extends AndroidTestCase
         RenamingDelegatingContext context = new RenamingDelegatingContext(getContext(), "test_");
         databaseManager = DatabaseManager.getInstance(context);
         converter = new Converter();
-
     }
 
     @SmallTest
@@ -38,10 +35,9 @@ public class DatabaseManagerTest  extends AndroidTestCase
         geolocationToDelete = 1;
         GeoLocation geoLocation = new GeoLocation(geolocationToDelete, "addGeoLoactionToDbTest", 57.1234, 12.1234, 20);
 
-
         databaseManager.addGeoLocationDb(geoLocation);
 
-       GeoLocation response = converter.convertToGeoLocations(databaseManager.getGeoLocationsDb()).get(0);
+        GeoLocation response = converter.convertToGeoLocations(databaseManager.getGeoLocationsDb()).get(0);
 
         assertEquals(1, response.getId());
         assertEquals("addGeoLoactionToDbTest", response.getName());
