@@ -1,5 +1,9 @@
 package com.uni.kevintruong.flextime.managers;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.Toast;
+
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.Session;
 import java.text.ParseException;
@@ -15,8 +19,8 @@ public class SessionManager
 
     public SessionManager(Context context)
     {
-        this._converter = new Converter();
-        this._db = DatabaseManager.getInstance(context);
+        _converter = new Converter();
+        _db = DatabaseManager.getInstance(context);
     }
 
     public ArrayList<Session> getSessions(int geoLocationId) throws ParseException
@@ -27,5 +31,24 @@ public class SessionManager
     public void addSession(Session session)
     {
         _db.addSessionDb(session);
+    }
+
+    public View.OnClickListener sessionsBtnListener(final Context context, final String activity, final ArrayList<Session> sessions, final String toastMessage)
+    {
+        View.OnClickListener listener = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(context.getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity);
+                intent.putParcelableArrayListExtra("sessions", sessions);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        };
+
+
+        return listener;
     }
 }

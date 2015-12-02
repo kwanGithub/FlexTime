@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity
         //Dont start intentService if we dont have any Location stored
         if(gm.getGeoLocations().size() != 0)
         {
-            GeofenceManager.getInstance(this, gm.getGeofences());
+            GeofenceManager.getInstance(this).addGeoFences(gm.getGeofences());
+            GeofenceManager.getInstance(this).connectGoogleApi();
+
         }
 
         OnClickOptionsBtnListener();

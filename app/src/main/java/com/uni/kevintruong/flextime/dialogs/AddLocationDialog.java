@@ -32,13 +32,13 @@ public class AddLocationDialog extends DialogFragment
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         UnitManager unitManager = UnitManager.getInstance(getActivity());
-        Location currentLocation = unitManager.getUnitLocation();
+        Location currentLocation = unitManager.getLocation();
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_location, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         TextView locationTitle = (TextView) view.findViewById(R.id.locationTitle);
-        _locationName =  (EditText) view.findViewById(R.id.locationName);
+        _locationName = (EditText) view.findViewById(R.id.locationName);
         _locationLatitude = (EditText) view.findViewById(R.id.locationLatitude);
         _locationLongitude = (EditText) view.findViewById(R.id.locationLongitude);
 
@@ -55,15 +55,17 @@ public class AddLocationDialog extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                GeoLocationManager gm = new GeoLocationManager(getActivity());
+                GeoLocationManager gm = new GeoLocationManager(getActivity().getApplicationContext());
 
                 double lat = Double.parseDouble(String.valueOf(_locationLatitude.getText()));
                 double lng = Double.parseDouble(String.valueOf(_locationLongitude.getText()));
                 gm.addGeoLocation(new GeoLocation(gm.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
-                Toast.makeText(getActivity(),"Added " , Toast.LENGTH_LONG).show();
+
+                Toast.makeText(getActivity().getApplicationContext(), "Added ", Toast.LENGTH_LONG).show();
 
                 //Start intentService after we have our first location
-                GeofenceManager.getInstance(getActivity(), gm.getGeofences());
+                GeofenceManager.getInstance(getActivity().getApplicationContext()).addGeoFences(gm.getGeofences());
+                GeofenceManager.getInstance(getActivity().getApplicationContext()).connectGoogleApi();
             }
         }).setNegativeButton("CANCEL", null);
 

@@ -32,9 +32,11 @@ public class GeoLocationManager
         return _converter.convertGeolocationsToGeofences(getGeoLocations());
     }
 
-    public void deleteGeoLocation(int geoLocationId)
+    public ArrayList<GeoLocation> deleteGeoLocation(int geoLocationId)
     {
         _db.deleteGeoLocationDb(geoLocationId);
+
+        return getGeoLocations();
     }
 
     public void addGeoLocation(GeoLocation geoLocation)

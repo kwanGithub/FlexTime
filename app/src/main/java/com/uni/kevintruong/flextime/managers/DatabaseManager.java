@@ -4,10 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -112,7 +110,6 @@ public class DatabaseManager extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
         Calendar cl = new GregorianCalendar();
 
         values.put("session_id", session.getGeofenceId());
@@ -149,13 +146,10 @@ public class DatabaseManager extends SQLiteOpenHelper
      */
     public Cursor getSessions(int geoLocationId) throws ParseException
     {
-
         SQLiteDatabase db = this.getWritableDatabase();
-
         Cursor cursor = db.rawQuery("SELECT * FROM sessions WHERE geolocationId_fk = ?", new String[]{String.valueOf(geoLocationId)});
 
         return cursor;
-
     }
 
     /**
@@ -168,7 +162,6 @@ public class DatabaseManager extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
 
         String getLocationsQuery = "SELECT * FROM geolocations";
-
         Cursor cursor = db.rawQuery(getLocationsQuery, null);
 
         return cursor;

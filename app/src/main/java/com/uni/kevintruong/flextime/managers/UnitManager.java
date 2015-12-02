@@ -43,16 +43,16 @@ public class UnitManager extends Service implements LocationListener
         _context = context;
     }
 
-    public Location getUnitLocation()
-    {
-        getLocation();
-        return _unitLocation;
-    }
+    //public Location getUnitLocation()
+   // {
+    //    getLocation();
+    //    return _unitLocation;
+   // }
 
     /**
      * Gets current location
      */
-    private void getLocation()
+    public Location getLocation()
     {
         Location location = null;
         //Checks if gps and network of the device is availabe
@@ -99,13 +99,12 @@ public class UnitManager extends Service implements LocationListener
             e.printStackTrace();
         }
 
-        _unitLocation = location;
+       return location;
     }
     @Override
     public void onLocationChanged(Location location)
     {
-        //Get latest Coordinates
-        getLocation();
+       getLocation();
     }
 
     @Override

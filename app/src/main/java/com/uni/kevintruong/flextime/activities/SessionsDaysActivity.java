@@ -1,11 +1,13 @@
 package com.uni.kevintruong.flextime.activities;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
 import com.uni.kevintruong.flextime.R;
-import com.uni.kevintruong.flextime.managers.TransitionManager;
+import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.models.Session;
+
 import java.util.ArrayList;
 
 /**
@@ -31,7 +33,7 @@ public class SessionsDaysActivity extends AppCompatActivity
         Button weeksBtn = (Button) includedLayout.findViewById(R.id.sessionWeeks);
         Button monthsBtn = (Button) includedLayout.findViewById(R.id.sessionMonths);
 
-        TransitionManager sm = TransitionManager.getInstance();
+        SessionManager sm = new SessionManager(getApplicationContext());
 
         singleBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsSingleActivity", sessionsArrayList, "single"));
         weeksBtn.setOnClickListener(sm.sessionsBtnListener(getApplicationContext(), "com.uni.kevintruong.flextime.SessionsWeeksActivity", sessionsArrayList,"weeks"));

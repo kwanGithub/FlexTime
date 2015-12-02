@@ -71,7 +71,11 @@ public class GeofenceIntentService extends IntentService
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     GeoLocation geoLocation = gm.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                    _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
+                    if(geoLocation != null)
+                    {
+                        _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
+                        Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    }
                     Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
@@ -82,8 +86,12 @@ public class GeofenceIntentService extends IntentService
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    sm.addSession(_tm.endSession(cl.getTime()));
-                    Log.v(TAG, "Exited "+ geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    if (_tm.getCurrentSession() != null)
+                    {
+                        sm.addSession(_tm.endSession(cl.getTime()));
+                        _tm.setCurrentSession(null);
+                        Log.v(TAG, "Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
+                    }
                     break;
                 default:
                     notificationTitle = "Geofence Unknown";
@@ -95,8 +103,9 @@ public class GeofenceIntentService extends IntentService
 
     /**
      * Displays notification on the unit
+     *
      * @param context
-     * @param notificationText to display
+     * @param notificationText  to display
      * @param notificationTitle to display
      */
     private void sendNotification(Context context, String notificationText,
@@ -123,6 +132,7 @@ public class GeofenceIntentService extends IntentService
 
     /**
      * Display triggerd geoFences
+     *
      * @param intent
      * @return string of geoFence
      */
