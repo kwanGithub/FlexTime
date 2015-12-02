@@ -2,9 +2,10 @@ package com.uni.kevintruong.flextime.managers;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
-import android.widget.Toast;
+
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.Session;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -33,14 +34,13 @@ public class SessionManager
         _db.addSessionDb(session);
     }
 
-    public View.OnClickListener sessionsBtnListener(final Context context, final String activity, final ArrayList<Session> sessions, final String toastMessage)
+    public View.OnClickListener sessionsBtnListener(final Context context, final String activity, final ArrayList<Session> sessions)
     {
         View.OnClickListener listener = new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(context.getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(activity);
                 intent.putParcelableArrayListExtra("sessions", sessions);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

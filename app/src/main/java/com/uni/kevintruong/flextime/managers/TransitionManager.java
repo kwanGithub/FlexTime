@@ -1,7 +1,6 @@
 package com.uni.kevintruong.flextime.managers;
 
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.util.Date;
 
 /**
