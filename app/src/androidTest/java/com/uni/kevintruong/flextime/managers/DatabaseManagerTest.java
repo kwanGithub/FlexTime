@@ -21,7 +21,6 @@ public class DatabaseManagerTest  extends AndroidTestCase
     DatabaseManager databaseManager;
     Converter converter;
     int geolocationToDelete;
-    int sessionToDelete;
 
     @Override
     protected void setUp() throws Exception
@@ -61,7 +60,6 @@ public class DatabaseManagerTest  extends AndroidTestCase
         Date exit = cl.getTime();
 
         Session session = new Session("SessionDbTest", date, enter, exit, 33123, geolocationToDelete);
-
 
         databaseManager.addSessionDb(session);
 
