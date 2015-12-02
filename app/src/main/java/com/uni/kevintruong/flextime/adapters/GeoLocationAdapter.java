@@ -69,7 +69,7 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
                             public void onClick(DialogInterface dialog, int which)
                             {
                                 GeoLocationManager gm = new GeoLocationManager(context);
-                                //Ends session, if thee is one active before deleting
+                                //Ends session, if there is one active before deleting
                                 if ( TransitionManager.getInstance().getCurrentSession() != null)
                                 {
                                     sm.addSession( TransitionManager.getInstance().endSession(cl.getTime()));

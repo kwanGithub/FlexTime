@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * Created by kwan8 on 2015-11-07.
+ * Service for handling locationRequests for geofences
  */
 
 
@@ -70,6 +71,7 @@ public class GeofenceIntentService extends IntentService
                     GeoLocation geoLocation = gm.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
                     if(geoLocation != null)
                     {
+                        //TransitionManager holds the session object till we exit the geofence
                         _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
                         Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by kwan8 on 2015-11-30.
+ * Gets and adds Geoloaction to database and converts them to geoloaction objects.
  */
 public class GeoLocationManager
 {

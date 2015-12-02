@@ -17,6 +17,11 @@ import java.util.GregorianCalendar;
  */
 public class Converter
 {
+    /**
+     * Converts Geolocation data from database to geolocations Objects
+     * @param geoLocatonDataFromDb
+     * @return
+     */
     public ArrayList<GeoLocation> convertToGeoLocations(Cursor geoLocatonDataFromDb)
     {
         ArrayList<GeoLocation> geoLocations = new ArrayList<>();
@@ -35,6 +40,11 @@ public class Converter
         return geoLocations;
     }
 
+    /**
+     * Converts geoLocations to geofences
+     * @param geoLocations we want to convert
+     * @return list of geofences
+     */
     public ArrayList<Geofence> convertGeolocationsToGeofences(ArrayList<GeoLocation> geoLocations)
     {
         ArrayList<Geofence> temp = new ArrayList<>();

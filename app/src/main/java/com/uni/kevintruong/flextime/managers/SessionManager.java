@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 /**
  * Created by kwan8 on 2015-11-30.
- * Handles the creation of sessions and sessionbtn listener
+ * Get and sets session objects from teh database. Adds sessionbtn listener
  */
 public class SessionManager
 {
@@ -47,7 +47,6 @@ public class SessionManager
                 context.startActivity(intent);
             }
         };
-
 
         return listener;
     }

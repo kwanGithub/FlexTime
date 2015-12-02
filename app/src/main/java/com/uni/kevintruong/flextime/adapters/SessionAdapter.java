@@ -45,11 +45,16 @@ public class SessionAdapter extends ArrayAdapter<Session>
         return sessionView;
     }
 
-    private String convertMillis(long miliSeconds)
+    /**
+     * Converts milliseconds to hrs, min and sec
+     * @param milliSeconds we want to convert
+     * @return formated milliseconds to hrs, min and sec
+     */
+    private String convertMillis(long milliSeconds)
     {
-        int hrs = (int) TimeUnit.MILLISECONDS.toHours(miliSeconds) % 24;
-        int min = (int) TimeUnit.MILLISECONDS.toMinutes(miliSeconds) % 60;
-        int sec = (int) TimeUnit.MILLISECONDS.toSeconds(miliSeconds) % 60;
+        int hrs = (int) TimeUnit.MILLISECONDS.toHours(milliSeconds) % 24;
+        int min = (int) TimeUnit.MILLISECONDS.toMinutes(milliSeconds) % 60;
+        int sec = (int) TimeUnit.MILLISECONDS.toSeconds(milliSeconds) % 60;
         return String.format("%02d:%02d:%02d", hrs, min, sec);
     }
 }

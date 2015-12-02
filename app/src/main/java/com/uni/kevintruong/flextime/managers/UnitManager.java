@@ -59,7 +59,7 @@ public class UnitManager extends Service implements LocationListener
 
             if (!isNetworkEnabled && !isGPSEnabled)
             {
-                //TODO: ALERT DIALOG FOR USER
+
             } else
             {
                 this.canGetLocation = true;

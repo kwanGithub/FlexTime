@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
@@ -20,7 +19,7 @@ import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
  * Created by kwan8 on 2015-11-15.
- * Handles the addLocation dialog
+ * Handles a dialog that adds new Geolocations
  */
 public class AddLocationDialog extends DialogFragment
 {
@@ -70,7 +69,7 @@ public class AddLocationDialog extends DialogFragment
                 double lng = Double.parseDouble(String.valueOf(_locationLongitude.getText()));
                 gm.addGeoLocation(new GeoLocation(gm.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
 
-                Toast.makeText(getActivity().getApplicationContext(), "Added ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Added " + _locationName.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 //Starts monitoring after we have our first location
                 GeofenceManager.getInstance(getActivity().getApplicationContext()).addGeoFences(gm.getGeofences());
