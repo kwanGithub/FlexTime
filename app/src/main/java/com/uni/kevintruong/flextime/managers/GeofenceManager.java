@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -36,6 +37,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     private PendingIntent _pendingIntent;
     private ArrayList<Geofence> _geofences;
     private LocationRequest _locationRequest;
+    private Location _lastKnownLocation;
 
     public static synchronized GeofenceManager getInstance(Context context)
     {
@@ -49,9 +51,9 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     /**
      * Constructs a new GeofenceManager.
      *
-     * @param context   The context to use.
+     * @param context The context to use.
      */
-    private GeofenceManager(Context context )
+    private GeofenceManager(Context context)
     {
         _context = context;
         _geofences = new ArrayList<>();
@@ -65,19 +67,18 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 
     public void connectGoogleApi()
     {
+        // Build a new GoogleApiClient, specify that we want to use LocationServices
+        _googleApiClient = new GoogleApiClient.Builder(_context)
+                .addApi(LocationServices.API).addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this).build();
 
-            // Build a new GoogleApiClient, specify that we want to use LocationServices
-            _googleApiClient = new GoogleApiClient.Builder(_context)
-                    .addApi(LocationServices.API).addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this).build();
+        _locationRequest = new LocationRequest();
+        //updates every 10 seconds.
+        _locationRequest.setInterval(10000);
+        //sets locationRequest accuracy.
+        _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-            _locationRequest = new LocationRequest();
-            //updates every 10 seconds.
-            _locationRequest.setInterval(10000);
-            //sets locationRequest accuracy.
-            _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-            _googleApiClient.connect();
+        _googleApiClient.connect();
 
     }
 
@@ -171,6 +172,8 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onLocationChanged(Location location)
     {
+        setLastKnownLocation(location);
+
         Log.v(TAG, "Location Information\n"
                 + "==========\n"
                 + "Provider:\t" + location.getProvider() + "\n"
@@ -182,13 +185,14 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
                 + "Accuracy:\t" + location.getAccuracy() + "\n");
     }
 
-    public ArrayList<Geofence> getGeofences()
+    public void setLastKnownLocation(Location lastKnownLocation)
     {
-        return _geofences;
+        this._lastKnownLocation = lastKnownLocation;
     }
 
-    public void setGeofences(ArrayList<Geofence> _geofences)
+    public Location getLastKnownLocation()
     {
-        this._geofences = _geofences;
+        return _lastKnownLocation;
+
     }
 }
