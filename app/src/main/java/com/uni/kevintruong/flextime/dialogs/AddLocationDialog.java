@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
+import com.uni.kevintruong.flextime.managers.UnitManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 
 /**
@@ -30,7 +31,16 @@ public class AddLocationDialog extends DialogFragment
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        Location currentLocation = GeofenceManager.getInstance(getActivity().getApplicationContext()).getLastKnownLocation();
+        Location currentLocation = null;
+
+        if (GeofenceManager.getInstance(getActivity().getApplicationContext()).getLastKnownLocation() == null)
+        {
+            currentLocation = UnitManager.getInstance(getActivity().getApplicationContext()).getLocation();
+        } else
+        {
+            currentLocation = GeofenceManager.getInstance(getActivity().getApplicationContext()).getLastKnownLocation();
+        }
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_add_location, null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

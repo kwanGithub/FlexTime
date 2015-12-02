@@ -1,12 +1,10 @@
 package com.uni.kevintruong.flextime.managers;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -58,6 +56,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
         _context = context;
         _geofences = new ArrayList<>();
         _pendingIntent = null;
+        connectGoogleApi();
     }
 
     public void addGeoFences(ArrayList<Geofence> geofences)
@@ -79,7 +78,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
         _locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         _googleApiClient.connect();
-
     }
 
     public void disconnect()
@@ -187,7 +185,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 
     public void setLastKnownLocation(Location lastKnownLocation)
     {
-        this._lastKnownLocation = lastKnownLocation;
+        _lastKnownLocation = lastKnownLocation;
     }
 
     public Location getLastKnownLocation()

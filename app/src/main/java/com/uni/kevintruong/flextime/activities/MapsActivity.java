@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GeoLocationManager;
-import com.uni.kevintruong.flextime.managers.UnitManager;
+import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
 /**
  * Handles MapsActivity
@@ -22,7 +22,6 @@ import com.uni.kevintruong.flextime.managers.UnitManager;
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {
     private GoogleMap _googleMap;
-  //  private Location _currentLocation;
     private GeoLocationManager _gm;
 
     @Override
@@ -64,7 +63,7 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
 
     private Location getCurrentLocation()
     {
-      return UnitManager.getInstance(this).getLocation();
+      return GeofenceManager.getInstance(this).getLastKnownLocation();
     }
 
     /**
