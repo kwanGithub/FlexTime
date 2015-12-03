@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.uni.kevintruong.flextime.services.GeofenceIntentService;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
 {
 
     private static GeofenceManager instance;
-    private final String TAG = this.getClass().getSimpleName();
 
     private Context _context;
     private GoogleApiClient _googleApiClient;
@@ -94,28 +94,10 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     }
 
     @Override
-    public void onResult(Status result)
-    {
-        if (result.isSuccess())
-        {
-            Log.v(TAG, "Success!");
-        } else if (result.hasResolution())
-        {
-            Log.v(TAG, "Has Resolution!");
-        } else if (result.isCanceled())
-        {
-            Log.v(TAG, "Canceled");
-        } else if (result.isInterrupted())
-        {
-            Log.v(TAG, "Interrupted");
-        }
-    }
+    public void onResult(Status result){}
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult)
-    {
-        Log.v(TAG, "Connection failed.");
-    }
+    public void onConnectionFailed(ConnectionResult connectionResult){}
 
     @Override
     public void onConnected(Bundle connectionHint)
@@ -143,10 +125,7 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     }
 
     @Override
-    public void onConnectionSuspended(int cause)
-    {
-        Log.v(TAG, "Connection suspended.");
-    }
+    public void onConnectionSuspended(int cause){}
 
     /**
      * This creates a PendingIntent that is to be fired when geofence transitions
@@ -158,7 +137,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     {
         if (_pendingIntent == null)
         {
-            Log.v(TAG, "Creating PendingIntent");
             Intent intent = new Intent(_context, GeofenceIntentService.class);
             _pendingIntent = PendingIntent.getService(_context, 0, intent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
@@ -171,16 +149,6 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     public void onLocationChanged(Location location)
     {
         setLastKnownLocation(location);
-
-        Log.v(TAG, "Location Information\n"
-                + "==========\n"
-                + "Provider:\t" + location.getProvider() + "\n"
-                + "Lat & Long:\t" + location.getLatitude() + ", "
-                + location.getLongitude() + "\n"
-                + "Altitude:\t" + location.getAltitude() + "\n"
-                + "Bearing:\t" + location.getBearing() + "\n"
-                + "Speed:\t\t" + location.getSpeed() + "\n"
-                + "Accuracy:\t" + location.getAccuracy() + "\n");
     }
 
     public void setLastKnownLocation(Location lastKnownLocation)

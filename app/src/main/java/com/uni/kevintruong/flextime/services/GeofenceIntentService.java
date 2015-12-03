@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
@@ -30,32 +29,27 @@ import java.util.List;
 
 public class GeofenceIntentService extends IntentService
 {
-    private final String TAG = this.getClass().getCanonicalName();
     private TransitionManager _tm = TransitionManager.getInstance();
 
     public GeofenceIntentService()
     {
         super("GeofenceIntentService");
-        Log.v(TAG, "Constructor.");
     }
 
     public void onCreate()
     {
         super.onCreate();
-        Log.v(TAG, "onCreate");
     }
 
     public void onDestroy()
     {
         super.onDestroy();
-        Log.v(TAG, "onDestroy");
     }
 
     @Override
     protected void onHandleIntent(Intent intent)
     {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
-        Log.v(TAG, "onHandleIntent");
         if (!geofencingEvent.hasError())
         {
             int transition = geofencingEvent.getGeofenceTransition();
@@ -76,13 +70,11 @@ public class GeofenceIntentService extends IntentService
                     {
                         //TransitionManager holds the session object till we exit the geofence
                         _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
-                        Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     }
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = "Geofence Dwell";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
-                    Log.v(TAG, "Dwelling in " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_EXIT:
                     notificationTitle = "Geofence Exit";
@@ -91,7 +83,6 @@ public class GeofenceIntentService extends IntentService
                     {
                         sm.addSession(_tm.endSession(cl.getTime()));
                         _tm.setCurrentSession(null);
-                        Log.v(TAG, "Exited " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     }
                     break;
                 default:
