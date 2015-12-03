@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,7 +19,7 @@ import com.uni.kevintruong.flextime.managers.GeofenceManager;
 import com.uni.kevintruong.flextime.managers.UnitManager;
 
 /**
- * Handles MapsActivity
+ * Handles MapsActivity, draws googlemap, places out geofences on the map
  */
 public class MapsActivity extends FragmentActivity implements OnCameraChangeListener
 {

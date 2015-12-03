@@ -1,4 +1,5 @@
 package com.uni.kevintruong.flextime.services;
+
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +9,7 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
 import com.uni.kevintruong.flextime.R;
@@ -15,6 +17,7 @@ import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.managers.TransitionManager;
 import com.uni.kevintruong.flextime.models.GeoLocation;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -69,13 +72,12 @@ public class GeofenceIntentService extends IntentService
                     notificationTitle = "Geofence Entered";
                     cl.setTimeInMillis(geoFenceEvent.getTriggeringLocation().getTime());
                     GeoLocation geoLocation = gm.getGeoLoactionByName(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId());
-                    if(geoLocation != null)
+                    if (geoLocation != null)
                     {
                         //TransitionManager holds the session object till we exit the geofence
                         _tm.startSession(geoFenceEvent.getTriggeringGeofences().get(0).getRequestId(), cl.getTime(), geoLocation.getId());
                         Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     }
-                    Log.v(TAG, "Entered " + geoFenceEvent.getTriggeringGeofences().get(0).getRequestId() + " " + cl.getTime());
                     break;
                 case Geofence.GEOFENCE_TRANSITION_DWELL:
                     notificationTitle = "Geofence Dwell";
