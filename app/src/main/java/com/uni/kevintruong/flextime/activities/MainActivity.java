@@ -15,7 +15,7 @@ import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
 /**
- * Handles main activity
+ * Handles main activity of the app. Directest the user to other activities via the optionbutton
  */
 public class MainActivity extends AppCompatActivity
 {
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Displays option menu for a View
+     * Displays option menu for the user
      *
      * @param view the view you want to display the menu for
      */
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Creates addLocation dialog
+     * Displays the addLocationDialog for the user
      */
     private void addLocationDialog()
     {
@@ -79,8 +79,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Handles menu options
-     *
+     * Listner for handling the options that are provided for the user     *
      * @return PopMenuOnMenuItemOnClickListener
      */
     private PopupMenu.OnMenuItemClickListener handlePopupMenuClick()
