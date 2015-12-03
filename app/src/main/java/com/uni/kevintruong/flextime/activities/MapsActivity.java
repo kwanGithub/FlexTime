@@ -1,8 +1,10 @@
 package com.uni.kevintruong.flextime.activities;
+
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
+import com.uni.kevintruong.flextime.managers.UnitManager;
 
 /**
  * Handles MapsActivity
@@ -64,9 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
     @Override
     public void onCameraChange(CameraPosition position)
     {
-        //updates current Location
-        getCurrentLocation();
-
         // Makes sure the visuals remain when zoom changes.
         for (int i = 0; i < _gm.getGeoLocations().size(); i++)
         {
@@ -77,9 +77,19 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         }
     }
 
+    /**
+     * Gets current location
+     * @return current location
+     */
     private Location getCurrentLocation()
     {
-      return GeofenceManager.getInstance(this).getLastKnownLocation();
+        Location location = GeofenceManager.getInstance(this).getLastKnownLocation();
+
+        if (location == null)
+        {
+            location = UnitManager.getInstance(this).getLocation();
+        }
+        return location;
     }
 
     /**
