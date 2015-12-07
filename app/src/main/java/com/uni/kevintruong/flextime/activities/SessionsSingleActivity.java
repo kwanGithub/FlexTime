@@ -39,7 +39,6 @@ public class SessionsSingleActivity extends AppCompatActivity
 
         LinearLayout includedLayout = (LinearLayout) findViewById(R.id.includedSessionsMenuBtns);
 
-        //TODO: Add highlighting to the current Activity
         Button singleBtn = (Button) includedLayout.findViewById(R.id.sessionSingle);
         singleBtn.setBackgroundColor(Color.parseColor("#33b5e5"));
         singleBtn.setTextColor(Color.parseColor("#212121"));

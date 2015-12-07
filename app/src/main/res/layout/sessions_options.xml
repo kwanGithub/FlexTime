@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -16,28 +17,32 @@
             android:text="Single"
             android:id="@+id/sessionSingle"
             android:background="#212121"
-            android:textColor="#33b5e5"/>
+            android:textColor="#33b5e5"
+            tools:ignore="ButtonStyle"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Day"
             android:id="@+id/sessionDay"
             android:background="#212121"
-            android:textColor="#33b5e5"/>
+            android:textColor="#33b5e5"
+            tools:ignore="ButtonStyle"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Weeks"
             android:id="@+id/sessionWeeks"
             android:background="#212121"
-            android:textColor="#33b5e5"/>
+            android:textColor="#33b5e5"
+            tools:ignore="ButtonStyle"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Months"
             android:id="@+id/sessionMonths"
             android:background="#212121"
-            android:textColor="#33b5e5"/>
+            android:textColor="#33b5e5"
+            tools:ignore="ButtonStyle"/>
     </LinearLayout>
 
 </LinearLayout>

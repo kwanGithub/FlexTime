@@ -1,5 +1,6 @@
 package com.uni.kevintruong.flextime.managers;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
  * Created by kwan8 on 2015-11-01.
  * Handles device gps and network location services
  */
+@SuppressLint("Registered")
 public class UnitManager extends Service implements LocationListener
 {
     private static UnitManager instance;

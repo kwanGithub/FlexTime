@@ -1,11 +1,14 @@
 package com.uni.kevintruong.flextime.managers;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
+
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;

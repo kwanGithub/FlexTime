@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;

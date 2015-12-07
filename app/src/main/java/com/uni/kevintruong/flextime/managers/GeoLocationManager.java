@@ -1,9 +1,11 @@
 package com.uni.kevintruong.flextime.managers;
 
 import android.content.Context;
+
 import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.GeoLocation;
+
 import java.util.ArrayList;
 
 /**
