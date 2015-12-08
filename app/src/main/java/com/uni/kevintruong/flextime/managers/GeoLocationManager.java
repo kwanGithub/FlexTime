@@ -1,11 +1,9 @@
 package com.uni.kevintruong.flextime.managers;
 
 import android.content.Context;
-
 import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.helpers.Converter;
 import com.uni.kevintruong.flextime.models.GeoLocation;
-
 import java.util.ArrayList;
 
 /**
@@ -43,16 +41,29 @@ public class GeoLocationManager
         return geoLocationTemp;
     }
 
+    /**
+     * Gets geolocation from db and then converts tem to geolocationsobjects
+     * @return list of geoloaction objects
+     */
     public ArrayList<GeoLocation> getGeoLocations()
     {
         return _converter.convertToGeoLocations(_db.getGeoLocationsDb());
     }
 
+    /**
+     * Converts geoloactions to geofences
+     * @return list of geofences
+     */
     public ArrayList<Geofence> getGeofences()
     {
         return _converter.convertGeolocationsToGeofences(getGeoLocations());
     }
 
+    /**
+     * Deletes geolocation from db
+     * @param geoLocationId we want to delete
+     * @return listof geolocations
+     */
     public ArrayList<GeoLocation> deleteGeoLocation(int geoLocationId)
     {
         _db.deleteGeoLocationDb(geoLocationId);
@@ -60,6 +71,10 @@ public class GeoLocationManager
         return getGeoLocations();
     }
 
+    /**
+     * Adds geolocation to db
+     * @param geoLocation the geoloaction we want to add
+     */
     public void addGeoLocation(GeoLocation geoLocation)
     {
         _db.addGeoLocationDb(geoLocation);

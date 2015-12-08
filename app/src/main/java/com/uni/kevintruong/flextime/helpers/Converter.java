@@ -1,11 +1,9 @@
 package com.uni.kevintruong.flextime.helpers;
 
 import android.database.Cursor;
-
 import com.google.android.gms.location.Geofence;
 import com.uni.kevintruong.flextime.models.GeoLocation;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

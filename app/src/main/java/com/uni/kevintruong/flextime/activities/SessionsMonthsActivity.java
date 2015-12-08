@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.uni.kevintruong.flextime.R;
 import com.uni.kevintruong.flextime.managers.SessionManager;
 import com.uni.kevintruong.flextime.models.Session;
-
 import java.util.ArrayList;
+
+/**
+ * Handles sessionMonthsActivity
+ */
 
 public class SessionsMonthsActivity extends AppCompatActivity
 {

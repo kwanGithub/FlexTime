@@ -64,6 +64,10 @@ public class MapsActivity extends FragmentActivity implements OnCameraChangeList
         }
     }
 
+    /**
+     * Repaints circles
+     * @param position
+     */
     @Override
     public void onCameraChange(CameraPosition position)
     {

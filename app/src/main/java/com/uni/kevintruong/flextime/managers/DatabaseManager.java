@@ -15,11 +15,13 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by kwan8 on 2015-11-02.
- * Retrieves, sets and Converts Data to and from Sqlite database
+ * Handles all connections to the SQLitedatabese, Retrieves, sets and Converts Data.
  */
 public class DatabaseManager extends SQLiteOpenHelper
 {
+    //Database name
     private static final String DATABASE_NAME = "flexTime.db";
+    //Databse version
     private static final int DATABASE_VERSION = 1;
 
     private static DatabaseManager instance;
@@ -40,7 +42,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Creates database tables
-     *
      * @param db the db we are creating the table for
      */
     @Override
@@ -55,7 +56,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * If table entities are changed or updated with new ones we need to drop the old one
-     *
      * @param db the db we are updating
      * @param oldVersion db version
      * @param newVersion db version
@@ -72,8 +72,7 @@ public class DatabaseManager extends SQLiteOpenHelper
     }
 
     /**
-     * Inputs geoLoaction data to database
-     *
+     * Inserts geoLoaction data to database
      * @param geoLocation
      */
     public void addGeoLocationDb(GeoLocation geoLocation)
@@ -93,7 +92,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Deletes geoLocation by its Id and also removes the sessions connected to the id.
-     *
      * @param geoLocationId
      */
     public void deleteGeoLocationDb(int geoLocationId)
@@ -106,7 +104,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Inserts session to the session table
-     *
      * @param session the session we want to add
      */
     public void addSessionDb(Session session)
@@ -131,7 +128,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Deletes all sessions realted to the getoLocationId
-     *
      * @param geloactionId_fk
      */
     public void deleteSession(int geloactionId_fk)
@@ -142,7 +138,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Gets all sessions from database by geoLocationId
-     *
      * @param geoLocationId of the sessions
      * @return List of sessions
      * @throws ParseException
@@ -157,7 +152,6 @@ public class DatabaseManager extends SQLiteOpenHelper
 
     /**
      * Gets all of data from the GeoLocations in the table
-     *
      * @return list of geoLocations
      */
     public Cursor getGeoLocationsDb()

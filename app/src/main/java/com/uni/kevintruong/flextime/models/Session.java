@@ -2,7 +2,6 @@ package com.uni.kevintruong.flextime.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,7 +44,7 @@ public class Session implements Parcelable
         this.duration = parcel.readLong();
         this.geoLocationId_fk = parcel.readInt();
     }
-
+    //Enables the class to be passed into intents
     @Override
     public void writeToParcel(Parcel dest, int flags)
     {

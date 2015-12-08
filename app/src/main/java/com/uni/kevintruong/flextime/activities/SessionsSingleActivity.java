@@ -16,6 +16,9 @@ import com.uni.kevintruong.flextime.models.Session;
 
 import java.util.ArrayList;
 
+/**
+ * Handles SessionSingleActivty
+ */
 public class SessionsSingleActivity extends AppCompatActivity
 {
     @Override

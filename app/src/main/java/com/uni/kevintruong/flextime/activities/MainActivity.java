@@ -15,7 +15,7 @@ import com.uni.kevintruong.flextime.managers.GeoLocationManager;
 import com.uni.kevintruong.flextime.managers.GeofenceManager;
 
 /**
- * Handles main activity of the app. Directest the user to other activities via the optionbutton
+ * Handles main activity of the app. Directs the user to other activities via the optionbutton
  */
 public class MainActivity extends AppCompatActivity
 {

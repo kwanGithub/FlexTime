@@ -37,6 +37,7 @@ public class SessionAdapter extends ArrayAdapter<Session>
         TextView sessionExit = (TextView) sessionView.findViewById(R.id.sessionExit);
         TextView sessionDuration = (TextView) sessionView.findViewById(R.id.sessionDuration);
 
+        //Format for viewing time and date
         SimpleDateFormat sdfTime = new SimpleDateFormat("kk:mm");
         SimpleDateFormat sdfYear = new SimpleDateFormat("EEE dd/MM yyyy");
 

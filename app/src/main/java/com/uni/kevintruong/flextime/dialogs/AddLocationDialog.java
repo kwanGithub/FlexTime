@@ -68,6 +68,7 @@ public class AddLocationDialog extends DialogFragment
 
                 double lat = Double.parseDouble(String.valueOf(_locationLatitude.getText()));
                 double lng = Double.parseDouble(String.valueOf(_locationLongitude.getText()));
+                //creates new geolocation
                 gm.addGeoLocation(new GeoLocation(gm.getGeoLocations().size() + 1, _locationName.getText().toString(), lat, lng, 100));
 
                 Toast.makeText(getActivity().getApplicationContext(), "Added " + _locationName.getText().toString(), Toast.LENGTH_SHORT).show();

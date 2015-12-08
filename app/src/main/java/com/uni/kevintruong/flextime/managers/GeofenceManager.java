@@ -99,6 +99,10 @@ public class GeofenceManager implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult){}
 
+    /**
+     * Creates geofence requests and adds the GeofenceIntentService
+     * @param connectionHint connection
+     */
     @Override
     public void onConnected(Bundle connectionHint)
     {

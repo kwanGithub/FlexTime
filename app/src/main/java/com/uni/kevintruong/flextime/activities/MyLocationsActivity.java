@@ -34,6 +34,7 @@ public class MyLocationsActivity extends AppCompatActivity
 
         _gm = new GeoLocationManager(this);
 
+        //Converts arrayList to array
         GeoLocation[] geoLocationsArray = _gm.getGeoLocations().toArray(new GeoLocation[_gm.getGeoLocations().size()]);
         ListAdapter geoLocationAdapter = new GeoLocationAdapter(this, geoLocationsArray);
 
@@ -44,7 +45,6 @@ public class MyLocationsActivity extends AppCompatActivity
 
     /**
      * Set OnClickListener för listView
-     *
      * @return onItemClickListener
      */
     private AdapterView.OnItemClickListener handleListViewItemClick()
@@ -60,7 +60,7 @@ public class MyLocationsActivity extends AppCompatActivity
                 {
                     geoLocation.setSessions(sm.getSessions(geoLocation.getId()));
                     ArrayList<Session> sessions = geoLocation.getSessions();
-
+                    //Creates Inent to start the next activity, we alsot pass arraylist with sessions to the activity
                     Intent sessionsIntent = new Intent("com.uni.kevintruong.flextime.SessionsSingleActivity");
                     sessionsIntent.putParcelableArrayListExtra("sessions", sessions);
                     sessionsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

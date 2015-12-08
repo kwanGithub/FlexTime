@@ -22,12 +22,26 @@ public class TransitionManager
         return instance;
     }
 
+    /**
+     * Creates a new session
+     *
+     * @param name          name of the session
+     * @param enter         date of the session
+     * @param geoLocationId the location the session belongs to
+     * @return
+     */
     public Session startSession(String name, Date enter, int geoLocationId)
     {
         _currentSession = new Session(name, enter, geoLocationId);
         return _currentSession;
     }
 
+    /**
+     * sets exit time for the session
+     *
+     * @param exit time
+     * @return current session
+     */
     public Session endSession(Date exit)
     {
         _currentSession.setExit(exit);

@@ -49,6 +49,12 @@ public class GeoLocationAdapter extends ArrayAdapter<GeoLocation>
         return locationView;
     }
 
+    /**
+     * Deletes location from database
+     * @param context
+     * @param geoLocation we want to delete
+     * @return onClicklistener
+     */
     private View.OnClickListener deleteBtnOnClickListener(final Context context, GeoLocation geoLocation)
     {
         final GeoLocation currentGeoLocation = geoLocation;

@@ -2,9 +2,7 @@ package com.uni.kevintruong.flextime.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 
 /**
@@ -31,6 +29,7 @@ public class GeoLocation implements Parcelable
         this.sessions = new ArrayList<>();
     }
 
+    //Enables the class to be passed into intents
     private GeoLocation(Parcel parcel)
     {
         this.id = parcel.readInt();
